@@ -24,10 +24,8 @@ fclean: clean
 
 re: fclean all
 
-run: test
-
-test:
-	make -C __tests__ run
+run: $(NAME)
+	./$(NAME)
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
