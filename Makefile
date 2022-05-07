@@ -15,7 +15,7 @@ vpath %.cpp \
 
 OBJ  := $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
-DEPS := $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.d))
+DEPS := $(OBJ:.o=.d))
 INCLUDE := -I ./src/
 USE_STD ?= 0
 CXXFLAGS := -DREAL_STD=$(USE_STD) -g -Wall -Werror -Wextra -std=c++98 -MMD -MP $(INCLUDE)
