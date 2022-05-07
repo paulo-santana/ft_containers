@@ -13,4 +13,9 @@ ft::VectorIterator<T>::VectorIterator(ft::VectorIterator<T>::pointer _p) {
     this->p = _p;
 }
 
+template <typename T>
+ft::VectorIterator<T>::VectorIterator(const ft::VectorIterator<T>& other) {
+    this->p = other.p;
+}
+
 #endif // !VECTOR_ITERATOR_TPP
