@@ -27,6 +27,8 @@ namespace ft {
             pointer operator->(void);
             VectorIterator<T> operator++(int);
             VectorIterator<T>& operator++();
+            VectorIterator<T> operator--(int);
+            VectorIterator<T>& operator--();
 
             reference operator*() const {
                 return *this->p;

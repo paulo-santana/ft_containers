@@ -104,6 +104,24 @@ void test_vector_iterator_increment(void) {
 #endif
 }
 
+void test_vector_iterator_decrement(void) {
+#if REAL_STD
+    println("\ntest VectorIterator operator --");
+    std::cout << "*--it == 21" << std::endl;
+    std::cout << "*it-- == 21" << std::endl;
+    std::cout << "*it-- == 42" << std::endl;
+#else
+    println("\ntest VectorIterator operator --");
+    int values[] = {42, 21, 84};
+
+    ft::VectorIterator<int> it(values + 2);
+
+    std::cout << "*--it == " << *--it << std::endl;
+    std::cout << "*it-- == " << *it-- << std::endl;
+    std::cout << "*it-- == " << *it-- << std::endl;
+#endif
+}
+
 void testVectorIterator(void) {
 
     test_vector_iterator_constructors();
@@ -111,5 +129,6 @@ void testVectorIterator(void) {
     test_vector_iterator_dereference();
 
     test_vector_iterator_increment();
+    test_vector_iterator_decrement();
 
 }
