@@ -40,7 +40,7 @@ void test_vector_allocator_constructor(void) {
     delete vector2;
 }
 
-void testVectorAllocator(void) {
+void test_vector_allocator(void) {
     println("\ntest vector default allocator");
     ft::vector<int> vector1;
     std::vector<int> vector2;
@@ -51,7 +51,7 @@ void testVectorAllocator(void) {
     assertEquals(a, b, "allocator1 == allocator2");
 }
 
-void testVector_push_back(void) {
+void test_vector_push_back(void) {
     println("\ntest vector.push_back()");
     ft::vector<int> vector1;
     std::vector<int> vector2;
@@ -104,7 +104,7 @@ void testVector_push_back(void) {
     assertEquals(*addr1++, *addr2++, "*addr1++ == *addr2++");
 }
 
-void testVectorIteratorDereference(void) {
+void test_vector_iterator_dereference(void) {
     println("\ntest iterator dereference");
     ft::vector<int> vector1;
 
@@ -122,7 +122,7 @@ void testVector(void) {
 
     test_vector_default_constructor();
     test_vector_allocator_constructor();
-    testVector_push_back();
-    testVectorAllocator();
-    testVectorIteratorDereference();
+    test_vector_push_back();
+    test_vector_allocator();
+    test_vector_iterator_dereference();
 }
