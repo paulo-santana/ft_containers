@@ -33,4 +33,17 @@ typename ft::VectorIterator<T>::pointer ft::VectorIterator<T>::operator->(void) 
     return &*this->p;
 }
 
+template <typename T>
+typename ft::VectorIterator<T> ft::VectorIterator<T>::operator++(int) {
+    ft::VectorIterator<T> copy(*this);
+    this->p++;
+    return copy;
+}
+
+template <typename T>
+typename ft::VectorIterator<T>& ft::VectorIterator<T>::operator++() {
+    this->p++;
+    return *this;
+}
+
 #endif // !VECTOR_ITERATOR_TPP

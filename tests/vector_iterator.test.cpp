@@ -59,12 +59,12 @@ void test_vector_iterator_equality(void) {
 }
 
 void test_vector_iterator_dereference(void) {
-    println("\ntest VectorIterator *it");
+    println("\ntest VectorIterator operator *");
 
 #if REAL_STD
     std::cout << "*it: 42" << std::endl;
 
-    println("\ntest VectorIterator it->property");
+    println("\ntest VectorIterator operator ->");
     std::vector<std::string> strings;
     strings.push_back("HI!");
     strings.push_back("BYE!");
@@ -77,8 +77,7 @@ void test_vector_iterator_dereference(void) {
 
     std::cout << "*it: " << *it << std::endl;
 
-
-    println("\ntest VectorIterator it->property");
+    println("\ntest VectorIterator operator ->");
     std::string strings[] = {"HI!", "BYE!"};
     ft::VectorIterator<std::string> strIt(strings);
 
@@ -87,10 +86,30 @@ void test_vector_iterator_dereference(void) {
 #endif
 }
 
+void test_vector_iterator_increment(void) {
+#if REAL_STD
+    println("\ntest VectorIterator operator ++");
+    std::cout << "*++it == 21" << std::endl;
+    std::cout << "*it++ == 21" << std::endl;
+    std::cout << "*it++ == 84" << std::endl;
+#else
+    println("\ntest VectorIterator operator ++");
+    int values[] = {42, 21, 84};
+
+    ft::VectorIterator<int> it(values);
+
+    std::cout << "*++it == " << *++it << std::endl;
+    std::cout << "*it++ == " << *it++ << std::endl;
+    std::cout << "*it++ == " << *it++ << std::endl;
+#endif
+}
+
 void testVectorIterator(void) {
 
     test_vector_iterator_constructors();
     test_vector_iterator_equality();
     test_vector_iterator_dereference();
+
+    test_vector_iterator_increment();
 
 }
