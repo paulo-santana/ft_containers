@@ -23,4 +23,9 @@ bool ft::VectorIterator<T>::operator==(const ft::VectorIterator<T>& other) {
     return this->p == other.p;
 }
 
+template <typename T>
+bool ft::VectorIterator<T>::operator!=(const ft::VectorIterator<T>& other) {
+    return this->p != other.p;
+}
+
 #endif // !VECTOR_ITERATOR_TPP

@@ -23,6 +23,7 @@ namespace ft {
             ~VectorIterator() {};
 
             bool operator==(const VectorIterator &);
+            bool operator!=(const VectorIterator &);
 
             reference operator*() const {
                 return *this->p;

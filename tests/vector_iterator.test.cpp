@@ -34,6 +34,10 @@ void test_vector_iterator_equality(void) {
 #if REAL_STD
     std::cout << "it == otherIt: true" << std::endl;
     std::cout << "it == differentIt: false" << std::endl;
+
+    println("\ntest VectorIterator operator !=");
+    std::cout << "it != otherIt: false" << std::endl;
+    std::cout << "it != differentIt: true" << std::endl;
    
 #else
     int values[] = {42, 21, 84};
@@ -43,6 +47,10 @@ void test_vector_iterator_equality(void) {
 
     std::cout << "it == otherIt: " << std::boolalpha << (it == otherIt) << std::endl;
     std::cout << "it == differentIt: " << std::boolalpha << (it == differentIt) << std::endl;
+
+    println("\ntest VectorIterator operator !=");
+    std::cout << "it != otherIt: " << std::boolalpha << (it != otherIt) << std::endl;
+    std::cout << "it != differentIt: " << std::boolalpha << (it != differentIt) << std::endl;
 #endif
 }
 
