@@ -6,8 +6,8 @@
 #include "../vector.hpp"
 #include "vector/iterator.hpp"
 
-template <typename T>
-ft::vector<T>::vector(const vector::allocator_type& alloc) {
+template <typename T, typename Alloc>
+ft::vector<T, Alloc>::vector(const vector::allocator_type& alloc) {
     this->data = 0;
     this->num_items = 0;
     this->current_capacity = 0;
@@ -15,8 +15,8 @@ ft::vector<T>::vector(const vector::allocator_type& alloc) {
     this->allocator = alloc;
 }
 
-template <typename T>
-ft::vector<T>::vector(const vector& other) {
+template <typename T, typename Alloc>
+ft::vector<T, Alloc>::vector(const vector& other) {
     this->current_capacity = other.current_capacity;
     this->allocator = other.allocator;
     this->num_items = other.num_items;
@@ -27,36 +27,36 @@ ft::vector<T>::vector(const vector& other) {
     }
 }
 
-template <typename T>
-typename ft::vector<T>::allocator_type ft::vector<T>::get_allocator(void) const {
+template <typename T, typename Alloc>
+typename ft::vector<T, Alloc>::allocator_type ft::vector<T, Alloc>::get_allocator(void) const {
     return this->allocator;
 }
 
-template <typename T>
-ft::vector<T>::~vector(void) {
+template <typename T, typename Alloc>
+ft::vector<T, Alloc>::~vector(void) {
     this->allocator.deallocate(data, 1);
 }
 
-template <typename T>
-typename ft::vector<T>::size_type ft::vector<T>::size(void) {
+template <typename T, typename Alloc>
+typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::size(void) {
     return this->num_items;
 }
 
-template <typename T>
-typename ft::vector<T>::size_type ft::vector<T>::capacity(void) {
+template <typename T, typename Alloc>
+typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::capacity(void) {
     return this->current_capacity;
 }
 
-template <typename T>
-void ft::vector<T>::copy_data(T* dest, T* src) {
+template <typename T, typename Alloc>
+void ft::vector<T, Alloc>::copy_data(T* dest, T* src) {
 
     for (size_type i = 0; i < this->num_items; i++) {
         this->allocator.construct(dest + i, src[i]);
     }
 }
 
-template <typename T>
-void ft::vector<T>::grow_vector() {
+template <typename T, typename Alloc>
+void ft::vector<T, Alloc>::grow_vector() {
     T* oldData = this->data;
 
     if (this->current_capacity * 2 < this->current_capacity)
@@ -67,8 +67,8 @@ void ft::vector<T>::grow_vector() {
     this->current_capacity = this->current_capacity * 2;
 }
 
-template <typename T>
-void ft::vector<T>::push_back(int x) {
+template <typename T, typename Alloc>
+void ft::vector<T, Alloc>::push_back(int x) {
     if (this->data == 0) {
         this->data = this->allocator.allocate(1);
         this->current_capacity = 1;
@@ -80,8 +80,8 @@ void ft::vector<T>::push_back(int x) {
     this->num_items++;
 }
 
-template <typename T>
-typename ft::vector<T>::iterator ft::vector<T>::begin() {
+template <typename T, typename Alloc>
+typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::begin() {
     return VectorIterator<T>(this->data);
 }
 

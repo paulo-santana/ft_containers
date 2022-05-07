@@ -6,7 +6,7 @@
 
 namespace ft
 {
-    template <typename T>
+    template <typename T, typename Alloc = std::allocator<T> >
     class vector
     {
     public:
