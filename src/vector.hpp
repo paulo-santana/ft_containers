@@ -10,7 +10,7 @@ namespace ft
     class vector
     {
     public:
-        typedef int                     value_type;
+        typedef T                       value_type;
         typedef std::allocator<T>       allocator_type;
 
         typedef std::size_t             size_type;
