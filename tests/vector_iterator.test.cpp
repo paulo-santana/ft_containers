@@ -1,8 +1,12 @@
 #include "test_utils.hpp"
 #include <iostream>
+#include <string>
 
-#if !REAL_STD
+#if REAL_STD
 
+#include <vector>
+
+#else
 #include "vector/iterator.hpp"
 
 #endif // REAL_STD
@@ -59,12 +63,27 @@ void test_vector_iterator_dereference(void) {
 
 #if REAL_STD
     std::cout << "*it: 42" << std::endl;
+
+    println("\ntest VectorIterator it->property");
+    std::vector<std::string> strings;
+    strings.push_back("HI!");
+    strings.push_back("BYE!");
+    std::vector<std::string>::iterator strIt = strings.begin();
+    std::cout << "strIt->size(): " << strIt->size() << std::endl;
    
 #else
     int values[] = {42, 21, 84};
     ft::VectorIterator<int> it(values);
 
     std::cout << "*it: " << *it << std::endl;
+
+
+    println("\ntest VectorIterator it->property");
+    std::string strings[] = {"HI!", "BYE!"};
+    ft::VectorIterator<std::string> strIt(strings);
+
+    std::cout << "strIt->size(): " << strIt->size() << std::endl;
+
 #endif
 }
 

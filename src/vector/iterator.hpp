@@ -24,6 +24,7 @@ namespace ft {
 
             bool operator==(const VectorIterator &);
             bool operator!=(const VectorIterator &);
+            pointer operator->(void);
 
             reference operator*() const {
                 return *this->p;

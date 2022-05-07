@@ -28,4 +28,9 @@ bool ft::VectorIterator<T>::operator!=(const ft::VectorIterator<T>& other) {
     return this->p != other.p;
 }
 
+template <typename T>
+typename ft::VectorIterator<T>::pointer ft::VectorIterator<T>::operator->(void) {
+    return &*this->p;
+}
+
 #endif // !VECTOR_ITERATOR_TPP
