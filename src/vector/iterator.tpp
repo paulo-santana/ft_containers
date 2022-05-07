@@ -1,0 +1,16 @@
+#pragma once
+#ifndef VECTOR_ITERATOR_TPP
+#define VECTOR_ITERATOR_TPP
+
+#include "vector/iterator.hpp"
+
+template <typename T>
+ft::VectorIterator<T>::VectorIterator() {
+}
+
+template <typename T>
+ft::VectorIterator<T>::VectorIterator(ft::VectorIterator<T>::pointer _p) {
+    this->p = _p;
+}
+
+#endif // !VECTOR_ITERATOR_TPP
