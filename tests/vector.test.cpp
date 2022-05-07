@@ -20,10 +20,7 @@
 void test_vector_default_constructor(void) {
     println("\ntest vector default constructor");
     ft::vector<int> *vector1 = new ft::vector<int>();
-    std::vector<int> *vector2 = new std::vector<int>();
-
     delete vector1;
-    delete vector2;
 }
 
 void test_vector_allocator_constructor(void) {
@@ -33,11 +30,9 @@ void test_vector_allocator_constructor(void) {
 
     my_alloc alloc;
 
-    ft::vector<int> *vector1 = new ft::vector<int>(alloc);
-    std::vector<int> *vector2 = new std::vector<int>(alloc);
+    ft::vector<int> vector1(alloc);
+    std::vector<int> vector2(alloc);
 
-    delete vector1;
-    delete vector2;
 }
 
 void test_vector_allocator(void) {
