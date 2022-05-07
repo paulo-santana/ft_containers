@@ -52,6 +52,7 @@ namespace ft
         allocator_type allocator;
 
         void copy_data(T* dest, T* src);
+        void destroy_data(T* _data, size_type n);
         void grow_vector(void);
     };
 

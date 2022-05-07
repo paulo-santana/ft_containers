@@ -56,6 +56,13 @@ void ft::vector<T, Alloc>::copy_data(T* dest, T* src) {
 }
 
 template <typename T, typename Alloc>
+void ft::vector<T, Alloc>::destroy_data(T* _data, size_type n) {
+    for (size_type i = 0; i < n; i++) {
+        this->allocator.destroy(_data + i);
+    }
+}
+
+template <typename T, typename Alloc>
 void ft::vector<T, Alloc>::grow_vector() {
     T* oldData = this->data;
 
@@ -65,6 +72,8 @@ void ft::vector<T, Alloc>::grow_vector() {
     this->data = this->allocator.allocate(this->current_capacity * 2);
     this->copy_data(this->data, oldData);
     this->current_capacity = this->current_capacity * 2;
+    this->destroy_data(oldData, this->num_items);
+    this->allocator.deallocate(oldData, this->num_items);
 }
 
 template <typename T, typename Alloc>
