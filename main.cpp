@@ -23,9 +23,9 @@
 int main (void)
 {
     if (REAL_STD)
-        std::cout << "STD containers" << std::endl;
+        std::cerr << "STD containers" << std::endl;
     else
-        std::cout << "FT containers" << std::endl;
+        std::cerr << "FT containers" << std::endl;
 
     testVector();
 }
