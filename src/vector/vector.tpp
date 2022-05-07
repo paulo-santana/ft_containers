@@ -48,6 +48,7 @@ typename ft::vector<T, Alloc>::allocator_type ft::vector<T, Alloc>::get_allocato
 
 template <typename T, typename Alloc>
 ft::vector<T, Alloc>::~vector(void) {
+    // TODO: investigar pq o tamanho aqui não importa
     this->allocator.deallocate(data, 1);
 }
 
@@ -112,6 +113,5 @@ template <typename T, typename Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::begin() {
     return VectorIterator<T>(this->data);
 }
-
 
 #endif // !VECTOR_TPP
