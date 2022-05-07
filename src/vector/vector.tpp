@@ -28,6 +28,20 @@ ft::vector<T, Alloc>::vector(const vector& other) {
 }
 
 template <typename T, typename Alloc>
+ft::vector<T, Alloc>::vector(size_type n, const value_type& val, const allocator_type& alloc) {
+    this->num_items = n;
+    this->current_capacity = n;
+    this->allocator = alloc;
+    this->max_capacity = alloc.max_size();
+
+    this->data = this->allocator.allocate(n);
+
+    for (size_type i = 0; i < this->num_items; i++) {
+        this->allocator.construct(this->data + i, val);
+    }
+}
+
+template <typename T, typename Alloc>
 typename ft::vector<T, Alloc>::allocator_type ft::vector<T, Alloc>::get_allocator(void) const {
     return this->allocator;
 }

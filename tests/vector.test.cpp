@@ -96,6 +96,18 @@ void test_vector_max_size(void) {
     std::cout << "vect.max_size(): " << str_vect.max_size() << std::endl;
 }
 
+void test_vector_n_constructor(void) {
+    println("\ntest vector(17)");
+
+    ft::vector<int> vect(17);
+    std::cout << "vect.size(): " << vect.size() << std::endl;
+    std::cout << "vect.capacity(): " << vect.capacity() << std::endl;
+
+    ft::vector<std::string> str_vect(80);
+    std::cout << "vect.size(): " << str_vect.size() << std::endl;
+    std::cout << "vect.capacity(): " << str_vect.capacity() << std::endl;
+}
+
 void testVector(void) {
     ft::vector<int> vector1 = ft::vector<int>();
     std::vector<int> vector2 = std::vector<int>();
@@ -107,4 +119,5 @@ void testVector(void) {
     test_vector_iterator_dereference();
     test_vector_push_back();
     test_vector_max_size();
+    test_vector_n_constructor();
 }
