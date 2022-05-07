@@ -27,5 +27,6 @@ int main (void)
     else
         std::cerr << "FT containers" << std::endl;
 
+    testVectorIterator();
     testVector();
 }

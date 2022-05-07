@@ -75,17 +75,6 @@ void test_vector_push_back(void) {
     assertEquals(*addr1++, *addr2++, "*addr1++ == *addr2++");
 }
 
-void test_vector_iterator_dereference(void) {
-    println("\ntest iterator dereference");
-    ft::vector<int> vector1;
-
-    vector1.push_back(20);
-
-    ft::vector<int>::iterator it = vector1.begin();
-
-    assertEquals(*it, 20, "*it == 20");
-}
-
 void test_vector_max_size(void) {
     println("\ntest vector.max_size()");
 
@@ -143,7 +132,6 @@ void testVector(void) {
     test_vector_default_constructor();
     test_vector_allocator_constructor();
     test_vector_allocator();
-    test_vector_iterator_dereference();
     test_vector_push_back();
     test_vector_max_size();
     test_vector_n_constructor();

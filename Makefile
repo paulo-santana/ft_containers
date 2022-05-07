@@ -2,7 +2,9 @@ NAME ?= main
 NAME_STD := main_std
 
 SRC := main.cpp \
+	   test_utils.cpp \
 	   vector.test.cpp \
+	   vector_iterator.test.cpp \
 
 OBJ_DIR ?= ./obj
 vpath %.cpp \
