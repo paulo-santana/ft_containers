@@ -56,43 +56,19 @@ void test_vector_push_back(void) {
     ft::vector<int> vector1;
     std::vector<int> vector2;
 
-    // TODO: test capacity()
     int size1, size2;
     int capacity1, capacity2;
 
-    size1 = vector1.size();
-    size2 = vector2.size();
-    assertEquals(size1, size2, "size1 == size2");
-    capacity1 = vector1.capacity();
-    capacity2 = vector2.capacity();
-    assertEquals(capacity1, capacity2, "capacity1 == capacity2");
-
-    vector1.push_back(20);
-    vector2.push_back(20);
-    size1 = vector1.size();
-    size2 = vector2.size();
-    assertEquals(size1, size2, "size1 == size2");
-    capacity1 = vector1.capacity();
-    capacity2 = vector2.capacity();
-    assertEquals(capacity1, capacity2, "capacity1 == capacity2");
-
-    vector1.push_back(5);
-    vector2.push_back(5);
-    size1 = vector1.size();
-    size2 = vector2.size();
-    assertEquals(size1, size2, "size1 == size2");
-    capacity1 = vector1.capacity();
-    capacity2 = vector2.capacity();
-    assertEquals(capacity1, capacity2, "capacity1 == capacity2");
-
-    vector1.push_back(18);
-    vector2.push_back(18);
-    size1 = vector1.size();
-    size2 = vector2.size();
-    assertEquals(size1, size2, "size1 == size2");
-    capacity1 = vector1.capacity();
-    capacity2 = vector2.capacity();
-    assertEquals(capacity1, capacity2, "capacity1 == capacity2");
+    for (int i = 0; i < 4; i++) {
+        size1 = vector1.size();
+        size2 = vector2.size();
+        assertEquals(size1, size2, "size1 == size2");
+        capacity1 = vector1.capacity();
+        capacity2 = vector2.capacity();
+        assertEquals(capacity1, capacity2, "capacity1 == capacity2");
+        vector1.push_back(20 - i);
+        vector2.push_back(20 - i);
+    }
 
     int *addr1 = &*vector1.begin();
     int *addr2 = &*vector2.begin();
