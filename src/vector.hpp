@@ -33,6 +33,7 @@ namespace ft
         allocator_type get_allocator(void) const;
 
         size_type size(void);
+        size_type max_size(void);
         size_type capacity(void);
 
         void push_back(int x);
@@ -47,7 +48,7 @@ namespace ft
 
         size_type num_items;
         size_type current_capacity;
-        size_type max_size;
+        size_type max_capacity;
 
         allocator_type allocator;
 

@@ -11,7 +11,7 @@ ft::vector<T, Alloc>::vector(const vector::allocator_type& alloc) {
     this->data = 0;
     this->num_items = 0;
     this->current_capacity = 0;
-    this->max_size = this->allocator.max_size();
+    this->max_capacity = this->allocator.max_size();
     this->allocator = alloc;
 }
 
@@ -40,6 +40,11 @@ ft::vector<T, Alloc>::~vector(void) {
 template <typename T, typename Alloc>
 typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::size(void) {
     return this->num_items;
+}
+
+template <typename T, typename Alloc>
+typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::max_size(void) {
+    return this->max_capacity;
 }
 
 template <typename T, typename Alloc>

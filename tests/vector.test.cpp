@@ -86,6 +86,16 @@ void test_vector_iterator_dereference(void) {
     assertEquals(*it, 20, "*it == 20");
 }
 
+void test_vector_max_size(void) {
+    println("\ntest vector.max_size()");
+
+    ft::vector<int> vect;
+    std::cout << "vect.max_size(): " << vect.max_size() << std::endl;
+
+    ft::vector<std::string> str_vect;
+    std::cout << "vect.max_size(): " << str_vect.max_size() << std::endl;
+}
+
 void testVector(void) {
     ft::vector<int> vector1 = ft::vector<int>();
     std::vector<int> vector2 = std::vector<int>();
@@ -93,7 +103,8 @@ void testVector(void) {
 
     test_vector_default_constructor();
     test_vector_allocator_constructor();
-    test_vector_push_back();
     test_vector_allocator();
     test_vector_iterator_dereference();
+    test_vector_push_back();
+    test_vector_max_size();
 }
