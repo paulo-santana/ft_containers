@@ -97,15 +97,42 @@ void test_vector_max_size(void) {
 }
 
 void test_vector_n_constructor(void) {
-    println("\ntest vector(17)");
+    println("\ntest vector<int>(17)");
 
     ft::vector<int> vect(17);
     std::cout << "vect.size(): " << vect.size() << std::endl;
     std::cout << "vect.capacity(): " << vect.capacity() << std::endl;
 
+    println("\ntest vector<string>(80)");
     ft::vector<std::string> str_vect(80);
     std::cout << "vect.size(): " << str_vect.size() << std::endl;
     std::cout << "vect.capacity(): " << str_vect.capacity() << std::endl;
+}
+
+void test_vector_n_and_type_constructor(void) {
+    println("\ntest vector<int>(3, 80)");
+
+    ft::vector<int> vect(3, 80);
+    std::cout << "vect.size(): " << vect.size() << std::endl;
+    std::cout << "vect.capacity(): " << vect.capacity() << std::endl;
+
+    int* it = &*vect.begin();
+    for (int i = 0; i < 3; i++) {
+        std::cout << *it++ << ", ";
+    }
+    std::cout << std::endl;
+
+    println("\ntest vector<int>(3, 80)");
+
+    ft::vector<std::string> str_vect(5, "default");
+    std::cout << "vect.size(): " << str_vect.size() << std::endl;
+    std::cout << "vect.capacity(): " << str_vect.capacity() << std::endl;
+
+    std::string* sit = &*str_vect.begin();
+    for (int i = 0; i < 5; i++) {
+        std::cout << *sit++ << ", ";
+    }
+    std::cout << std::endl;
 }
 
 void testVector(void) {
@@ -120,4 +147,5 @@ void testVector(void) {
     test_vector_push_back();
     test_vector_max_size();
     test_vector_n_constructor();
+    test_vector_n_and_type_constructor();
 }
