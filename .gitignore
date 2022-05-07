@@ -1,5 +1,11 @@
 *.o
+*.d
 main
+main_std
 compile_commands.json
 obj/
 .cache/
+my_out
+std_out
+teste.cpp
+a.out
