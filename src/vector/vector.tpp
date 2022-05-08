@@ -112,4 +112,9 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::begin() {
     return VectorIterator<T>(this->data);
 }
 
+template <typename T, typename Alloc>
+typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::end() {
+    return VectorIterator<T>(this->data + this->num_items);
+}
+
 #endif // !VECTOR_TPP
