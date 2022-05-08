@@ -2,23 +2,24 @@
 #define VECTOR_ITERATOR_HPP
 
 #include "internals/iterator_base.hpp"
+#include "iterator_traits.hpp"
 #include <string>
 
 namespace ft {
 
 template <typename T>
-    class VectorIterator : public ft::iterator<ft::random_access_iterator_tag, T>
+    class VectorIterator : public ft::iterator<std::random_access_iterator_tag, T>
 {
-    typedef typename ft::iterator<ft::random_access_iterator_tag, T> _Base;
+    typedef typename ft::iterator<std::random_access_iterator_tag, T> _Base;
     typedef VectorIterator<T> _Self;
 
 public:
 
-    typedef typename _Base::value_type          value_type;
-    typedef typename _Base::pointer             pointer;
-    typedef typename _Base::reference           reference;
-    typedef typename _Base::difference_type     difference_type;
-    typedef typename _Base::iterator_category   iterator_category;
+    typedef typename ft::iterator_traits<_Base>::value_type         value_type;
+    typedef typename ft::iterator_traits<_Base>::pointer             pointer;
+    typedef typename ft::iterator_traits<_Base>::reference           reference;
+    typedef typename ft::iterator_traits<_Base>::difference_type     difference_type;
+    typedef typename ft::iterator_traits<_Base>::iterator_category   iterator_category;
 
     VectorIterator();
     VectorIterator(pointer _p);
