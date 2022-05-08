@@ -13,13 +13,15 @@ template <typename T>
     typedef typename ft::iterator<std::random_access_iterator_tag, T> _Base;
     typedef VectorIterator<T> _Self;
 
+    typedef ft::iterator_traits<_Self> my_traits;
+
 public:
 
-    typedef typename ft::iterator_traits<_Base>::value_type         value_type;
-    typedef typename ft::iterator_traits<_Base>::pointer             pointer;
-    typedef typename ft::iterator_traits<_Base>::reference           reference;
-    typedef typename ft::iterator_traits<_Base>::difference_type     difference_type;
-    typedef typename ft::iterator_traits<_Base>::iterator_category   iterator_category;
+    typedef typename my_traits::value_type          value_type;
+    typedef typename my_traits::pointer             pointer;
+    typedef typename my_traits::reference           reference;
+    typedef typename my_traits::difference_type     difference_type;
+    typedef typename my_traits::iterator_category   iterator_category;
 
     VectorIterator();
     VectorIterator(pointer _p);
@@ -27,11 +29,11 @@ public:
     VectorIterator &operator=(const VectorIterator &);
     ~VectorIterator() {};
 
-    reference           operator*(void) const;
-    pointer             operator->(void) const;
+    reference           operator*(void) const ;
+    pointer             operator->(void) const ;
 
-    bool                operator==(const VectorIterator &);
-    bool                operator!=(const VectorIterator &);
+    bool                operator==(const VectorIterator &) const ;
+    bool                operator!=(const VectorIterator &) const ;
     VectorIterator      operator++(int);
     VectorIterator&     operator++();
     VectorIterator      operator--(int);
@@ -49,8 +51,7 @@ public:
     VectorIterator&     operator+=(difference_type) ;
     VectorIterator&     operator-=(difference_type) ;
 
-    reference           operator[](difference_type) ;
-
+    reference           operator[](difference_type) const ;
 
     template<class C>
         friend VectorIterator operator+(difference_type, VectorIterator);
