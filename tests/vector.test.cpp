@@ -1,13 +1,6 @@
-#include <iostream>
-#include <algorithm>
-#include <memory>
-#include <sstream>
-
 #include "test_utils.hpp"
 
 #if REAL_STD //CREATE A REAL STL EXAMPLE
-	#include <map>
-	#include <stack>
 	#include <vector>
 	namespace ft = std;
 #else

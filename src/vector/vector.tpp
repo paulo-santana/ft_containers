@@ -1,10 +1,8 @@
 #pragma once
-#include <new>
 #ifndef VECTOR_TPP
 # define VECTOR_TPP
 
 #include "../vector.hpp"
-#include "vector/iterator.hpp"
 
 template <typename T, typename Alloc>
 ft::vector<T, Alloc>::vector(const vector::allocator_type& alloc) {
