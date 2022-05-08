@@ -48,6 +48,8 @@ public:
     VectorIterator&     operator+=(difference_type) ;
     VectorIterator&     operator-=(difference_type) ;
 
+    reference           operator[](difference_type) ;
+
 
     template<class C>
         friend VectorIterator operator+(difference_type, VectorIterator);

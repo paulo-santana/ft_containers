@@ -179,11 +179,31 @@ void test_vector_iterator_compound_assignment() {
 
     println("\ntest VectorIterator operator +=");
     it += 2;
-    std::cout << "it += 2 == " << std::boolalpha << *it << std::endl;
+    std::cout << "it += 2 == " << *it << std::endl;
 
     println("\ntest VectorIterator operator -=");
     itend -= 2;
-    std::cout << "itend -= 2 == " << std::boolalpha << *it << std::endl;
+    std::cout << "itend -= 2 == " << *it << std::endl;
+
+}
+
+void test_vector_iterator_offset_dereference() {
+    int values[] = {42, 21, 84, 22};
+#if REAL_STD
+    std_int_iterator it(values);
+    std_int_iterator itend(values + 3);
+#else
+    ft::VectorIterator<int> it(values);
+    ft::VectorIterator<int> itend(values + 3);
+#endif
+
+    println("\ntest VectorIterator operator []");
+    for (int i = 0; i < 4; i++) {
+        std::cout << "it[" << i << "] == " << it[i] << std::endl;
+    }
+    for (int i = 0; i > -4; i--) {
+        std::cout << "itend[" << i << "] == " << itend[i] << std::endl;
+    }
 
 }
 
@@ -200,4 +220,6 @@ void testVectorIterator(void) {
     test_vector_iterator_relational();
 
     test_vector_iterator_compound_assignment();
+
+    test_vector_iterator_offset_dereference();
 }
