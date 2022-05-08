@@ -59,7 +59,7 @@ static void test_vector_iterator_dereference(void) {
     std::string strings[] = {"HI!", "BYE!"};
     int values[] = {42, 21, 84};
 
-#if 1
+#if REAL_STD
     std::vector<std::string>::iterator strIt(strings);
     std::vector<int>::iterator it(values);
 #else
