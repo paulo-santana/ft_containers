@@ -11,13 +11,17 @@ namespace ft
     class vector
     {
     public:
-        typedef T                       value_type;
-        typedef std::allocator<T>       allocator_type;
+        typedef T                                           value_type;
+        typedef std::allocator<T>                           allocator_type;
+        typedef std::size_t                                 size_type;
 
-        typedef std::size_t             size_type;
+        typedef typename allocator_type::reference          reference;
+        typedef typename allocator_type::const_reference    const_reference;
+        typedef typename allocator_type::pointer            pointer;
+        typedef typename allocator_type::const_pointer      const_pointer;
 
-        typedef ft::VectorIterator<T>   iterator;
-        typedef ft::VectorIterator<T>   const_iterator;
+        typedef ft::VectorIterator<value_type>              iterator;
+        typedef ft::VectorIterator<const value_type>        const_iterator;
 
         // default constructor
         vector(const allocator_type& alloc = allocator_type());
