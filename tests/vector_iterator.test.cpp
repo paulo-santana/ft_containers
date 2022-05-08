@@ -167,7 +167,7 @@ static void test_vector_iterator_relational() {
     std::cout << "end >= it == " << std::boolalpha << (itend >= it) << std::endl;
 }
 
-void test_vector_iterator_compound_assignment() {
+static void test_vector_iterator_compound_assignment() {
     int values[] = {42, 21, 84, 22};
 #if REAL_STD
     std_int_iterator it(values);
@@ -187,7 +187,7 @@ void test_vector_iterator_compound_assignment() {
 
 }
 
-void test_vector_iterator_offset_dereference() {
+static void test_vector_iterator_offset_dereference() {
     int values[] = {42, 21, 84, 22};
 #if REAL_STD
     std_int_iterator it(values);

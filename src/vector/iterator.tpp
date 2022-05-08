@@ -121,5 +121,4 @@ operator+(typename ft::VectorIterator<T>::difference_type num, const ft::VectorI
     return other + num;
 }
 
-
 #endif // !VECTOR_ITERATOR_TPP
