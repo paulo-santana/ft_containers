@@ -5,8 +5,7 @@
 #include "vector/iterator.hpp"
 
 template <typename T>
-ft::VectorIterator<T>::VectorIterator() {
-}
+ft::VectorIterator<T>::VectorIterator() { }
 
 template <typename T>
 ft::VectorIterator<T>::VectorIterator(ft::VectorIterator<T>::pointer _p) {
@@ -29,7 +28,12 @@ bool ft::VectorIterator<T>::operator!=(const ft::VectorIterator<T>& other) {
 }
 
 template <typename T>
-typename ft::VectorIterator<T>::pointer ft::VectorIterator<T>::operator->(void) {
+typename ft::VectorIterator<T>::reference ft::VectorIterator<T>::operator*() const {
+    return *this->p;
+};
+
+template <typename T>
+typename ft::VectorIterator<T>::pointer ft::VectorIterator<T>::operator->(void) const {
     return &*this->p;
 }
 
@@ -70,8 +74,28 @@ ft::VectorIterator<T> ft::VectorIterator<T>::operator-(difference_type offset) c
 }
 
 template <typename T>
-typename ft::VectorIterator<T>::difference_type ft::VectorIterator<T>::operator-(const ft::VectorIterator<T> &other) const {
+typename ft::VectorIterator<T>::difference_type ft::VectorIterator<T>::operator-(const VectorIterator &other) const {
     return this->p - other.p;
+}
+
+template <typename T>
+bool ft::VectorIterator<T>::operator<(const VectorIterator &other) const {
+    return this->p < other.p;
+}
+
+template <typename T>
+bool ft::VectorIterator<T>::operator>(const VectorIterator &other) const {
+    return this->p > other.p;
+}
+
+template <typename T>
+bool ft::VectorIterator<T>::operator<=(const VectorIterator &other) const {
+    return this->p <= other.p;
+}
+
+template <typename T>
+bool ft::VectorIterator<T>::operator>=(const VectorIterator &other) const {
+    return this->p >= other.p;
 }
 
 template <typename T>
@@ -79,5 +103,6 @@ ft::VectorIterator<T>
 operator+(typename ft::VectorIterator<T>::difference_type num, const ft::VectorIterator<T> &other) {
     return other + num;
 }
+
 
 #endif // !VECTOR_ITERATOR_TPP

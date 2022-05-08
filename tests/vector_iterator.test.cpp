@@ -116,12 +116,13 @@ static void test_vector_iterator_arithmetic() {
     ft::VectorIterator<int> it(values);
     ft::VectorIterator<int> itend(values + 3);
 #endif
-    println("\ntest VectorIterator operator + int");
 
+    println("\ntest VectorIterator operator + int");
     for (int i = 0; i < 4; i++) {
         std::cout << "*(it + "<< i << ") == " << *(it + i) << std::endl;
     }
 
+    println("\ntest int + VectorIterator");
     for (int i = 0; i < 4; i++) {
         std::cout << "*(it + "<< i << ") == " << *(i + it) << std::endl;
     }
@@ -132,7 +133,38 @@ static void test_vector_iterator_arithmetic() {
         std::cout << "*(itend - "<< i << ") == " << *(itend - i) << std::endl;
     }
 
+    println("\ntest VectorIterator - VectorIterator");
     std::cout << "itend - it == " << (itend - it) << std::endl;
+}
+
+static void test_vector_iterator_relational() {
+
+    int values[] = {42, 21, 84, 22};
+#if REAL_STD
+    std_int_iterator it(values);
+    std_int_iterator itend(values + 3);
+#else
+    ft::VectorIterator<int> it(values);
+    ft::VectorIterator<int> itend(values + 3);
+#endif
+
+    println("\ntest VectorIterator operator <");
+    std::cout << "it < end == " << std::boolalpha << (it < itend) << std::endl;
+    std::cout << "end < it == " << std::boolalpha << (itend < it) << std::endl;
+
+    println("\ntest VectorIterator operator >");
+    std::cout << "it > end == " << std::boolalpha << (it > itend) << std::endl;
+    std::cout << "end > it == " << std::boolalpha << (itend > it) << std::endl;
+
+    println("\ntest VectorIterator operator <=");
+    std::cout << "it <= it == " << std::boolalpha << (it <= it) << std::endl;
+    std::cout << "it <= end == " << std::boolalpha << (it <= itend) << std::endl;
+    std::cout << "end <= it == " << std::boolalpha << (itend <= it) << std::endl;
+
+    println("\ntest VectorIterator operator >=");
+    std::cout << "it >= it == " << std::boolalpha << (it >= it) << std::endl;
+    std::cout << "it >= end == " << std::boolalpha << (it >= itend) << std::endl;
+    std::cout << "end >= it == " << std::boolalpha << (itend >= it) << std::endl;
 }
 
 void testVectorIterator(void) {
@@ -145,4 +177,5 @@ void testVectorIterator(void) {
     test_vector_iterator_decrement();
 
     test_vector_iterator_arithmetic();
+    test_vector_iterator_relational();
 }

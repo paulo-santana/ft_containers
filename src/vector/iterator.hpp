@@ -6,50 +6,52 @@
 
 namespace ft {
 
-    template <typename T>
+template <typename T>
     class VectorIterator : public ft::iterator<ft::random_access_iterator_tag, T>
-    {
-            typedef typename ft::iterator<ft::random_access_iterator_tag, T> _Base;
-            typedef VectorIterator<T> _Self;
+{
+    typedef typename ft::iterator<ft::random_access_iterator_tag, T> _Base;
+    typedef VectorIterator<T> _Self;
 
-        public:
+public:
 
-            typedef typename _Base::value_type          value_type;
-            typedef typename _Base::pointer             pointer;
-            typedef typename _Base::reference           reference;
-            typedef typename _Base::difference_type     difference_type;
-            typedef typename _Base::iterator_category   iterator_category;
+    typedef typename _Base::value_type          value_type;
+    typedef typename _Base::pointer             pointer;
+    typedef typename _Base::reference           reference;
+    typedef typename _Base::difference_type     difference_type;
+    typedef typename _Base::iterator_category   iterator_category;
 
-            VectorIterator();
-            VectorIterator(pointer _p);
-            VectorIterator(const VectorIterator &);
-            VectorIterator &operator=(const VectorIterator &);
-            ~VectorIterator() {};
+    VectorIterator();
+    VectorIterator(pointer _p);
+    VectorIterator(const VectorIterator &);
+    VectorIterator &operator=(const VectorIterator &);
+    ~VectorIterator() {};
 
-            bool                operator==(const VectorIterator &);
-            bool                operator!=(const VectorIterator &);
-            pointer             operator->(void);
-            VectorIterator      operator++(int);
-            VectorIterator&     operator++();
-            VectorIterator      operator--(int);
-            VectorIterator&     operator--();
+    reference           operator*(void) const;
+    pointer             operator->(void) const;
 
-            VectorIterator      operator+(difference_type) const ;
-            VectorIterator      operator-(difference_type) const ;
-            difference_type     operator-(const VectorIterator&) const ;
+    bool                operator==(const VectorIterator &);
+    bool                operator!=(const VectorIterator &);
+    VectorIterator      operator++(int);
+    VectorIterator&     operator++();
+    VectorIterator      operator--(int);
+    VectorIterator&     operator--();
 
-            reference operator*() const {
-                return *this->p;
-            }
+    VectorIterator      operator+(difference_type) const ;
+    VectorIterator      operator-(difference_type) const ;
+    difference_type     operator-(const VectorIterator&) const ;
 
-        private:
-            pointer p;
-    };
+    bool                operator<(const VectorIterator&) const ;
+    bool                operator>(const VectorIterator&) const ;
+    bool                operator<=(const VectorIterator&) const ;
+    bool                operator>=(const VectorIterator&) const ;
 
 
-    template <typename T>
-    ft::VectorIterator<T>
-    operator+(typename ft::VectorIterator<T>::difference_type num, const ft::VectorIterator<T> &other);
+    template<class C>
+        friend VectorIterator operator+(difference_type, VectorIterator);
+
+private:
+    pointer p;
+};
 
 #include "vector/iterator.tpp"
 }
