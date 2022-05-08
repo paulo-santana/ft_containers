@@ -99,6 +99,18 @@ bool ft::VectorIterator<T>::operator>=(const VectorIterator &other) const {
 }
 
 template <typename T>
+ft::VectorIterator<T>& ft::VectorIterator<T>::operator+=(difference_type offset) {
+    this->p += offset;
+    return *this;
+}
+
+template <typename T>
+ft::VectorIterator<T>& ft::VectorIterator<T>::operator-=(difference_type offset) {
+    this->p -= offset;
+    return *this;
+}
+
+template <typename T>
 ft::VectorIterator<T>
 operator+(typename ft::VectorIterator<T>::difference_type num, const ft::VectorIterator<T> &other) {
     return other + num;

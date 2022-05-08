@@ -45,6 +45,9 @@ public:
     bool                operator<=(const VectorIterator&) const ;
     bool                operator>=(const VectorIterator&) const ;
 
+    VectorIterator&     operator+=(difference_type) ;
+    VectorIterator&     operator-=(difference_type) ;
+
 
     template<class C>
         friend VectorIterator operator+(difference_type, VectorIterator);
