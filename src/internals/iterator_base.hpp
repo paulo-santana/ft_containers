@@ -23,7 +23,7 @@ namespace ft {
         typedef Pointer pointer;
         typedef Reference reference;
         typedef Category iterator_category;
-
+        typedef Distance difference_type;
     };
 
 }
