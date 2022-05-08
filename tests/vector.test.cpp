@@ -123,10 +123,6 @@ void print_items(const int& value ) {
 }
 
 void testVector(void) {
-    ft::vector<int> vector1 = ft::vector<int>();
-    std::vector<int> vector2 = std::vector<int>();
-    assertEquals(vector1.size(), vector2.size(), "vector.size() == 0");
-
     test_vector_default_constructor();
     test_vector_allocator_constructor();
     test_vector_allocator();
@@ -134,12 +130,4 @@ void testVector(void) {
     test_vector_max_size();
     test_vector_n_constructor();
     test_vector_n_and_type_constructor();
-
-    int total = 0;
-    for (int i = 0; i < 10; i++) {
-        total += i;
-        vector1.push_back(total);
-    }
-
-    std::for_each(vector1.begin(), vector1.end(), print_items);
 }
