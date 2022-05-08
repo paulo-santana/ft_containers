@@ -1,17 +1,17 @@
 #include "test_utils.hpp"
 #include <iostream>
 #include <string>
+#include <vector>
 
 #if REAL_STD
 
-#include <vector>
-
 #else
-#include "vector/iterator.hpp"
-
+# include "vector/iterator.hpp"
 #endif // REAL_STD
 
-void test_vector_iterator_constructors(void) {
+typedef std::vector<int>::iterator std_int_iterator ;
+
+static void test_vector_iterator_constructors(void) {
     println("\ntest VectorIterator constructors");
 
 #if REAL_STD
@@ -32,94 +32,107 @@ void test_vector_iterator_constructors(void) {
 #endif
 }
 
-void test_vector_iterator_equality(void) {
-    println("\ntest VectorIterator operator ==");
+static void test_vector_iterator_equality(void) {
+    int values[] = {42, 21, 84};
 
 #if REAL_STD
-    std::cout << "it == otherIt: true" << std::endl;
-    std::cout << "it == differentIt: false" << std::endl;
-
-    println("\ntest VectorIterator operator !=");
-    std::cout << "it != otherIt: false" << std::endl;
-    std::cout << "it != differentIt: true" << std::endl;
-   
+    std_int_iterator it(values);
+    std_int_iterator otherIt(values);
+    std_int_iterator differentIt(values + 1);
 #else
-    int values[] = {42, 21, 84};
     ft::VectorIterator<int> it(values);
     ft::VectorIterator<int> otherIt(values);
     ft::VectorIterator<int> differentIt(values + 1);
+#endif
 
+
+    println("\ntest VectorIterator operator ==");
     std::cout << "it == otherIt: " << std::boolalpha << (it == otherIt) << std::endl;
     std::cout << "it == differentIt: " << std::boolalpha << (it == differentIt) << std::endl;
 
     println("\ntest VectorIterator operator !=");
     std::cout << "it != otherIt: " << std::boolalpha << (it != otherIt) << std::endl;
     std::cout << "it != differentIt: " << std::boolalpha << (it != differentIt) << std::endl;
-#endif
 }
 
-void test_vector_iterator_dereference(void) {
-    println("\ntest VectorIterator operator *");
-
-#if REAL_STD
-    std::cout << "*it: 42" << std::endl;
-
-    println("\ntest VectorIterator operator ->");
-    std::vector<std::string> strings;
-    strings.push_back("HI!");
-    strings.push_back("BYE!");
-    std::vector<std::string>::iterator strIt = strings.begin();
-    std::cout << "strIt->size(): " << strIt->size() << std::endl;
-   
-#else
+static void test_vector_iterator_dereference(void) {
+    std::string strings[] = {"HI!", "BYE!"};
     int values[] = {42, 21, 84};
+
+#if 1
+    std::vector<std::string>::iterator strIt(strings);
+    std::vector<int>::iterator it(values);
+#else
+    ft::VectorIterator<std::string> strIt(strings);
     ft::VectorIterator<int> it(values);
+#endif
+    println("\ntest VectorIterator operator *");
 
     std::cout << "*it: " << *it << std::endl;
 
     println("\ntest VectorIterator operator ->");
-    std::string strings[] = {"HI!", "BYE!"};
-    ft::VectorIterator<std::string> strIt(strings);
 
     std::cout << "strIt->size(): " << strIt->size() << std::endl;
 
-#endif
 }
 
-void test_vector_iterator_increment(void) {
-#if REAL_STD
-    println("\ntest VectorIterator operator ++");
-    std::cout << "*++it == 21" << std::endl;
-    std::cout << "*it++ == 21" << std::endl;
-    std::cout << "*it++ == 84" << std::endl;
-#else
-    println("\ntest VectorIterator operator ++");
+static void test_vector_iterator_increment(void) {
     int values[] = {42, 21, 84};
 
+#if REAL_STD
+    std_int_iterator it(values);
+#else
     ft::VectorIterator<int> it(values);
+#endif
+    println("\ntest VectorIterator operator ++");
 
     std::cout << "*++it == " << *++it << std::endl;
     std::cout << "*it++ == " << *it++ << std::endl;
     std::cout << "*it++ == " << *it++ << std::endl;
-#endif
 }
 
-void test_vector_iterator_decrement(void) {
-#if REAL_STD
-    println("\ntest VectorIterator operator --");
-    std::cout << "*--it == 21" << std::endl;
-    std::cout << "*it-- == 21" << std::endl;
-    std::cout << "*it-- == 42" << std::endl;
-#else
-    println("\ntest VectorIterator operator --");
+static void test_vector_iterator_decrement(void) {
     int values[] = {42, 21, 84};
 
+#if REAL_STD
+    std_int_iterator it(values + 2);
+#else
     ft::VectorIterator<int> it(values + 2);
+#endif
+    println("\ntest VectorIterator operator --");
 
     std::cout << "*--it == " << *--it << std::endl;
     std::cout << "*it-- == " << *it-- << std::endl;
     std::cout << "*it-- == " << *it-- << std::endl;
+}
+
+static void test_vector_iterator_arithmetic() {
+
+    int values[] = {42, 21, 84, 22};
+#if REAL_STD
+    std_int_iterator it(values);
+    std_int_iterator itend(values + 3);
+#else
+    ft::VectorIterator<int> it(values);
+    ft::VectorIterator<int> itend(values + 3);
 #endif
+    println("\ntest VectorIterator operator + int");
+
+    for (int i = 0; i < 4; i++) {
+        std::cout << "*(it + "<< i << ") == " << *(it + i) << std::endl;
+    }
+
+    for (int i = 0; i < 4; i++) {
+        std::cout << "*(it + "<< i << ") == " << *(i + it) << std::endl;
+    }
+
+    println("\ntest VectorIterator operator - int");
+
+    for (int i = 0; i < 4; i++) {
+        std::cout << "*(itend - "<< i << ") == " << *(itend - i) << std::endl;
+    }
+
+    std::cout << "itend - it == " << (itend - it) << std::endl;
 }
 
 void testVectorIterator(void) {
@@ -131,4 +144,5 @@ void testVectorIterator(void) {
     test_vector_iterator_increment();
     test_vector_iterator_decrement();
 
+    test_vector_iterator_arithmetic();
 }

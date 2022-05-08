@@ -59,4 +59,25 @@ typename ft::VectorIterator<T>& ft::VectorIterator<T>::operator--() {
     return *this;
 }
 
+template <typename T>
+ft::VectorIterator<T> ft::VectorIterator<T>::operator+(difference_type offset) const {
+    return VectorIterator<T>(this->p + offset);
+}
+
+template <typename T>
+ft::VectorIterator<T> ft::VectorIterator<T>::operator-(difference_type offset) const {
+    return VectorIterator<T>(this->p - offset);
+}
+
+template <typename T>
+typename ft::VectorIterator<T>::difference_type ft::VectorIterator<T>::operator-(const ft::VectorIterator<T> &other) const {
+    return this->p - other.p;
+}
+
+template <typename T>
+ft::VectorIterator<T>
+operator+(typename ft::VectorIterator<T>::difference_type num, const ft::VectorIterator<T> &other) {
+    return other + num;
+}
+
 #endif // !VECTOR_ITERATOR_TPP

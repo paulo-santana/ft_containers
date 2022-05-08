@@ -2,9 +2,9 @@ NAME ?= main
 NAME_STD := main_std
 
 SRC := main.cpp \
-	   test_utils.cpp \
 	   vector.test.cpp \
 	   vector_iterator.test.cpp \
+	   test_utils.cpp \
 
 OBJ_DIR ?= ./obj
 vpath %.cpp \
@@ -15,7 +15,7 @@ vpath %.cpp \
 
 OBJ  := $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
-DEPS := $(OBJ:.o=.d))
+DEPS := $(OBJ:.o=.d)
 INCLUDE := -I ./src/
 USE_STD ?= 0
 CXXFLAGS := -DREAL_STD=$(USE_STD) -g -Wall -Werror -Wextra -std=c++98 -MMD -MP $(INCLUDE)
