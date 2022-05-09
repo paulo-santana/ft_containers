@@ -29,8 +29,8 @@ public:
     VectorIterator &operator=(const VectorIterator &);
     ~VectorIterator() {};
 
-    reference           operator*(void) const ;
-    pointer             operator->(void) const ;
+    reference           operator*() const ;
+    pointer             operator->() const ;
 
     bool                operator==(const VectorIterator &) const ;
     bool                operator!=(const VectorIterator &) const ;

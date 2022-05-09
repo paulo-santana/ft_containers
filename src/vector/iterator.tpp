@@ -18,12 +18,12 @@ ft::VectorIterator<T>::VectorIterator(const ft::VectorIterator<T>& other) {
 }
 
 template <typename T>
-bool ft::VectorIterator<T>::operator==(const ft::VectorIterator<T>& other) {
+bool ft::VectorIterator<T>::operator==(const ft::VectorIterator<T>& other) const {
     return this->p == other.p;
 }
 
 template <typename T>
-bool ft::VectorIterator<T>::operator!=(const ft::VectorIterator<T>& other) {
+bool ft::VectorIterator<T>::operator!=(const ft::VectorIterator<T>& other) const {
     return this->p != other.p;
 }
 
@@ -111,7 +111,7 @@ ft::VectorIterator<T>& ft::VectorIterator<T>::operator-=(difference_type offset)
 }
 
 template <typename T>
-typename ft::VectorIterator<T>::reference ft::VectorIterator<T>::operator[](difference_type offset) {
+typename ft::VectorIterator<T>::reference ft::VectorIterator<T>::operator[](difference_type offset) const {
     return *(this->p + offset);
 }
 
