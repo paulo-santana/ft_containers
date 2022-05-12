@@ -104,12 +104,16 @@ public:
         return VectorIterator<pointer, _Self>(this->data);
     }
 
-    const_iterator end(void) {
-        return VectorIterator<pointer, _Self>(this->data);
+    iterator end(void) {
+        return VectorIterator<pointer, _Self>(this->data + this->num_items);
     }
 
     const_iterator begin(void) const {
-        return VectorIterator<const_pointer, _Self >(this->data + this->num_items);
+        return VectorIterator<const_pointer, _Self >(this->data);
+    }
+
+    const_iterator end(void) const {
+        return VectorIterator<const_pointer, _Self>(this->data + this->num_items);
     }
 
 private:
