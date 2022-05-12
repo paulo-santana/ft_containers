@@ -4,6 +4,7 @@ main
 main_std
 compile_commands.json
 obj/
+obj2/
 .cache/
 my_out
 std_out

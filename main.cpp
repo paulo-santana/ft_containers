@@ -1,5 +1,7 @@
 #include <iostream>
 #include <algorithm>
+#include <iterator>
+#include <vector>
 #include <sstream>
 
 #include "tests/tests.hpp"

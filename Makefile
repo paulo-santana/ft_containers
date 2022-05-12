@@ -44,6 +44,9 @@ run: __compile_ft __compile_std
 	./$(NAME_STD) > std_out
 	delta --diff-so-fancy my_out std_out && echo "OK :)"
 
+test:
+	c++ -I./src teste.cpp -o test_bin && ./test_bin && rm ./test_bin
+
 __compile_ft:
 	make
 
