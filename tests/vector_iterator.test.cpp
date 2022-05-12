@@ -1,35 +1,46 @@
 #include "test_utils.hpp"
 #include <iostream>
+#include <iterator>
 #include <string>
 #include <vector>
 
 #if REAL_STD
 
+typedef std::vector<int>::iterator                                  std_int_iterator ;
+
 #else
 # include "vector/iterator.hpp"
+# include "vector.hpp"
+typedef ft::VectorIterator<int*, std::vector<int> >                 ft_int_iterator;
+typedef ft::VectorIterator<std::string*, std::vector<std::string> > ft_string_iterator;
 #endif // REAL_STD
 
-typedef std::vector<int>::iterator std_int_iterator ;
 
 static void test_vector_iterator_constructors(void) {
     println("\ntest VectorIterator constructors");
 
 #if REAL_STD
+    __gnu_cxx::__normal_iterator<int *, std::vector<int> > *it = new __gnu_cxx::__normal_iterator<int *, std::vector<int> >;
     std::cout << "*it = new VectorIterator(): OK" << std::endl;
-    std::cout << "new VectorIterator(*it): OK" << std::endl;
+
+    __gnu_cxx::__normal_iterator<int *, std::vector<int> > anotherIt(*it);
+    std::cout << "VectorIterator(*it): OK" << std::endl;
+
+    __gnu_cxx::__normal_iterator<int *, std::vector<int> > otherIt = *it;
     std::cout << "otherIt = *it: OK" << std::endl;
 #else
-    ft::VectorIterator<int> *it = new ft::VectorIterator<int>();
+    ft_int_iterator* it = new ft_int_iterator();
     std::cout << "*it = new VectorIterator(): OK" << std::endl;
 
-    ft::VectorIterator<int> *anotherIt = new ft::VectorIterator<int>(*it);
-    std::cout << "new VectorIterator(*it): OK" << std::endl;
+    ft_int_iterator anotherIt(*it);
+    std::cout << "VectorIterator(*it): OK" << std::endl;
 
-    ft::VectorIterator<int> otherIt = *it;
+    ft_int_iterator otherIt = *it;
     std::cout << "otherIt = *it: OK" << std::endl;
 
-    (void)anotherIt;
 #endif
+    (void)anotherIt;
+    (void)otherIt;
 }
 
 static void test_vector_iterator_equality(void) {
@@ -40,9 +51,9 @@ static void test_vector_iterator_equality(void) {
     std_int_iterator otherIt(values);
     std_int_iterator differentIt(values + 1);
 #else
-    ft::VectorIterator<int> it(values);
-    ft::VectorIterator<int> otherIt(values);
-    ft::VectorIterator<int> differentIt(values + 1);
+    ft_int_iterator it(values);
+    ft_int_iterator otherIt(values);
+    ft_int_iterator differentIt(values + 1);
 #endif
 
 
@@ -63,8 +74,8 @@ static void test_vector_iterator_dereference(void) {
     std::vector<std::string>::iterator strIt(strings);
     std::vector<int>::iterator it(values);
 #else
-    ft::VectorIterator<std::string> strIt(strings);
-    ft::VectorIterator<int> it(values);
+    ft_string_iterator strIt(strings);
+    ft_int_iterator it(values);
 #endif
     println("\ntest VectorIterator operator *");
 
@@ -82,7 +93,7 @@ static void test_vector_iterator_increment(void) {
 #if REAL_STD
     std_int_iterator it(values);
 #else
-    ft::VectorIterator<int> it(values);
+    ft_int_iterator it(values);
 #endif
     println("\ntest VectorIterator operator ++");
 
@@ -97,7 +108,7 @@ static void test_vector_iterator_decrement(void) {
 #if REAL_STD
     std_int_iterator it(values + 2);
 #else
-    ft::VectorIterator<int> it(values + 2);
+    ft_int_iterator it(values + 2);
 #endif
     println("\ntest VectorIterator operator --");
 
@@ -113,8 +124,8 @@ static void test_vector_iterator_arithmetic() {
     std_int_iterator it(values);
     std_int_iterator itend(values + 3);
 #else
-    ft::VectorIterator<int> it(values);
-    ft::VectorIterator<int> itend(values + 3);
+    ft_int_iterator it(values);
+    ft_int_iterator itend(values + 3);
 #endif
 
     println("\ntest VectorIterator operator + int");
@@ -144,8 +155,8 @@ static void test_vector_iterator_relational() {
     std_int_iterator it(values);
     std_int_iterator itend(values + 3);
 #else
-    ft::VectorIterator<int> it(values);
-    ft::VectorIterator<int> itend(values + 3);
+    ft::VectorIterator<int *, std::vector<int> > it(values);
+    ft::VectorIterator<int *, std::vector<int> > itend(values + 3);
 #endif
 
     println("\ntest VectorIterator operator <");
@@ -173,8 +184,8 @@ static void test_vector_iterator_compound_assignment() {
     std_int_iterator it(values);
     std_int_iterator itend(values + 3);
 #else
-    ft::VectorIterator<int> it(values);
-    ft::VectorIterator<int> itend(values + 3);
+    ft::VectorIterator<int *, std::vector<int> > it(values);
+    ft::VectorIterator<int *, std::vector<int> > itend(values + 3);
 #endif
 
     println("\ntest VectorIterator operator +=");
@@ -193,8 +204,8 @@ static void test_vector_iterator_offset_dereference() {
     std_int_iterator it(values);
     std_int_iterator itend(values + 3);
 #else
-    ft::VectorIterator<int> it(values);
-    ft::VectorIterator<int> itend(values + 3);
+    ft_int_iterator it(values);
+    ft::VectorIterator<int *, std::vector<int> > itend(values + 3);
 #endif
 
     println("\ntest VectorIterator operator []");

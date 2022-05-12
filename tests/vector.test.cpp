@@ -118,8 +118,30 @@ void test_vector_n_and_type_constructor(void) {
     std::cout << std::endl;
 }
 
-void print_items(const int& value ) {
-    std::cout << "item: " << value << std::endl;
+void test_vector_const_iterator() {
+#if REAL_STD
+    std::vector<int> powers(6);
+    for (int i = 0; i < 6; i++) {
+        powers.push_back(i * i);
+    }
+    std::vector<int>::iterator it = powers.begin();
+    std::vector<int>::const_iterator const_it = powers.begin();
+    std::vector<float>::const_iterator const_float_it;
+
+#else
+    ft::vector<int> powers(6);
+    ft::vector<float> fpowers(6);
+    for (int i = 0; i < 6; i++) {
+        powers.push_back(i * i);
+    }
+    ft::vector<int>::iterator it = powers.begin();
+    ft::vector<int>::const_iterator const_it = powers.begin();
+    ft::vector<float>::const_iterator const_float_it = fpowers.begin();
+#endif
+    const_it = it;
+
+    // shouldn't compile
+    // const_float_it = const_it;
 }
 
 void testVector(void) {
