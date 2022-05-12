@@ -146,6 +146,22 @@ void test_vector_const_iterator() {
     // const_float_it = const_it;
 }
 
+void test_vector_end() {
+#if REAL_STD
+    std::vector<int> powers(6);
+    std::vector<int>::iterator it = powers.begin();
+    std::vector<int>::iterator end = powers.end();
+#else
+    ft::vector<int> powers(6);
+    ft::vector<int>::iterator it = powers.begin();
+    ft::vector<int>::iterator end = powers.end();
+#endif
+
+    long size = end - it;
+
+    std::cout << "end - it == " << size << std::endl;
+}
+
 void testVector(void) {
     test_vector_default_constructor();
     test_vector_allocator_constructor();
@@ -154,4 +170,5 @@ void testVector(void) {
     test_vector_max_size();
     test_vector_n_constructor();
     test_vector_n_and_type_constructor();
+    test_vector_end();
 }
