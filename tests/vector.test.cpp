@@ -121,12 +121,13 @@ void test_vector_n_and_type_constructor(void) {
 void test_vector_const_iterator() {
 #if REAL_STD
     std::vector<int> powers(6);
+    ft::vector<float> fpowers(6);
     for (int i = 0; i < 6; i++) {
         powers.push_back(i * i);
     }
     std::vector<int>::iterator it = powers.begin();
     std::vector<int>::const_iterator const_it = powers.begin();
-    std::vector<float>::const_iterator const_float_it;
+    std::vector<float>::const_iterator const_float_it = fpowers.begin();
 
 #else
     ft::vector<int> powers(6);
@@ -140,6 +141,7 @@ void test_vector_const_iterator() {
 #endif
     const_it = it;
 
+    (void)const_float_it;
     // shouldn't compile
     // const_float_it = const_it;
 }
