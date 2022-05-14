@@ -84,10 +84,25 @@ static void test_increment_operator() {
     std::cout << "*rit ->" << value << std::endl;
 }
 
+static void test_compound_assignment_operator() {
+    println("\ntest reverse iterator operators += and -=");
+
+    int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    iterator it(values + 5);
+    reverse_iterator rit(it);
+
+    std::cout << "*rit ->" << *rit << std::endl;
+    rit += 2;
+    std::cout << "rit += 2 ->" << *rit << std::endl;
+    rit -= 3;
+    std::cout << "rit -= 3 ->" << *rit << std::endl;
+}
+
 void testReverseIterator(void) {
     test_reverse_iterator_constructors();
     test_base();
     test_dereference_operator();
     test_addition_operator();
     test_increment_operator();
+    test_compound_assignment_operator();
 }

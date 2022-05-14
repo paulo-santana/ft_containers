@@ -56,6 +56,16 @@ public:
         ++*this;
         return tmp;
     }
+    
+    reverse_iterator& operator+=(difference_type n) {
+        this->current -= n;
+        return *this;
+    }
+    
+    reverse_iterator& operator-=(difference_type n) {
+        this->current += n;
+        return *this;
+    }
 
 protected:
     _Iterator current;
