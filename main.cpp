@@ -18,5 +18,6 @@ int main (void)
         std::cerr << "FT containers" << std::endl;
 
     testVectorIterator();
+    testReverseIterator();
     testVector();
 }

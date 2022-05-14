@@ -3,5 +3,6 @@
 
 void testVector(void);
 void testVectorIterator(void);
+void testReverseIterator(void);
 
 #endif // !VECTOR_TEST_HPP
