@@ -69,9 +69,25 @@ static void test_addition_operator() {
     std::cout << "*(3 + rit) -> " << value << std::endl;
 }
 
+static void test_increment_operator() {
+    println("\ntest reverse iterator operator++");
+
+    int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    iterator it(values + 7);
+    reverse_iterator rit(it);
+
+    int value = *++rit;
+    std::cout << "*++rit ->" << value << std::endl;
+    value = *rit++;
+    std::cout << "*rit++ ->" << value << std::endl;
+    value = *rit;
+    std::cout << "*rit ->" << value << std::endl;
+}
+
 void testReverseIterator(void) {
     test_reverse_iterator_constructors();
     test_base();
     test_dereference_operator();
     test_addition_operator();
+    test_increment_operator();
 }
