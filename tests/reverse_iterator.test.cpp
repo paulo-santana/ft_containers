@@ -18,9 +18,11 @@
 #endif // REAL_STD
 
 static void test_reverse_iterator_constructors() {
-    reverse_iterator rit = reverse_iterator();
+    reverse_iterator rit;
+    reverse_iterator rit_copy(rit);
 
     (void)rit;
+    (void)rit_copy;
 }
 
 void testReverseIterator(void) {
