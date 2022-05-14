@@ -42,10 +42,22 @@ static void test_base() {
 
     std::cout << "*base -> " << *base << std::endl;
     std::cout << "*it -> " << *it << std::endl;
-    std::cout << "*base == *it" << (*base == *it) << std::endl;
+    std::cout << "*base == *it: " << (*base == *it) << std::endl;
+}
+
+static void test_dereference_operator() {
+    println("\ntest reverse iterator operator*");
+
+    int values[] = {21, 42, 84};
+    iterator it(values + 2);
+    reverse_iterator rit(it);
+
+    int value = *rit;
+    std::cout << "value -> " << value << std::endl;
 }
 
 void testReverseIterator(void) {
     test_reverse_iterator_constructors();
     test_base();
+    test_dereference_operator();
 }
