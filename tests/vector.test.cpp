@@ -162,6 +162,50 @@ void test_vector_end() {
     std::cout << "end - it == " << size << std::endl;
 }
 
+void test_vector_const_end() {
+#if REAL_STD
+    std::vector<int> powers(6);
+    std::vector<int>::const_iterator it = powers.begin();
+    std::vector<int>::const_iterator end = powers.end();
+#else
+    ft::vector<int> powers(6);
+    ft::vector<int>::const_iterator it = powers.begin();
+    ft::vector<int>::const_iterator end = powers.end();
+#endif
+
+    long size = end - it;
+
+    std::cout << "end - it == " << size << std::endl;
+}
+
+void test_vector_iterator_and_const_iterator_integration() {
+
+#if REAL_STD
+    std::vector<int> powers(6);
+    std::vector<int>::iterator it = powers.begin();
+    std::vector<int>::const_iterator cit = it;
+    std::vector<int>::iterator end = powers.end();
+    std::vector<int>::const_iterator cend = powers.end();
+#else
+    ft::vector<int> powers(6);
+    ft::vector<int>::iterator it = powers.begin();
+    ft::vector<int>::const_iterator cit = it;
+    ft::vector<int>::iterator end = powers.end();
+    ft::vector<int>::const_iterator cend = powers.end();
+#endif
+
+    cit = it;
+    cend = end;
+
+    long size = end - it;
+
+    std::cout << "end - it == " << size << std::endl;
+    // shoudln't compile
+    // it = cit;
+    // end = cend;
+
+}
+
 void testVector(void) {
     test_vector_default_constructor();
     test_vector_allocator_constructor();
@@ -171,4 +215,6 @@ void testVector(void) {
     test_vector_n_constructor();
     test_vector_n_and_type_constructor();
     test_vector_end();
+    test_vector_const_end();
+    test_vector_iterator_and_const_iterator_integration();
 }

@@ -1,11 +1,9 @@
 #ifndef VECTOR_ITERATOR_HPP
 #define VECTOR_ITERATOR_HPP
 
-#include <memory>
-
+#include "enable_if.hpp"
 #include "internals/iterator_base.hpp"
 #include "iterator_traits.hpp"
-#include <string>
 
 
 namespace ft {
@@ -31,80 +29,79 @@ public:
     VectorIterator(const T& _p) : p(_p) { }
 
     template<typename _Iter>
-    inline VectorIterator(const VectorIterator<_Iter, _Container>& _p) : p(_p.base()) { }
+    VectorIterator(const VectorIterator<_Iter, 
+            typename ft::enable_if<
+            (std::__are_same<_Iter, typename _Container::pointer>::__value),
+            _Container>::type>& _p)
+    : p(_p.base()) { }
 
-    VectorIterator &operator=(const VectorIterator &other) {
-        this->p = other.base();
-        return *this;
-    }
+    ~VectorIterator() {};
 
-                ~VectorIterator() {};
+    reference operator*() const { return *this->p; }
+    pointer operator->() const { return this->p; }
 
-    reference           operator*() const { return *this->p; }
-    pointer             operator->() const { return this->p; }
+    bool operator==(const VectorIterator &other) const { return p == other.base(); }
+    bool operator!=(const VectorIterator &other) const { return p != other.base(); }
 
-    bool                operator==(const VectorIterator &other) const { return p == other.base(); }
-    bool                operator!=(const VectorIterator &other) const { return !(*this == other); }
-
-    VectorIterator&     operator++() {
+    VectorIterator& operator++() {
         this->p++;
         return *this;
     };
-    VectorIterator      operator++(int) {
+    VectorIterator operator++(int) {
         VectorIterator copy(*this);
         this->p++;
         return copy;
     }
-    VectorIterator&     operator--() {
+    VectorIterator& operator--() {
         this->p--;
         return *this;
     };
-    VectorIterator      operator--(int) {
+    VectorIterator operator--(int) {
         VectorIterator copy(*this);
         this->p--;
         return copy;
     }
 
-    VectorIterator      operator+(difference_type offset) const {
+    VectorIterator operator+(difference_type offset) const {
         return VectorIterator(this->p + offset);
     }
 
-    VectorIterator      operator-(difference_type offset) const {
+    VectorIterator operator-(difference_type offset) const {
         return VectorIterator(this->p - offset);
     }
 
-    difference_type     operator-(const VectorIterator& other) const {
+    difference_type operator-(const VectorIterator& other) const {
         return this->p - other.base();
     }
 
-    bool                operator<(const VectorIterator& other) const {
+    bool operator<(const VectorIterator& other) const {
         return this->p < other.base();
     }
 
-    bool                operator>(const VectorIterator& other) const {
+    bool operator>(const VectorIterator& other) const {
         return this->p > other.base();
     }
 
-    bool                operator<=(const VectorIterator& other) const {
+    bool operator<=(const VectorIterator& other) const {
         return this->p <= other.base();
     }
 
-    bool                operator>=(const VectorIterator& other) const {
+    bool operator>=(const VectorIterator& other) const {
         return this->p >= other.base();
     }
 
-    VectorIterator&     operator+=(difference_type offset) {
+    VectorIterator& operator+=(difference_type offset) {
         this->p += offset;
         return *this;
     }
 
-    VectorIterator&     operator-=(difference_type offset) {
+    VectorIterator& operator-=(difference_type offset) {
         this->p -= offset;
         return *this;
 
     }
 
-    reference           operator[](difference_type offset) const {
+    reference operator[](difference_type offset) const {
         return this->p[offset];
     }
 
@@ -112,13 +109,14 @@ public:
         return me + offset;
     }
 
-    const T&            base() const {
+    const T& base() const {
         return this->p;
     }
 
 protected:
     T p;
 };
+
 }
 
 #endif // !ITERATOR
