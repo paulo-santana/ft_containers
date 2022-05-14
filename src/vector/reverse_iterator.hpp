@@ -38,6 +38,14 @@ public:
         return *(--iterator_type(current));
     }
 
+    reverse_iterator operator+(difference_type n) const {
+        return reverse_iterator(this->base() - n);
+    }
+
+    friend reverse_iterator operator+(difference_type n, const reverse_iterator& me) {
+        return me + n;
+    }
+
 protected:
     _Iterator current;
 };
