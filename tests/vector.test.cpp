@@ -215,6 +215,7 @@ void testVector(void) {
     test_vector_n_constructor();
     test_vector_n_and_type_constructor();
     test_vector_end();
+    test_vector_const_iterator();
     test_vector_const_end();
     test_vector_iterator_and_const_iterator_integration();
 }
