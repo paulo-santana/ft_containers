@@ -34,6 +34,10 @@ public:
         return this->current;
     }
 
+    reference operator*() const {
+        return *(--iterator_type(current));
+    }
+
 protected:
     _Iterator current;
 };
