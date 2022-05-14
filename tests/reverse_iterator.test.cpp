@@ -4,29 +4,37 @@
 # include <vector>
 # include <iterator>
 
- typedef std::vector<int>                   vector;
- typedef std::vector<int>::iterator         iterator;
- typedef std::reverse_iterator<iterator>    reverse_iterator;
+ typedef std::vector<int>                       int_vector;
+ typedef std::vector<int>::iterator             int_iterator;
+ typedef std::reverse_iterator<int_iterator>    int_reverse_iterator;
+
+ typedef std::vector<std::string>                  string_vector;
+ typedef std::vector<std::string>::iterator        string_iterator;
+ typedef std::reverse_iterator<string_iterator>    string_reverse_iterator;
 
 #else // !REAL_STD
 # include <vector.hpp>
 # include <vector/reverse_iterator.hpp>
 
- typedef ft::vector<int>                   vector;
- typedef ft::vector<int>::iterator         iterator;
- typedef ft::reverse_iterator<iterator>    reverse_iterator;
+ typedef ft::vector<int>                        int_vector;
+ typedef ft::vector<int>::iterator              int_iterator;
+ typedef ft::reverse_iterator<int_iterator>     int_reverse_iterator;
+
+ typedef ft::vector<std::string>                string_vector;
+ typedef ft::vector<std::string>::iterator      string_iterator;
+ typedef ft::reverse_iterator<string_iterator>  string_reverse_iterator;
 
 #endif // REAL_STD
 
 static void test_reverse_iterator_constructors() {
     println("\ntest reverse iterator constructors");
-    reverse_iterator rit;
+    int_reverse_iterator rit;
 
     int values[] = {21, 42, 84};
-    iterator it(values);
-    reverse_iterator rit_init(it);
+    int_iterator it(values);
+    int_reverse_iterator rit_init(it);
 
-    reverse_iterator rit_copy(rit);
+    int_reverse_iterator rit_copy(rit);
 
     (void)rit;
     (void)rit_copy;
@@ -35,10 +43,10 @@ static void test_reverse_iterator_constructors() {
 static void test_base() {
     println("\ntest reverse iterator base()");
     int values[] = {21, 42, 84};
-    iterator it(values);
-    reverse_iterator rit(it);
+    int_iterator it(values);
+    int_reverse_iterator rit(it);
 
-    iterator base = rit.base();
+    int_iterator base = rit.base();
 
     std::cout << "*base -> " << *base << std::endl;
     std::cout << "*it -> " << *it << std::endl;
@@ -49,8 +57,8 @@ static void test_dereference_operator() {
     println("\ntest reverse iterator operator*");
 
     int values[] = {21, 42, 84};
-    iterator it(values + 2);
-    reverse_iterator rit(it);
+    int_iterator it(values + 2);
+    int_reverse_iterator rit(it);
 
     int value = *rit;
     std::cout << "value -> " << value << std::endl;
@@ -60,8 +68,8 @@ static void test_addition_operator() {
     println("\ntest reverse iterator operator+");
 
     int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    iterator it(values + 5);
-    reverse_iterator rit(it);
+    int_iterator it(values + 5);
+    int_reverse_iterator rit(it);
 
     int value = *(rit + 2);
     std::cout << "*(rit + 2) -> " << value << std::endl;
@@ -73,8 +81,8 @@ static void test_increment_operator() {
     println("\ntest reverse iterator operator++");
 
     int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    iterator it(values + 7);
-    reverse_iterator rit(it);
+    int_iterator it(values + 7);
+    int_reverse_iterator rit(it);
 
     int value = *++rit;
     std::cout << "*++rit -> " << value << std::endl;
@@ -88,8 +96,8 @@ static void test_compound_assignment_operator() {
     println("\ntest reverse iterator operators += and -=");
 
     int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    iterator it(values + 5);
-    reverse_iterator rit(it);
+    int_iterator it(values + 5);
+    int_reverse_iterator rit(it);
 
     std::cout << "*rit -> " << *rit << std::endl;
     rit += 2;
@@ -102,8 +110,8 @@ static void test_subtraction_operator() {
     println("\ntest reverse iterator operator-");
 
     int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    iterator it(values + 2);
-    reverse_iterator rit(it);
+    int_iterator it(values + 2);
+    int_reverse_iterator rit(it);
 
 
     std::cout << "*rit -> " << *rit << std::endl;
@@ -115,8 +123,8 @@ static void test_decrement_operator() {
     println("\ntest reverse iterator operator--");
 
     int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-    iterator it(values + 2);
-    reverse_iterator rit(it);
+    int_iterator it(values + 2);
+    int_reverse_iterator rit(it);
 
     for (int i = 0; i < 7; i++) {
         if (i % 2 == 0)
@@ -125,6 +133,22 @@ static void test_decrement_operator() {
             std::cout << "*--rit -> " << *--rit << std::endl;
     }
 
+}
+
+static void test_arrow_dereference_operator() {
+    println("\ntest reverse iterator operator->");
+
+    std::string strings[] = {"algol", "bcpl", "crystal", "d", "erlang"};
+
+    string_iterator it(strings + 5);
+    string_reverse_iterator rit(it);
+
+    const char *cstr;
+    for (int i = 0; i < 5; i++) {
+        cstr = rit++->c_str();
+        std::cout << cstr << std::endl;
+    }
+    cstr = rit->c_str();
 }
 
 void testReverseIterator(void) {
@@ -136,4 +160,5 @@ void testReverseIterator(void) {
     test_compound_assignment_operator();
     test_subtraction_operator();
     test_decrement_operator();
+    test_arrow_dereference_operator();
 }

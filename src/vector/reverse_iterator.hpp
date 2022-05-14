@@ -38,6 +38,10 @@ public:
         return *(--iterator_type(current));
     }
 
+    pointer operator->() const {
+        return &*(--iterator_type(current));
+    }
+
     reverse_iterator operator+(difference_type n) const {
         return reverse_iterator(this->base() - n);
     }
@@ -65,11 +69,6 @@ public:
     reverse_iterator operator-(difference_type n) {
         return reverse_iterator(this->base() + n);
     }
-    
-    reverse_iterator& operator-=(difference_type n) {
-        this->current += n;
-        return *this;
-    }
 
     reverse_iterator& operator--() {
         ++this->current;
@@ -78,6 +77,11 @@ public:
 
     reverse_iterator operator--(int) {
         return reverse_iterator(this->current++);
+    }
+    
+    reverse_iterator& operator-=(difference_type n) {
+        this->current += n;
+        return *this;
     }
 
 protected:
