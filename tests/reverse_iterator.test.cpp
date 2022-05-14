@@ -1,3 +1,5 @@
+#include "test_utils.hpp"
+#include <iostream>
 #if REAL_STD
 # include <vector>
 # include <iterator>
@@ -6,7 +8,7 @@
  typedef std::vector<int>::iterator         iterator;
  typedef std::reverse_iterator<iterator>    reverse_iterator;
 
-#else
+#else // !REAL_STD
 # include <vector.hpp>
 # include <vector/reverse_iterator.hpp>
 
@@ -17,6 +19,7 @@
 #endif // REAL_STD
 
 static void test_reverse_iterator_constructors() {
+    println("\ntest reverse iterator constructors");
     reverse_iterator rit;
 
     int values[] = {21, 42, 84};
@@ -29,6 +32,20 @@ static void test_reverse_iterator_constructors() {
     (void)rit_copy;
 }
 
+static void test_base() {
+    println("\ntest reverse iterator base()");
+    int values[] = {21, 42, 84};
+    iterator it(values);
+    reverse_iterator rit(it);
+
+    iterator base = rit.base();
+
+    std::cout << "*base -> " << *base << std::endl;
+    std::cout << "*it -> " << *it << std::endl;
+    std::cout << "*base == *it" << (*base == *it) << std::endl;
+}
+
 void testReverseIterator(void) {
     test_reverse_iterator_constructors();
+    test_base();
 }
