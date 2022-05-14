@@ -111,6 +111,22 @@ static void test_subtraction_operator() {
     std::cout << "rit -= 3 -> " << *(rit - 5) << std::endl;
 }
 
+static void test_decrement_operator() {
+    println("\ntest reverse iterator operator--");
+
+    int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    iterator it(values + 2);
+    reverse_iterator rit(it);
+
+    for (int i = 0; i < 7; i++) {
+        if (i % 2 == 0)
+            std::cout << "*rit-- -> " << *rit-- << std::endl;
+        else
+            std::cout << "*--rit -> " << *--rit << std::endl;
+    }
+
+}
+
 void testReverseIterator(void) {
     test_reverse_iterator_constructors();
     test_base();
@@ -119,4 +135,5 @@ void testReverseIterator(void) {
     test_increment_operator();
     test_compound_assignment_operator();
     test_subtraction_operator();
+    test_decrement_operator();
 }
