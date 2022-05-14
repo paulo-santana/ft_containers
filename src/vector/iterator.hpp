@@ -26,7 +26,7 @@ public:
 
     VectorIterator() : p(T()) { }
 
-    VectorIterator(const T& _p) : p(_p) { }
+    explicit VectorIterator(const T& _p) : p(_p) { }
 
     template<typename _Iter>
     VectorIterator(const VectorIterator<_Iter, 
