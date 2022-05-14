@@ -11,13 +11,13 @@
 	#include <vector.hpp>
 #endif
 
-void test_vector_default_constructor(void) {
+static void test_vector_default_constructor(void) {
     println("\ntest vector default constructor");
     ft::vector<int> *vector1 = new ft::vector<int>();
     delete vector1;
 }
 
-void test_vector_allocator_constructor(void) {
+static void test_vector_allocator_constructor(void) {
     println("\ntest vector allocator constructor");
 
     class my_alloc: public std::allocator<int> { };
@@ -29,7 +29,7 @@ void test_vector_allocator_constructor(void) {
 
 }
 
-void test_vector_allocator(void) {
+static void test_vector_allocator(void) {
     println("\ntest vector default allocator");
     ft::vector<int> vector1;
     std::vector<int> vector2;
@@ -40,7 +40,7 @@ void test_vector_allocator(void) {
     assertEquals(a, b, "allocator1 == allocator2");
 }
 
-void test_vector_push_back(void) {
+static void test_vector_push_back(void) {
     println("\ntest vector.push_back()");
     ft::vector<int> vector1;
     std::vector<int> vector2;
@@ -69,7 +69,7 @@ void test_vector_push_back(void) {
     assertEquals(*addr1++, *addr2++, "*addr1++ == *addr2++");
 }
 
-void test_vector_max_size(void) {
+static void test_vector_max_size(void) {
     println("\ntest vector.max_size()");
 
     ft::vector<int> vect;
@@ -79,7 +79,7 @@ void test_vector_max_size(void) {
     std::cout << "vect.max_size(): " << str_vect.max_size() << std::endl;
 }
 
-void test_vector_n_constructor(void) {
+static void test_vector_n_constructor(void) {
     println("\ntest vector<int>(17)");
 
     ft::vector<int> vect(17);
@@ -92,7 +92,7 @@ void test_vector_n_constructor(void) {
     std::cout << "vect.capacity(): " << str_vect.capacity() << std::endl;
 }
 
-void test_vector_n_and_type_constructor(void) {
+static void test_vector_n_and_type_constructor(void) {
     println("\ntest vector<int>(3, 80)");
 
     ft::vector<int> vect(3, 80);
@@ -118,7 +118,7 @@ void test_vector_n_and_type_constructor(void) {
     std::cout << std::endl;
 }
 
-void test_vector_const_iterator() {
+static void test_vector_const_iterator() {
 #if REAL_STD
     std::vector<int> powers(6);
     ft::vector<float> fpowers(6);
@@ -146,7 +146,7 @@ void test_vector_const_iterator() {
     // const_float_it = const_it;
 }
 
-void test_vector_end() {
+static void test_vector_end() {
 #if REAL_STD
     std::vector<int> powers(6);
     std::vector<int>::iterator it = powers.begin();
@@ -162,7 +162,7 @@ void test_vector_end() {
     std::cout << "end - it == " << size << std::endl;
 }
 
-void test_vector_const_end() {
+static void test_vector_const_end() {
 #if REAL_STD
     std::vector<int> powers(6);
     std::vector<int>::const_iterator it = powers.begin();
@@ -178,7 +178,7 @@ void test_vector_const_end() {
     std::cout << "end - it == " << size << std::endl;
 }
 
-void test_vector_iterator_and_const_iterator_integration() {
+static void test_vector_iterator_and_const_iterator_integration() {
 
 #if REAL_STD
     std::vector<int> powers(6);
