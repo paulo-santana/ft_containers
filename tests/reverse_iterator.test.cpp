@@ -77,11 +77,11 @@ static void test_increment_operator() {
     reverse_iterator rit(it);
 
     int value = *++rit;
-    std::cout << "*++rit ->" << value << std::endl;
+    std::cout << "*++rit -> " << value << std::endl;
     value = *rit++;
-    std::cout << "*rit++ ->" << value << std::endl;
+    std::cout << "*rit++ -> " << value << std::endl;
     value = *rit;
-    std::cout << "*rit ->" << value << std::endl;
+    std::cout << "*rit -> " << value << std::endl;
 }
 
 static void test_compound_assignment_operator() {
@@ -91,11 +91,24 @@ static void test_compound_assignment_operator() {
     iterator it(values + 5);
     reverse_iterator rit(it);
 
-    std::cout << "*rit ->" << *rit << std::endl;
+    std::cout << "*rit -> " << *rit << std::endl;
     rit += 2;
-    std::cout << "rit += 2 ->" << *rit << std::endl;
+    std::cout << "rit += 2 -> " << *rit << std::endl;
     rit -= 3;
-    std::cout << "rit -= 3 ->" << *rit << std::endl;
+    std::cout << "rit -= 3 -> " << *rit << std::endl;
+}
+
+static void test_subtraction_operator() {
+    println("\ntest reverse iterator operator-");
+
+    int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    iterator it(values + 2);
+    reverse_iterator rit(it);
+
+
+    std::cout << "*rit -> " << *rit << std::endl;
+    std::cout << "*(rit - 2) -> " << *(rit - 2) << std::endl;
+    std::cout << "rit -= 3 -> " << *(rit - 5) << std::endl;
 }
 
 void testReverseIterator(void) {
@@ -105,4 +118,5 @@ void testReverseIterator(void) {
     test_addition_operator();
     test_increment_operator();
     test_compound_assignment_operator();
+    test_subtraction_operator();
 }

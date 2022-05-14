@@ -61,6 +61,10 @@ public:
         this->current -= n;
         return *this;
     }
+
+    reverse_iterator operator-(difference_type n) {
+        return reverse_iterator(this->base() + n);
+    }
     
     reverse_iterator& operator-=(difference_type n) {
         this->current += n;
