@@ -71,6 +71,15 @@ public:
         return *this;
     }
 
+    reverse_iterator& operator--() {
+        ++this->current;
+        return *this;
+    }
+
+    reverse_iterator operator--(int) {
+        return reverse_iterator(this->current++);
+    }
+
 protected:
     _Iterator current;
 };
