@@ -46,6 +46,17 @@ public:
         return me + n;
     }
 
+    reverse_iterator& operator++() {
+        --this->current;
+        return *this;
+    }
+
+    reverse_iterator operator++(int) {
+        reverse_iterator tmp = *this;
+        ++*this;
+        return tmp;
+    }
+
 protected:
     _Iterator current;
 };
