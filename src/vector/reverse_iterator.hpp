@@ -84,6 +84,10 @@ public:
         return *this;
     }
 
+    reference operator[](difference_type n) const {
+        return this->base()[-n - 1];
+    }
+
 protected:
     _Iterator current;
 };

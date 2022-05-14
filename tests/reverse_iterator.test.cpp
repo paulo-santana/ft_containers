@@ -151,6 +151,18 @@ static void test_arrow_dereference_operator() {
     cstr = rit->c_str();
 }
 
+static void test_offset_operator() {
+    println("\ntest reverse iterator operator--");
+
+    int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int_iterator it(values + 8);
+    int_reverse_iterator rit(it);
+
+    for (int i = 0; i < 7; i++) {
+        std::cout << "rit[ " << i << "] -> " << rit[i] << std::endl;
+    }
+}
+
 void testReverseIterator(void) {
     test_reverse_iterator_constructors();
     test_base();
@@ -161,4 +173,5 @@ void testReverseIterator(void) {
     test_subtraction_operator();
     test_decrement_operator();
     test_arrow_dereference_operator();
+    test_offset_operator();
 }
