@@ -1,7 +1,6 @@
-#include <iterator>
-
 #if REAL_STD
 # include <vector>
+# include <iterator>
 
  typedef std::vector<int>                   vector;
  typedef std::vector<int>::iterator         iterator;
@@ -19,6 +18,11 @@
 
 static void test_reverse_iterator_constructors() {
     reverse_iterator rit;
+
+    int values[] = {21, 42, 84};
+    iterator it(values);
+    reverse_iterator rit_init(it);
+
     reverse_iterator rit_copy(rit);
 
     (void)rit;
