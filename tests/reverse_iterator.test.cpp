@@ -163,6 +163,28 @@ static void test_offset_operator() {
     }
 }
 
+static void test_relational_operators() {
+    println("\ntest reverse iterator relational operators");
+    int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int_iterator it(values + 5);
+    int_reverse_iterator rit(it);
+    int_reverse_iterator rit2(it);
+    int_reverse_iterator rit3(it + 3);
+
+    std::cout << "rit == rit2 -> " << (rit == rit2) << std::endl;
+    std::cout << "rit == rit3 -> " << (rit == rit3) << std::endl;
+    std::cout << "rit != rit2 -> " << (rit != rit2) << std::endl;
+    std::cout << "rit != rit3 -> " << (rit != rit3) << std::endl;
+    std::cout << "rit < rit2 -> " << (rit < rit2) << std::endl;
+    std::cout << "rit < rit3 -> " << (rit < rit3) << std::endl;
+    std::cout << "rit > rit2 -> " << (rit > rit2) << std::endl;
+    std::cout << "rit > rit3 -> " << (rit > rit3) << std::endl;
+    std::cout << "rit <= rit2 -> " << (rit <= rit2) << std::endl;
+    std::cout << "rit <= rit3 -> " << (rit <= rit3) << std::endl;
+    std::cout << "rit >= rit2 -> " << (rit >= rit2) << std::endl;
+    std::cout << "rit >= rit3 -> " << (rit >= rit3) << std::endl;
+}
+
 void testReverseIterator(void) {
     test_reverse_iterator_constructors();
     test_base();
@@ -174,4 +196,5 @@ void testReverseIterator(void) {
     test_decrement_operator();
     test_arrow_dereference_operator();
     test_offset_operator();
+    test_relational_operators();
 }

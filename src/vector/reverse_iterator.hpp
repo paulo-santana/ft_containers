@@ -92,6 +92,36 @@ protected:
     _Iterator current;
 };
 
+template<typename _Iter>
+bool operator==(const reverse_iterator<_Iter>& lhs, const reverse_iterator<_Iter>& rhs) {
+    return lhs.base() == rhs.base();
+}
+
+template<typename _Iter>
+bool operator!=(const reverse_iterator<_Iter>& lhs, const reverse_iterator<_Iter>& rhs) {
+    return lhs.base() != rhs.base();
+}
+
+template<typename _Iter>
+bool operator<(const reverse_iterator<_Iter>& lhs, const reverse_iterator<_Iter>& rhs) {
+    return lhs.base() > rhs.base();
+}
+
+template<typename _Iter>
+bool operator>(const reverse_iterator<_Iter>& lhs, const reverse_iterator<_Iter>& rhs) {
+    return lhs.base() < rhs.base();
+}
+
+template<typename _Iter>
+bool operator<=(const reverse_iterator<_Iter>& lhs, const reverse_iterator<_Iter>& rhs) {
+    return lhs.base() >= rhs.base();
+}
+
+template<typename _Iter>
+bool operator>=(const reverse_iterator<_Iter>& lhs, const reverse_iterator<_Iter>& rhs) {
+    return lhs.base() <= rhs.base();
+}
+
 }
 
 #endif // !REVERSE_ITERATOR_HPP
