@@ -18,10 +18,21 @@ class reverse_iterator
   >
 {
 public:
+    typedef _Iterator                                                   iterator_type;
+    typedef typename ft::iterator_traits<_Iterator>::iterator_category  iterator_category;
+    typedef typename ft::iterator_traits<_Iterator>::value_type         value_type;
+    typedef typename ft::iterator_traits<_Iterator>::difference_type    difference_type;
+    typedef typename ft::iterator_traits<_Iterator>::pointer            pointer;
+    typedef typename ft::iterator_traits<_Iterator>::reference          reference;
+
     reverse_iterator(): current() {}
-    explicit reverse_iterator(_Iterator iter): current(iter) {}
+    explicit reverse_iterator(iterator_type iter): current(iter) {}
     reverse_iterator(const reverse_iterator &other): current(other.current) {}
     ~reverse_iterator() {}
+
+    iterator_type base() const {
+        return this->current;
+    }
 
 protected:
     _Iterator current;
