@@ -112,11 +112,12 @@ static void test_subtraction_operator() {
     int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
     int_iterator it(values + 2);
     int_reverse_iterator rit(it);
-
+    int_reverse_iterator rit2(it + 3);
 
     std::cout << "*rit -> " << *rit << std::endl;
     std::cout << "*(rit - 2) -> " << *(rit - 2) << std::endl;
-    std::cout << "rit -= 3 -> " << *(rit - 5) << std::endl;
+    std::cout << "*(rit - 5) -> " << *(rit - 5) << std::endl;
+    std::cout << "rit - rit2 -> " << rit - rit2 << std::endl;
 }
 
 static void test_decrement_operator() {

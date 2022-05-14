@@ -70,6 +70,10 @@ public:
         return reverse_iterator(this->base() + n);
     }
 
+    friend difference_type operator-(const reverse_iterator& lhs, const reverse_iterator& rhs) {
+        return rhs.base() - lhs.base();
+    }
+
     reverse_iterator& operator--() {
         ++this->current;
         return *this;
