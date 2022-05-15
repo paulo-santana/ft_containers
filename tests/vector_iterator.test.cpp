@@ -182,15 +182,36 @@ static void test_vector_iterator_offset_dereference() {
 static void test_vector_iterator_const_integration() {
     int values[] = {42, 21, 84, 22};
 
-    int_iterator it(values);
-    int_const_iterator cit(values);
+    int_iterator it(values + 1);
+    int_const_iterator cit(values + 2);
 
     println("\ntest iterator and const_iterator");
 
-    std::cout << "cit == it == " << (cit == it) << std::endl;
-    std::cout << "cit - it == " << (cit - it) << std::endl;
-    std::cout << "cit < it == " << (cit < it) << std::endl;
+    std::cout << "cit == it -> " << (cit == it) << std::endl;
+    std::cout << "cit != it -> " << (cit != it) << std::endl;
+    std::cout << "cit - it -> "  << (cit - it) << std::endl;
+    std::cout << "cit < it -> "  << (cit < it) << std::endl;
+    std::cout << "cit > it -> "  << (cit > it) << std::endl;
+    std::cout << "cit <= it -> " << (cit <= it) << std::endl;
+    std::cout << "cit >= it -> " << (cit >= it) << std::endl;
+    std::cout << "cit + 1 -> "   << *(cit + 1) << std::endl;
+    std::cout << "cit - 1 -> "   << *(cit - 1) << std::endl;
 
+    std::cout << "it == cit -> " << (it == cit) << std::endl;
+    std::cout << "it != cit -> " << (it != cit) << std::endl;
+    std::cout << "it - cit -> "  << (it - cit) << std::endl;
+    std::cout << "it < cit -> "  << (it < cit) << std::endl;
+    std::cout << "it > cit -> "  << (it > cit) << std::endl;
+    std::cout << "it <= cit -> " << (it <= cit) << std::endl;
+    std::cout << "it >= cit -> " << (it >= cit) << std::endl;
+    std::cout << "it + 1 -> "   << *(it + 1) << std::endl;
+    std::cout << "it - 1 -> "   << *(it - 1) << std::endl;
+
+    // shouldn't compile
+    // int_iterator dummy = cit - 3;
+    // std::string strings[] = {"a", "b", "c", "d", "e"};
+    // string_const_iterator sit(strings);
+    // std::cout << "cit == sit -> " << (cit == sit) << std::endl;
 }
 
 void testVectorIterator(void) {
