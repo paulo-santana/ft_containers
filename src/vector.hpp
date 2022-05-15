@@ -1,4 +1,5 @@
 #pragma once
+#include "vector/reverse_iterator.hpp"
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
@@ -22,8 +23,10 @@ public:
     typedef typename allocator_type::pointer            pointer;
     typedef typename allocator_type::const_pointer      const_pointer;
 
-    typedef ft::VectorIterator<pointer, _Self>                 iterator;
-    typedef ft::VectorIterator<const_pointer, _Self>           const_iterator;
+    typedef ft::VectorIterator<pointer, _Self>          iterator;
+    typedef ft::VectorIterator<const_pointer, _Self>    const_iterator;
+    typedef ft::reverse_iterator<iterator>              reverse_iterator;
+    typedef ft::reverse_iterator<const_iterator>        const_reverse_iterator;
 
     // default constructor
     vector(const allocator_type& alloc = allocator_type()) {
