@@ -4,27 +4,31 @@
 # include <vector>
 # include <iterator>
 
- typedef std::vector<int>                       int_vector;
- typedef std::vector<int>::iterator             int_iterator;
- typedef std::reverse_iterator<int_iterator>    int_reverse_iterator;
-
- typedef std::vector<std::string>                  string_vector;
- typedef std::vector<std::string>::iterator        string_iterator;
- typedef std::reverse_iterator<string_iterator>    string_reverse_iterator;
+namespace ft = std;
 
 #else // !REAL_STD
 # include <vector.hpp>
 # include <vector/reverse_iterator.hpp>
 
- typedef ft::vector<int>                        int_vector;
- typedef ft::vector<int>::iterator              int_iterator;
- typedef ft::reverse_iterator<int_iterator>     int_reverse_iterator;
-
- typedef ft::vector<std::string>                string_vector;
- typedef ft::vector<std::string>::iterator      string_iterator;
- typedef ft::reverse_iterator<string_iterator>  string_reverse_iterator;
-
 #endif // REAL_STD
+       //
+typedef ft::vector<float>                         float_vector;
+typedef ft::vector<float>::iterator               float_iterator;
+typedef ft::vector<float>::const_iterator         float_const_iterator;
+typedef ft::vector<float>::reverse_iterator       float_reverse_iterator;
+typedef ft::vector<float>::const_reverse_iterator float_const_reverse_iterator;
+
+typedef ft::vector<int>                         int_vector;
+typedef ft::vector<int>::iterator               int_iterator;
+typedef ft::vector<int>::const_iterator         int_const_iterator;
+typedef ft::vector<int>::reverse_iterator       int_reverse_iterator;
+typedef ft::vector<int>::const_reverse_iterator int_const_reverse_iterator;
+
+typedef ft::vector<std::string>                         string_vector;
+typedef ft::vector<std::string>::iterator               string_iterator;
+typedef ft::vector<std::string>::const_iterator         string_const_iterator;
+typedef ft::vector<std::string>::reverse_iterator       string_reverse_iterator;
+typedef ft::vector<std::string>::const_reverse_iterator string_const_reverse_iterator;
 
 static void test_reverse_iterator_constructors() {
     println("\ntest reverse iterator constructors");
@@ -186,6 +190,20 @@ static void test_relational_operators() {
     std::cout << "rit >= rit3 -> " << (rit >= rit3) << std::endl;
 }
 
+static void test_const_integration() {
+    int values[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+    int_iterator it(values + 5);
+    int_const_iterator cit(values + 5);
+    int_reverse_iterator rit(it);
+    // shouldn't compile
+    //int_reverse_iterator rit2(cit);
+    int_const_reverse_iterator crit(cit);
+
+    std::cout << "crit == rit" << (crit == rit) << std::endl;
+    std::cout << "crit - rit" << (crit - rit) << std::endl;
+    // std::cout << "crit - rit" << (crit - rit) << std::endl;
+}
+
 void testReverseIterator(void) {
     test_reverse_iterator_constructors();
     test_base();
@@ -198,4 +216,5 @@ void testReverseIterator(void) {
     test_arrow_dereference_operator();
     test_offset_operator();
     test_relational_operators();
+    test_const_integration();
 }
