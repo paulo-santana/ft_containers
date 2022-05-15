@@ -129,11 +129,11 @@ private:
     allocator_type allocator;
 
     void copy_data(T* dest, T* src) {
-
         for (size_type i = 0; i < this->num_items; i++) {
             this->allocator.construct(dest + i, src[i]);
         }
     }
+
     void destroy_data(T* _data, size_type n) {
         for (size_type i = 0; i < n; i++) {
             this->allocator.destroy(_data + i);

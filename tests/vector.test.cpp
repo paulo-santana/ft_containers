@@ -1,5 +1,7 @@
 #include "test_utils.hpp"
 #include <algorithm>
+#include <iostream>
+#include <typeinfo>
 
 #if REAL_STD //CREATE A REAL STL EXAMPLE
 	#include <vector>
@@ -25,48 +27,36 @@ static void test_vector_allocator_constructor(void) {
     my_alloc alloc;
 
     ft::vector<int> vector1(alloc);
-    std::vector<int> vector2(alloc);
 
 }
 
 static void test_vector_allocator(void) {
     println("\ntest vector default allocator");
+
     ft::vector<int> vector1;
-    std::vector<int> vector2;
 
     std::allocator<int> a = vector1.get_allocator();
-    std::allocator<int> b = vector2.get_allocator();
 
-    assertEquals(a, b, "allocator1 == allocator2");
+    std::cout << "typeid(vector1.get_allocator()) == " << typeid(a).name() << std::endl;
 }
 
 static void test_vector_push_back(void) {
     println("\ntest vector.push_back()");
-    ft::vector<int> vector1;
-    std::vector<int> vector2;
-
-    int size1, size2;
-    int capacity1, capacity2;
+    ft::vector<int> vect;
 
     for (int i = 0; i < 4; i++) {
-        size1 = vector1.size();
-        size2 = vector2.size();
-        assertEquals(size1, size2, "size1 == size2");
-        capacity1 = vector1.capacity();
-        capacity2 = vector2.capacity();
-        assertEquals(capacity1, capacity2, "capacity1 == capacity2");
-        vector1.push_back(20 - i);
-        vector2.push_back(20 - i);
+        std::cout << "vect.size() == " << vect.size() << std::endl;
+        std::cout << "vect.capacity() == " << vect.capacity() << std::endl;
+        vect.push_back(20 - i);
     }
 
-    int *addr1 = &*vector1.begin();
-    int *addr2 = &*vector2.begin();
+    int *addr = &*vect.begin();
 
-    println("int *addr1 = &*vector1.begin();");
-    println("int *addr2 = &*vector2.begin();");
-    assertEquals(*addr1++, *addr2++, "*addr1++ == *addr2++");
-    assertEquals(*addr1++, *addr2++, "*addr1++ == *addr2++");
-    assertEquals(*addr1++, *addr2++, "*addr1++ == *addr2++");
+    println("int *addr = &*vector1.begin();");
+
+    std::cout << "*addr++ == " << *addr++ << ", ";
+    std::cout << "*addr++ == " << *addr++ << ", ";
+    std::cout << "*addr++ == " << *addr++ << std::endl;
 }
 
 static void test_vector_max_size(void) {
@@ -119,17 +109,6 @@ static void test_vector_n_and_type_constructor(void) {
 }
 
 static void test_vector_const_iterator() {
-#if REAL_STD
-    std::vector<int> powers(6);
-    ft::vector<float> fpowers(6);
-    for (int i = 0; i < 6; i++) {
-        powers.push_back(i * i);
-    }
-    std::vector<int>::iterator it = powers.begin();
-    std::vector<int>::const_iterator const_it = powers.begin();
-    std::vector<float>::const_iterator const_float_it = fpowers.begin();
-
-#else
     ft::vector<int> powers(6);
     ft::vector<float> fpowers(6);
     for (int i = 0; i < 6; i++) {
@@ -138,7 +117,6 @@ static void test_vector_const_iterator() {
     ft::vector<int>::iterator it = powers.begin();
     ft::vector<int>::const_iterator const_it = powers.begin();
     ft::vector<float>::const_iterator const_float_it = fpowers.begin();
-#endif
     const_it = it;
 
     (void)const_float_it;
@@ -147,15 +125,9 @@ static void test_vector_const_iterator() {
 }
 
 static void test_vector_end() {
-#if REAL_STD
-    std::vector<int> powers(6);
-    std::vector<int>::iterator it = powers.begin();
-    std::vector<int>::iterator end = powers.end();
-#else
     ft::vector<int> powers(6);
     ft::vector<int>::iterator it = powers.begin();
     ft::vector<int>::iterator end = powers.end();
-#endif
 
     long size = end - it;
 
@@ -163,15 +135,9 @@ static void test_vector_end() {
 }
 
 static void test_vector_const_end() {
-#if REAL_STD
-    std::vector<int> powers(6);
-    std::vector<int>::const_iterator it = powers.begin();
-    std::vector<int>::const_iterator end = powers.end();
-#else
     ft::vector<int> powers(6);
     ft::vector<int>::const_iterator it = powers.begin();
     ft::vector<int>::const_iterator end = powers.end();
-#endif
 
     long size = end - it;
 
@@ -180,22 +146,17 @@ static void test_vector_const_end() {
 
 static void test_vector_iterator_and_const_iterator_integration() {
 
-#if REAL_STD
-    std::vector<int> powers(6);
-    std::vector<int>::iterator it = powers.begin();
-    std::vector<int>::const_iterator cit = it;
-    std::vector<int>::iterator end = powers.end();
-    std::vector<int>::const_iterator cend = powers.end();
-#else
     ft::vector<int> powers(6);
     ft::vector<int>::iterator it = powers.begin();
     ft::vector<int>::const_iterator cit = it;
     ft::vector<int>::iterator end = powers.end();
     ft::vector<int>::const_iterator cend = powers.end();
-#endif
+    const ft::vector<int> const_vector(5);
 
     cit = it;
     cend = end;
+
+    ft::vector<int>::const_iterator const_it = const_vector.begin();
 
     long size = end - it;
 
@@ -203,7 +164,8 @@ static void test_vector_iterator_and_const_iterator_integration() {
     // shoudln't compile
     // it = cit;
     // end = cend;
-
+    // ft::vector<int>::iterator normal_it = const_vector.begin();
+    (void)const_it;
 }
 
 void testVector(void) {
