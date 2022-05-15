@@ -119,6 +119,11 @@ public:
         return me.base() - other.base();
     }
 
+    template<typename _Other>
+    friend bool operator<(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
+        return me.base() < other.base();
+    }
+
     const T& base() const {
         return this->p;
     }

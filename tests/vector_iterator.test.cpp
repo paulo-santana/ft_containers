@@ -218,6 +218,23 @@ static void test_vector_iterator_offset_dereference() {
 
 }
 
+static void test_vector_iterator_const_integration() {
+    int values[] = {42, 21, 84, 22};
+#if REAL_STD
+    std::vector<int>::iterator it(values);
+    std::vector<int>::const_iterator cit(values);
+#else
+    ft::vector<int>::iterator it(values);
+    ft::vector<int>::const_iterator cit(values);
+#endif
+    println("\ntest iterator and const_iterator");
+
+    std::cout << "cit == it == " << (cit == it) << std::endl;
+    std::cout << "cit - it == " << (cit - it) << std::endl;
+    std::cout << "cit < it == " << (cit < it) << std::endl;
+
+}
+
 void testVectorIterator(void) {
 
     test_vector_iterator_constructors();
@@ -233,4 +250,6 @@ void testVectorIterator(void) {
     test_vector_iterator_compound_assignment();
 
     test_vector_iterator_offset_dereference();
+
+    test_vector_iterator_const_integration();
 }
