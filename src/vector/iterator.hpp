@@ -110,18 +110,38 @@ public:
     }
 
     template<typename _Other>
-    friend bool operator==(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
-        return me.base() == other.base();
+    friend difference_type operator-(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
+        return me.p - other.base();
     }
 
     template<typename _Other>
-    friend difference_type operator-(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
-        return me.base() - other.base();
+    friend bool operator==(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
+        return me.p == other.base();
+    }
+
+    template<typename _Other>
+    friend bool operator!=(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
+        return me.p != other.base();
     }
 
     template<typename _Other>
     friend bool operator<(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
-        return me.base() < other.base();
+        return me.p < other.base();
+    }
+
+    template<typename _Other>
+    friend bool operator>(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
+        return me.p > other.base();
+    }
+
+    template<typename _Other>
+    friend bool operator<=(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
+        return me.p <= other.base();
+    }
+
+    template<typename _Other>
+    friend bool operator>=(const VectorIterator& me, const VectorIterator<_Other, _Container>& other) {
+        return me.p >= other.base();
     }
 
     const T& base() const {
