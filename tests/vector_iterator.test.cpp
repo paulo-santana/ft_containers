@@ -21,7 +21,7 @@ typedef ft::vector<int>::const_iterator         int_const_iterator;
 typedef ft::vector<std::string>::iterator       string_iterator;
 typedef ft::vector<std::string>::const_iterator string_const_iterator;
 
-static void test_vector_iterator_constructors(void) {
+static void test_constructors(void) {
     println("\ntest VectorIterator constructors");
 
     int_iterator* it = new int_iterator();
@@ -37,7 +37,7 @@ static void test_vector_iterator_constructors(void) {
     (void)otherIt;
 }
 
-static void test_vector_iterator_equality(void) {
+static void test_equality(void) {
     int values[] = {42, 21, 84};
 
     int_iterator it(values);
@@ -53,7 +53,7 @@ static void test_vector_iterator_equality(void) {
     std::cout << "it != differentIt: " << std::boolalpha << (it != differentIt) << std::endl;
 }
 
-static void test_vector_iterator_dereference(void) {
+static void test_dereference(void) {
     std::string strings[] = {"HI!", "BYE!"};
     int values[] = {42, 21, 84};
 
@@ -70,7 +70,7 @@ static void test_vector_iterator_dereference(void) {
 
 }
 
-static void test_vector_iterator_increment(void) {
+static void test_increment(void) {
     int values[] = {42, 21, 84};
 
     int_iterator it(values);
@@ -82,7 +82,7 @@ static void test_vector_iterator_increment(void) {
     std::cout << "*it++ == " << *it++ << std::endl;
 }
 
-static void test_vector_iterator_decrement(void) {
+static void test_decrement(void) {
     int values[] = {42, 21, 84};
 
     int_iterator it(values + 2);
@@ -94,7 +94,7 @@ static void test_vector_iterator_decrement(void) {
     std::cout << "*it-- == " << *it-- << std::endl;
 }
 
-static void test_vector_iterator_arithmetic() {
+static void test_arithmetic() {
 
     int values[] = {42, 21, 84, 22};
 
@@ -121,7 +121,7 @@ static void test_vector_iterator_arithmetic() {
     std::cout << "itend - it == " << (itend - it) << std::endl;
 }
 
-static void test_vector_iterator_relational() {
+static void test_relational() {
 
     int values[] = {42, 21, 84, 22};
 
@@ -147,7 +147,7 @@ static void test_vector_iterator_relational() {
     std::cout << "end >= it == " << std::boolalpha << (itend >= it) << std::endl;
 }
 
-static void test_vector_iterator_compound_assignment() {
+static void test_compound_assignment() {
     int values[] = {42, 21, 84, 22};
 
     int_iterator it(values);
@@ -163,7 +163,7 @@ static void test_vector_iterator_compound_assignment() {
 
 }
 
-static void test_vector_iterator_offset_dereference() {
+static void test_offset_dereference() {
     int values[] = {42, 21, 84, 22};
 
     int_iterator it(values);
@@ -179,7 +179,7 @@ static void test_vector_iterator_offset_dereference() {
 
 }
 
-static void test_vector_iterator_const_integration() {
+static void test_const_integration() {
     int values[] = {42, 21, 84, 22};
 
     int_iterator it(values + 1);
@@ -216,19 +216,19 @@ static void test_vector_iterator_const_integration() {
 
 void testVectorIterator(void) {
 
-    test_vector_iterator_constructors();
-    test_vector_iterator_equality();
-    test_vector_iterator_dereference();
+    test_constructors();
+    test_equality();
+    test_dereference();
 
-    test_vector_iterator_increment();
-    test_vector_iterator_decrement();
+    test_increment();
+    test_decrement();
 
-    test_vector_iterator_arithmetic();
-    test_vector_iterator_relational();
+    test_arithmetic();
+    test_relational();
 
-    test_vector_iterator_compound_assignment();
+    test_compound_assignment();
 
-    test_vector_iterator_offset_dereference();
+    test_offset_dereference();
 
-    test_vector_iterator_const_integration();
+    test_const_integration();
 }
