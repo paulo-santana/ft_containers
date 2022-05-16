@@ -1,5 +1,6 @@
 #include "test_utils.hpp"
 #include <iostream>
+
 #if REAL_STD
 # include <vector>
 # include <iterator>
@@ -199,9 +200,35 @@ static void test_const_integration() {
     //int_reverse_iterator rit2(cit);
     int_const_reverse_iterator crit(cit);
 
-    std::cout << "crit == rit" << (crit == rit) << std::endl;
-    std::cout << "crit - rit" << (crit - rit) << std::endl;
-    // std::cout << "crit - rit" << (crit - rit) << std::endl;
+    println("\ntest reverse_iterator and const_reverse_iterator");
+
+    std::cout << "cit == it -> " << (crit == rit) << std::endl;
+    std::cout << "cit != it -> " << (crit != rit) << std::endl;
+    std::cout << "cit - it -> "  << (crit - rit) << std::endl;
+    std::cout << "cit < it -> "  << (crit < rit) << std::endl;
+    std::cout << "cit > it -> "  << (crit > rit) << std::endl;
+    std::cout << "cit <= it -> " << (crit <= rit) << std::endl;
+    std::cout << "cit >= it -> " << (crit >= rit) << std::endl;
+    std::cout << "cit + 1 -> "   << *(crit + 1) << std::endl;
+    std::cout << "cit - 1 -> "   << *(crit - 1) << std::endl;
+
+    std::cout << "it == cit -> " << (rit == crit) << std::endl;
+    std::cout << "it != cit -> " << (rit != crit) << std::endl;
+    std::cout << "it - cit -> "  << (rit - crit) << std::endl;
+    std::cout << "it < cit -> "  << (rit < crit) << std::endl;
+    std::cout << "it > cit -> "  << (rit > crit) << std::endl;
+    std::cout << "it <= cit -> " << (rit <= crit) << std::endl;
+    std::cout << "it >= cit -> " << (rit >= crit) << std::endl;
+    std::cout << "it + 1 -> "   << *(rit + 1) << std::endl;
+    std::cout << "it - 1 -> "   << *(rit - 1) << std::endl;
+    
+    // shouldn't compile
+    // string_reverse_iterator srit;
+    // string_const_reverse_iterator scrit;
+    // bool equal = (crit == scrit);
+    // equal = (rit == scrit);
+    // equal = it == srit;
+    // (void)equal;
 }
 
 void testReverseIterator(void) {
