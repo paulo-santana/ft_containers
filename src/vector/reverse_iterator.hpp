@@ -92,10 +92,6 @@ namespace ft {
             return this->base()[-n - 1];
         }
 
-        friend bool operator==(const reverse_iterator& me, const reverse_iterator& other) {
-            return me.base() == other.base();
-        }
-
         template<typename _Other>
         friend difference_type operator-(const reverse_iterator& me, const reverse_iterator<_Other>& other) {
             return other.base() - me.base();
