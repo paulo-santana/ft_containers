@@ -1,15 +1,15 @@
 #include "test_utils.hpp"
 #include <algorithm>
 #include <iostream>
+#include <string>
 #include <typeinfo>
+#include <vector>
 
 #if REAL_STD //CREATE A REAL STL EXAMPLE
-	#include <vector>
 	namespace ft = std;
 #else
 	// #include <map.hpp>
 	// #include <stack.hpp>
-	#include <vector>
 	#include <vector.hpp>
 #endif
 
@@ -28,6 +28,30 @@ static void test_allocator_constructor(void) {
 
     ft::vector<int> vector1(alloc);
 
+}
+
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const ft::vector<T>& vec)
+{
+    out << "[ ";
+    typename ft::vector<T>::const_iterator it;
+    for (it = vec.begin(); it < vec.end() - 1; it++) {
+        out << *it << ", ";
+    }
+    out << *it << " ]" << std::endl;
+    return out;
+}
+
+static void test_fill_constructor() {
+    println("\ntest vector fill constructor");
+
+    ft::vector<int> vec(3);
+    std::cout << "ft::vector<int> vec(3)" << std::endl;
+    std::cout << vec << std::endl;
+
+    ft::vector<int> vec2(3, 4);
+    std::cout << "ft::vector<int> vec(3, 4)" << std::endl;
+    std::cout << vec2 << std::endl;
 }
 
 static void test_allocator(void) {
@@ -171,6 +195,7 @@ static void test_iterator_and_const_iterator_integration() {
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
+    test_fill_constructor();
     test_allocator();
     test_push_back();
     test_max_size();
