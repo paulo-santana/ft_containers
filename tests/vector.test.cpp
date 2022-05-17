@@ -74,13 +74,7 @@ static void test_push_back(void) {
         vect.push_back(20 - i);
     }
 
-    int *addr = &*vect.begin();
-
-    println("int *addr = &*vector1.begin();");
-
-    std::cout << "*addr++ == " << *addr++ << ", ";
-    std::cout << "*addr++ == " << *addr++ << ", ";
-    std::cout << "*addr++ == " << *addr++ << std::endl;
+    std::cout << "vect -> " << vect << std::endl;
 }
 
 static void test_max_size(void) {
@@ -90,7 +84,7 @@ static void test_max_size(void) {
     std::cout << "vect.max_size(): " << vect.max_size() << std::endl;
 
     ft::vector<std::string> str_vect;
-    std::cout << "vect.max_size(): " << str_vect.max_size() << std::endl;
+    std::cout << "str_vect.max_size(): " << str_vect.max_size() << std::endl;
 }
 
 static void test_n_constructor(void) {
@@ -113,11 +107,7 @@ static void test_n_and_type_constructor(void) {
     std::cout << "vect.size(): " << vect.size() << std::endl;
     std::cout << "vect.capacity(): " << vect.capacity() << std::endl;
 
-    int* it = &*vect.begin();
-    for (int i = 0; i < 3; i++) {
-        std::cout << *it++ << ", ";
-    }
-    std::cout << std::endl;
+    std::cout << "vect -> " << vect << std::endl;
 
     println("\ntest vector<int>(3, 80)");
 
@@ -125,11 +115,7 @@ static void test_n_and_type_constructor(void) {
     std::cout << "vect.size(): " << str_vect.size() << std::endl;
     std::cout << "vect.capacity(): " << str_vect.capacity() << std::endl;
 
-    std::string* sit = &*str_vect.begin();
-    for (int i = 0; i < 5; i++) {
-        std::cout << *sit++ << ", ";
-    }
-    std::cout << std::endl;
+    std::cout << "str_vect -> " << str_vect << std::endl;
 }
 
 static void test_const_iterator() {
