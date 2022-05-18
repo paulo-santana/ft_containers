@@ -1,10 +1,13 @@
 #pragma once
-#include "vector/reverse_iterator.hpp"
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
-#include "vector/iterator.hpp"
 #include <memory>
+
+#include "vector/iterator.hpp"
+#include "enable_if.hpp"
+#include "type_traits.hpp"
+#include "vector/reverse_iterator.hpp"
 
 namespace ft
 {
@@ -38,7 +41,11 @@ public:
     }
 
     // fill constructor
-    vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {
+    template<typename _Integer>
+    vector(_Integer n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type(),
+            typename ft::enable_if<ft::is_integral<_Integer>::value, void>::type* = 0
+            ) {
+        
         this->num_items = n;
         this->current_capacity = n;
         this->allocator = alloc;
@@ -50,6 +57,31 @@ public:
             this->allocator.construct(this->data + i, val);
         }
     }
+
+    // range constructor
+    // TODO: trocar pro modo dispatcher
+    template<typename InputIterator>
+    vector(
+            InputIterator start,
+            InputIterator end,
+            const allocator_type& alloc = allocator_type(),
+            typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0
+            ) {
+        size_type size = end - start;
+        this->num_items = size;
+        this->current_capacity = size;
+        this->allocator = alloc;
+        this->max_capacity = alloc.max_size();
+
+        this->data = this->allocator.allocate(size);
+
+        for (size_type i = 0; i < this->num_items; i++) {
+            this->allocator.construct(this->data + i, *start++);
+        }
+        (void)end;
+    }
+
+public:
 
     // copy
     vector(const vector &other) {

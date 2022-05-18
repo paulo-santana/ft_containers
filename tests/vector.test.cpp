@@ -4,6 +4,7 @@
 #include <string>
 #include <typeinfo>
 #include <vector>
+#include <limits>
 
 #if REAL_STD //CREATE A REAL STL EXAMPLE
 	namespace ft = std;
@@ -52,6 +53,22 @@ static void test_fill_constructor() {
     ft::vector<int> vec2(3, 4);
     std::cout << "ft::vector<int> vec(3, 4)" << std::endl;
     std::cout << vec2 << std::endl;
+}
+
+static void test_range_constructor() {
+    println("test vector range constructor");
+    ft::vector<int> vec;
+    vec.push_back(1);
+    vec.push_back(3);
+    vec.push_back(2);
+
+    ft::vector<int>::iterator start = vec.begin();
+    ft::vector<int>::iterator end = vec.end();
+
+    ft::vector<int> vec_range(start, end);
+    std::cout << "vec_range -> " << vec_range << std::endl;
+    std::cout << "capacity: " << vec_range.capacity() << std::endl;
+    std::cout << "size: " << vec_range.size() << std::endl;
 }
 
 static void test_allocator(void) {
@@ -182,6 +199,7 @@ void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
     test_fill_constructor();
+    test_range_constructor();
     test_allocator();
     test_push_back();
     test_max_size();
