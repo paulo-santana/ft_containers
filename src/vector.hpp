@@ -122,15 +122,15 @@ public:
         return this->current_capacity;
     }
 
-    void push_back(int x) {
+    void push_back(const value_type& x) {
         if (this->data == 0) {
             this->data = this->allocator.allocate(1);
             this->current_capacity = 1;
-        } else if (this->num_items + 1 > this->current_capacity) {
+        } else if (this->num_items >= this->current_capacity) {
             grow_vector();
         }
 
-        this->data[this->num_items] = x;
+        allocator.construct(&this->data[this->num_items], x);
         this->num_items++;
     }
 

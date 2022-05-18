@@ -91,6 +91,11 @@ static void test_push_back(void) {
         vect.push_back(20 - i);
     }
 
+    ft::vector<std::string> string_vec;
+    string_vec.push_back("teste 1");
+    string_vec.push_back("teste 2");
+    string_vec.push_back("teste 3");
+
     std::cout << "vect -> " << vect << std::endl;
 }
 
