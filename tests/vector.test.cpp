@@ -210,6 +210,23 @@ static void test_iterator_and_const_iterator_integration() {
     (void)const_it;
 }
 
+static void test_rbegin() {
+    println("test vector.rbegin()");
+
+    ft::vector<int> powers;
+    for (int i = 9; i < 15; i++) {
+        powers.push_back(i * i);
+    }
+
+    ft::vector<int>::reverse_iterator rit = powers.rbegin();
+
+    std::cout << "rbegin() -> ";
+    for (int i = 9; i < 15; i++) {
+        std::cout << *rit++ << ", ";
+    }
+    std::cout << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -225,4 +242,5 @@ void testVector(void) {
     test_const_iterator();
     test_const_end();
     test_iterator_and_const_iterator_integration();
+    test_rbegin();
 }

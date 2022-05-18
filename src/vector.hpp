@@ -151,6 +151,10 @@ public:
         return VectorIterator<const_pointer, _Self>(this->data + this->num_items);
     }
 
+    reverse_iterator rbegin(void) {
+        return reverse_iterator(this->end());
+    }
+
 private:
     T *data;
 
