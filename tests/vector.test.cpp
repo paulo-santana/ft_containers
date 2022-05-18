@@ -14,6 +14,18 @@
 	#include <vector.hpp>
 #endif
 
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const ft::vector<T>& vec)
+{
+    out << "[ ";
+    typename ft::vector<T>::const_iterator it;
+    for (it = vec.begin(); it < vec.end() - 1; it++) {
+        out << *it << ", ";
+    }
+    out << *it << " ]" << std::endl;
+    return out;
+}
+
 static void test_default_constructor(void) {
     println("\ntest vector default constructor");
     ft::vector<int> *vector1 = new ft::vector<int>();
@@ -29,18 +41,6 @@ static void test_allocator_constructor(void) {
 
     ft::vector<int> vector1(alloc);
 
-}
-
-template <typename T>
-std::ostream& operator<<(std::ostream& out, const ft::vector<T>& vec)
-{
-    out << "[ ";
-    typename ft::vector<T>::const_iterator it;
-    for (it = vec.begin(); it < vec.end() - 1; it++) {
-        out << *it << ", ";
-    }
-    out << *it << " ]" << std::endl;
-    return out;
 }
 
 static void test_fill_constructor() {
@@ -69,6 +69,16 @@ static void test_range_constructor() {
     std::cout << "vec_range -> " << vec_range << std::endl;
     std::cout << "capacity: " << vec_range.capacity() << std::endl;
     std::cout << "size: " << vec_range.size() << std::endl;
+}
+
+static void test_copy_constructor() {
+    println("test vector copy constructor");
+    ft::vector<std::string> strs;
+    strs.push_back("string 1");
+    strs.push_back("string 2");
+    strs.push_back("string 3");
+
+    std::cout << "strs -> " << strs << std::endl;
 }
 
 static void test_allocator(void) {
@@ -205,6 +215,7 @@ void testVector(void) {
     test_allocator_constructor();
     test_fill_constructor();
     test_range_constructor();
+    test_copy_constructor();
     test_allocator();
     test_push_back();
     test_max_size();
