@@ -11,6 +11,6 @@ void assertEquals(int lhs, int rhs, const std::string message) {
 }
 
 void println(std::string str) {
-    std::cout << str << std::endl;
+    std::cout << "\n" << str << std::endl;
 }
 
