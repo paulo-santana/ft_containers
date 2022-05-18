@@ -35,6 +35,7 @@ static void test_constructors(void) {
 
     (void)anotherIt;
     (void)otherIt;
+    delete it;
 }
 
 static void test_equality(void) {
