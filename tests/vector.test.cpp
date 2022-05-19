@@ -262,6 +262,10 @@ static void test_resize() {
     std::cout << "numbers.resize(3): " << numbers << std::endl;
     std::cout << "numbers.capacity(): " << numbers.capacity() << std::endl;
     std::cout << "numbers.size(): " << numbers.size() << std::endl;
+    numbers.resize(30, 9);
+    std::cout << "numbers.resize(30, 9): " << numbers << std::endl;
+    std::cout << "numbers.capacity(): " << numbers.capacity() << std::endl;
+    std::cout << "numbers.size(): " << numbers.size() << std::endl;
 }
 
 void testVector(void) {

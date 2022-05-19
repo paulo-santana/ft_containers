@@ -128,7 +128,7 @@ public:
             this->data = this->allocator.allocate(1);
             this->current_capacity = 1;
         } else if (this->num_items >= this->current_capacity) {
-            grow_vector();
+            grow_vector(this->current_capacity * 2);
         }
 
         allocator.construct(&this->data[this->num_items], x);
@@ -174,13 +174,13 @@ public:
 
         if (n < this->num_items) {
             size_type index = n;
-            while (index < this->num_items) {
-                this->allocator.destroy(&this->data[index]);
-                index++;
-            }
+            this->destroy_data(this->data + index, this->num_items - index);
 
         } else {
-            this->grow_vector();
+            if (n < this->current_capacity * 2)
+                this->grow_vector(this->current_capacity * 2);
+            else
+                this->grow_vector(n);
             size_type index = this->num_items;
             while (index < n) {
                 this->allocator.construct(&this->data[index], val);
@@ -214,15 +214,15 @@ private:
         }
     }
 
-    void grow_vector(void) {
+    void grow_vector(size_type new_capacity) {
         T* oldData = this->data;
 
-        if (this->current_capacity * 2 < this->current_capacity)
+        if (new_capacity < this->current_capacity)
             throw std::bad_alloc();
 
-        this->data = this->allocator.allocate(this->current_capacity * 2);
+        this->data = this->allocator.allocate(new_capacity);
         this->copy_data(this->data, oldData);
-        this->current_capacity = this->current_capacity * 2;
+        this->current_capacity = new_capacity;
         this->destroy_data(oldData, this->num_items);
         this->allocator.deallocate(oldData, this->num_items);
 
