@@ -219,10 +219,11 @@ static void test_rbegin() {
     }
 
     ft::vector<int>::reverse_iterator rit = powers.rbegin();
+    ft::vector<int>::const_reverse_iterator crit = powers.rbegin();
 
     std::cout << "rbegin() -> ";
     for (int i = 9; i < 15; i++) {
-        std::cout << *rit++ << ", ";
+        std::cout << *rit++ << "|" << *crit++ << ", ";
     }
     std::cout << std::endl;
 }
@@ -236,10 +237,11 @@ static void test_rend() {
     strs.push_back("blz");
 
     ft::vector<std::string>::reverse_iterator rend = strs.rend();
+    ft::vector<std::string>::const_reverse_iterator crend = strs.rend();
 
     std::cout << "rend() -> ";
     for (int i = 0; i < 3; i++) {
-        std::cout << *rend-- << ", ";
+        std::cout << *rend-- << "|" << *crend-- << ", ";
     }
     std::cout << std::endl;
 }

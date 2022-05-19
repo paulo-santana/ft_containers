@@ -27,7 +27,12 @@ namespace ft {
 
         reverse_iterator(): current() {}
         explicit reverse_iterator(iterator_type iter): current(iter) {}
-        reverse_iterator(const reverse_iterator &other): current(other.current) {}
+
+        reverse_iterator(const reverse_iterator& other): current(other.current) {}
+
+        template<typename _Other>
+        reverse_iterator(const reverse_iterator<_Other> &other): current(other.base()) {}
+
         ~reverse_iterator() {}
 
         iterator_type base() const {

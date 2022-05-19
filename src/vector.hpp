@@ -155,6 +155,10 @@ public:
         return reverse_iterator(this->end());
     }
 
+    const_reverse_iterator rbegin(void) const {
+        return reverse_iterator(this->end());
+    }
+
     reverse_iterator rend(void) {
         return reverse_iterator(this->begin());
     }
