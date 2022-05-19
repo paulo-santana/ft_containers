@@ -172,12 +172,20 @@ public:
         if (n == this->num_items)
             return;
 
-        this->grow_vector();
-        size_type index = this->num_items;
+        if (n < this->num_items) {
+            size_type index = n;
+            while (index < this->num_items) {
+                this->allocator.destroy(&this->data[index]);
+                index++;
+            }
 
-        while (index < n) {
-            this->allocator.construct(&this->data[index], val);
-            index++;
+        } else {
+            this->grow_vector();
+            size_type index = this->num_items;
+            while (index < n) {
+                this->allocator.construct(&this->data[index], val);
+                index++;
+            }
         }
         this->num_items = n;
 
