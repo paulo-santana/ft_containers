@@ -155,6 +155,10 @@ public:
         return reverse_iterator(this->end());
     }
 
+    reverse_iterator rend(void) {
+        return reverse_iterator(this->begin());
+    }
+
 private:
     T *data;
 

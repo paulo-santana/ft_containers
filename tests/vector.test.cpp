@@ -227,6 +227,23 @@ static void test_rbegin() {
     std::cout << std::endl;
 }
 
+static void test_rend() {
+    println("test vector.rend()");
+
+    ft::vector<std::string> strs;
+    strs.push_back("massa");
+    strs.push_back("daora");
+    strs.push_back("blz");
+
+    ft::vector<std::string>::reverse_iterator rend = strs.rend();
+
+    std::cout << "rend() -> ";
+    for (int i = 0; i < 3; i++) {
+        std::cout << *rend-- << ", ";
+    }
+    std::cout << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -243,4 +260,5 @@ void testVector(void) {
     test_const_end();
     test_iterator_and_const_iterator_integration();
     test_rbegin();
+    test_rend();
 }
