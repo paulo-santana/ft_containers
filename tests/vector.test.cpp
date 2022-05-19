@@ -243,7 +243,7 @@ static void test_rend() {
 
     std::cout << "rend() -> ";
     for (int i = 0; i < 3; i++) {
-        std::cout << *rend-- << "|" << *crend-- << ", ";
+        std::cout << *--rend << "|" << *--crend << ", ";
     }
     std::cout << std::endl;
 }
