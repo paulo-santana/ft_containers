@@ -168,6 +168,23 @@ public:
         return const_reverse_iterator(this->begin());
     }
 
+    void resize(size_type n, value_type val = value_type()) {
+        if (n == this->num_items)
+            return;
+
+        this->grow_vector();
+        size_type index = this->num_items;
+
+        while (index < n) {
+            this->allocator.construct(&this->data[index], val);
+            index++;
+        }
+        this->num_items = n;
+
+        (void)n;
+        (void)val;
+    }
+
 private:
     T *data;
 

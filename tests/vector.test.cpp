@@ -248,6 +248,18 @@ static void test_rend() {
     std::cout << std::endl;
 }
 
+static void test_resize() {
+    println("test vector.resize()");
+
+    ft::vector<int> numbers(5, 3);
+    
+    std::cout << "numbers(5, 3): " << numbers << std::endl;
+    numbers.resize(7, 7);
+    std::cout << "numbers.resize(7, 7): " << numbers << std::endl;
+    std::cout << "numbers.capacity(): " << numbers.capacity() << std::endl;
+    std::cout << "numbers.size(): " << numbers.size() << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -265,4 +277,5 @@ void testVector(void) {
     test_iterator_and_const_iterator_integration();
     test_rbegin();
     test_rend();
+    test_resize();
 }
