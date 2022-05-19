@@ -218,8 +218,9 @@ static void test_rbegin() {
         powers.push_back(i * i);
     }
 
+    const ft::vector<int> const_powers = powers;
     ft::vector<int>::reverse_iterator rit = powers.rbegin();
-    ft::vector<int>::const_reverse_iterator crit = powers.rbegin();
+    ft::vector<int>::const_reverse_iterator crit = const_powers.rbegin();
 
     std::cout << "rbegin() -> ";
     for (int i = 9; i < 15; i++) {
@@ -236,8 +237,9 @@ static void test_rend() {
     strs.push_back("daora");
     strs.push_back("blz");
 
+    const ft::vector<std::string> const_strs = strs;
     ft::vector<std::string>::reverse_iterator rend = strs.rend();
-    ft::vector<std::string>::const_reverse_iterator crend = strs.rend();
+    ft::vector<std::string>::const_reverse_iterator crend = const_strs.rend();
 
     std::cout << "rend() -> ";
     for (int i = 0; i < 3; i++) {

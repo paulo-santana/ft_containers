@@ -157,11 +157,15 @@ public:
     }
 
     const_reverse_iterator rbegin(void) const {
-        return reverse_iterator(this->end());
+        return const_reverse_iterator(this->end());
     }
 
     reverse_iterator rend(void) {
         return reverse_iterator(this->begin());
+    }
+
+    const_reverse_iterator rend(void) const {
+        return const_reverse_iterator(this->begin());
     }
 
 private:
