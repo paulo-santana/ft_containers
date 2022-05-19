@@ -104,6 +104,7 @@ public:
         for (size_type i = 0; i < this->num_items; i++) {
             this->allocator.construct(this->data + i, other.data[i]);
         }
+        return *this;
     }
 
     allocator_type get_allocator(void) const {
