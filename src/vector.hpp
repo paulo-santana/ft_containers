@@ -1,4 +1,5 @@
 #pragma once
+#include <stdexcept>
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
@@ -196,6 +197,8 @@ public:
     }
 
     void reserve(size_type n) {
+        if (n > this->max_size())
+            throw std::length_error("vector::reserve");
         if (n <= this->current_capacity)
             return;
 

@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <exception>
 #include <iostream>
+#include <stdexcept>
 #include <string>
 #include <typeinfo>
 #include <vector>
@@ -326,6 +327,13 @@ static void test_reserve() {
         small.reserve(10000000000);
     } catch (std::exception& e) {
         std::cout << "can't reserve 10000000000: " << e.what() << std::endl;
+    }
+
+    try {
+        unsigned long max_size = small.max_size();
+        small.reserve(max_size + 1);
+    } catch (std::length_error& e) {
+        std::cout << "can't reserve more than max_size(): " << e.what() << std::endl;
     }
 
 }
