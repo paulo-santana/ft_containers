@@ -302,6 +302,7 @@ private:
         for (size_type i = 0; first != last; i++, first++) {
             this->allocator.construct(this->data + i, *first);
         }
+        this->num_items = distance;
     }
 
 
