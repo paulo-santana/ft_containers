@@ -205,6 +205,20 @@ public:
         this->grow_vector(n);
     }
 
+    reference at(size_type n) {
+        if (n >= this->size())
+            throw std::out_of_range("index out of range");
+
+        return this->data[n];
+    }
+
+    const_reference at(size_type n) const {
+        if (n >= this->size())
+            throw std::out_of_range("index out of range");
+
+        return this->data[n];
+    }
+
     reference operator[](size_type n) {
         return this->data[n];
     }

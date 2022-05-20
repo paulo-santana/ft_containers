@@ -384,6 +384,32 @@ static void test_offset_operator() {
     }
 }
 
+static void test_at() {
+    println("test vector.at()");
+
+    ft::vector<int> ints;
+
+    for (int i = 0; i < 5; i++) {
+        ints.push_back(i * 17);
+    }
+
+    for (int i = 0; i < 5; i++) {
+        std::cout << "ints.at(" << i << ") -> " << ints.at(i) << std::endl;
+    }
+    const ft::vector<int> cints(ints);
+
+    for (int i = 0; i < 5; i++) {
+        std::cout << "cints.at(" << i << ") -> " << cints.at(i) << std::endl;
+    }
+
+    try {
+        int boom = ints.at(42);
+        (void)boom;
+    } catch (std::out_of_range& e) {
+        std::cout << "std::out_of_range: can't access ints.at(42)" << std::endl;
+    }
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -407,4 +433,5 @@ void testVector(void) {
     test_reserve();
     test_cplusplus_reserve();
     test_offset_operator();
+    test_at();
 }
