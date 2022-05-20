@@ -490,11 +490,12 @@ static void test_pop_back() {
 
     ft::vector<std::string> strings(3, "test");
 
+    std::cout << "strings -> " << strings << std::endl;
     while (!strings.empty()) {
-        std::cout << "ints.pop_back() -> " << strings << std::endl;
+        std::cout << "strings.pop_back() -> " << strings << std::endl;
         strings.pop_back();
     }
-    std::cout << "ints.capacity() -> " << strings.capacity() << std::endl;
+    std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
 }
 
 void testVector(void) {
