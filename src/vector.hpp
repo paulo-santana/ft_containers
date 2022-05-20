@@ -321,7 +321,7 @@ public:
     }
 
     void pop_back() {
-        this->allocator.destroy(this->data + this->num_items--);
+        this->allocator.destroy(this->data + --this->num_items);
     }
 
 private:
