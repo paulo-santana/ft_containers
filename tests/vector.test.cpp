@@ -1,5 +1,6 @@
 #include "test_utils.hpp"
 #include <algorithm>
+#include <exception>
 #include <iostream>
 #include <string>
 #include <typeinfo>
@@ -307,6 +308,56 @@ static void test_empty() {
     std::cout << "full_vec.resize(0) is empty? " << full_vec.empty() << std::endl;
 }
 
+// https://cplusplus.com/reference/vector/vector/reserve/
+static void test_reserve() {
+    println("test vector.reserve()");
+
+    ft::vector<int> small(5);
+
+    std::cout << "small.capacity(): " << small.capacity() << std::endl;
+    small.reserve(3);
+    std::cout << "small.reserve(3): " << small.capacity() << std::endl;
+    small.reserve(8);
+    std::cout << "small.reserve(8): " << small.capacity() << std::endl;
+    small.reserve(1027);
+    std::cout << "small.reserve(1027): " << small.capacity() << std::endl;
+
+    try {
+        small.reserve(10000000000);
+    } catch (std::exception& e) {
+        std::cout << "can't reserve 10000000000: " << e.what() << std::endl;
+    }
+
+}
+
+static void test_cplusplus_reserve()
+{
+  ft::vector<int>::size_type sz;
+
+  ft::vector<int> foo;
+  sz = foo.capacity();
+  std::cout << "making foo grow:\n";
+  for (int i=0; i<100; ++i) {
+    foo.push_back(i);
+    if (sz!=foo.capacity()) {
+      sz = foo.capacity();
+      std::cout << "capacity changed: " << sz << '\n';
+    }
+  }
+
+  ft::vector<int> bar;
+  sz = bar.capacity();
+  bar.reserve(100);   // this is the only difference with foo above
+  std::cout << "making bar grow:\n";
+  for (int i=0; i<100; ++i) {
+    bar.push_back(i);
+    if (sz!=bar.capacity()) {
+      sz = bar.capacity();
+      std::cout << "capacity changed: " << sz << '\n';
+    }
+  }
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -327,4 +378,6 @@ void testVector(void) {
     test_resize();
     test_cplusplus_resize();
     test_empty();
+    test_reserve();
+    test_cplusplus_reserve();
 }

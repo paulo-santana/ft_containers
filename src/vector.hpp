@@ -195,6 +195,13 @@ public:
         this->num_items = n;
     }
 
+    void reserve(size_type n) {
+        if (n <= this->current_capacity)
+            return;
+
+        this->grow_vector(n);
+    }
+
     reference operator[](size_type n) {
         return this->data[n];
     }
