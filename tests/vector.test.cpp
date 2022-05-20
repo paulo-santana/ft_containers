@@ -445,17 +445,21 @@ static void test_assign() {
     ft::vector<std::string> strings(10, "abelha");
     ft::vector<std::string> strings2;
 
-    std::cout << "ints(10, 5) -> " << strings << std::endl;
+    std::cout << "strings(10, 5) -> " << strings << std::endl;
 
     strings.assign(5, "joaozinho");
     strings2.assign(strings.begin(), strings.end());
 
-    std::cout << "ints.assing(5, 3) -> " << strings << std::endl;
-    std::cout << "ints.capacity() -> " << strings.capacity() << std::endl;
+    std::cout << "strings.assing(5, \"joaozinho\") -> " << strings << std::endl;
+    std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
 
     strings.assign(15, "pedra");
-    std::cout << "ints.assing(15, 7) -> " << strings << std::endl;
-    std::cout << "ints.capacity() -> " << strings.capacity() << std::endl;
+    std::cout << "strings.assing(15, \"pedra\") -> " << strings << std::endl;
+    std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
+
+    strings.assign(45, "papel");
+    std::cout << "strings.assing(45, \"papel\") -> " << strings << std::endl;
+    std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
 }
 
 void testVector(void) {
