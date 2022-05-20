@@ -410,6 +410,20 @@ static void test_at() {
     }
 }
 
+static void test_front() {
+    println("test vector.front()");
+
+    ft::vector<int> vec(1, 3);
+    vec.push_back(42);
+    vec.push_back(37);
+
+    int first = vec.front();
+    std::cout << "first: " << first << std::endl;
+    const ft::vector<int> cvec(vec);
+    first = cvec.front();
+    std::cout << "const first: " << first << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -434,4 +448,5 @@ void testVector(void) {
     test_cplusplus_reserve();
     test_offset_operator();
     test_at();
+    test_front();
 }

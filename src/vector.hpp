@@ -219,6 +219,14 @@ public:
         return this->data[n];
     }
 
+    reference front() {
+        return *this->data;
+    }
+
+    const_reference front() const {
+        return *this->data;
+    }
+
     reference operator[](size_type n) {
         return this->data[n];
     }
