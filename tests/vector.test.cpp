@@ -295,6 +295,18 @@ static void test_cplusplus_resize() {
 
 }
 
+static void test_empty() {
+    println("test vector.empty()");
+
+    ft::vector<int> empty_vec;
+    std::cout << "empty_vec.empty(): " << empty_vec.empty() << std::endl;
+
+    ft::vector<int> full_vec(3, 5);
+    std::cout << "full_vec.empty(): " << full_vec.empty() << std::endl;
+    full_vec.resize(0);
+    std::cout << "full_vec.resize(0) is empty? " << full_vec.empty() << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -314,4 +326,5 @@ void testVector(void) {
     test_rend();
     test_resize();
     test_cplusplus_resize();
+    test_empty();
 }

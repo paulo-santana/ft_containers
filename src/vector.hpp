@@ -112,6 +112,10 @@ public:
         return this->allocator;
     }
 
+    bool empty(void) const {
+        return this->num_items == 0;
+    }
+
     size_type size(void) const {
         return this->num_items;
     }
@@ -189,9 +193,6 @@ public:
             }
         }
         this->num_items = n;
-
-        (void)n;
-        (void)val;
     }
 
     reference operator[](size_type n) {
