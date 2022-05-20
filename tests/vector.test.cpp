@@ -323,18 +323,19 @@ static void test_reserve() {
     small.reserve(1027);
     std::cout << "small.reserve(1027): " << small.capacity() << std::endl;
 
-    try {
-        small.reserve(10000000000);
-    } catch (std::exception& e) {
-        std::cout << "can't reserve 10000000000: " << e.what() << std::endl;
-    }
-
-    try {
-        unsigned long max_size = small.max_size();
-        small.reserve(max_size + 1);
-    } catch (std::length_error& e) {
-        std::cout << "can't reserve more than max_size(): " << e.what() << std::endl;
-    }
+    // valgrind não funciona com exceções do operator new
+    // try {
+    //     small.reserve(10000000000);
+    // } catch (std::exception& e) {
+    //     std::cout << "can't reserve 10000000000: " << e.what() << std::endl;
+    // }
+    //
+    // try {
+    //     unsigned long max_size = small.max_size();
+    //     small.reserve(max_size + 1);
+    // } catch (std::length_error& e) {
+    //     std::cout << "can't reserve more than max_size(): " << e.what() << std::endl;
+    // }
 
 }
 
@@ -438,6 +439,25 @@ static void test_back() {
     std::cout << "const last: " << last << std::endl;
 }
 
+static void test_assign() {
+    println("test vector.assign()");
+
+    ft::vector<std::string> strings(10, "abelha");
+    ft::vector<std::string> strings2;
+
+    std::cout << "ints(10, 5) -> " << strings << std::endl;
+
+    strings.assign(5, "joaozinho");
+    strings2.assign(strings.begin() + 2, strings.end());
+
+    std::cout << "ints.assing(5, 3) -> " << strings << std::endl;
+    std::cout << "ints.capacity() -> " << strings.capacity() << std::endl;
+
+    strings.assign(15, "pedra");
+    std::cout << "ints.assing(15, 7) -> " << strings << std::endl;
+    std::cout << "ints.capacity() -> " << strings.capacity() << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -464,4 +484,5 @@ void testVector(void) {
     test_at();
     test_front();
     test_back();
+    test_assign();
 }
