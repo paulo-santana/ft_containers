@@ -279,7 +279,7 @@ static void test_resize() {
 
 // https://cplusplus.com/reference/vector/vector/resize/
 static void test_cplusplus_resize() {
-  std::vector<int> myvector;
+  ft::vector<int> myvector;
 
   // set some initial content:
   for (int i=1;i<10;i++) myvector.push_back(i);

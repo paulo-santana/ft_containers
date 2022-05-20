@@ -194,6 +194,10 @@ public:
         (void)val;
     }
 
+    reference operator[](size_type n) {
+        return this->data[n];
+    }
+
 private:
     T *data;
 
