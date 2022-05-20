@@ -90,6 +90,7 @@ public:
 
     // destructor
     ~vector() {
+        this->destroy_data(this->data, this->num_items);
         // TODO: investigar pq o tamanho aqui não importa
         this->allocator.deallocate(data, 1);
     }
