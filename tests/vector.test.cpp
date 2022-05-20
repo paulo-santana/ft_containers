@@ -18,11 +18,15 @@ template <typename T>
 std::ostream& operator<<(std::ostream& out, const ft::vector<T>& vec)
 {
     out << "[ ";
+    if (vec.size() == 0) {
+        out << "]";
+        return out;
+    }
     typename ft::vector<T>::const_iterator it;
     for (it = vec.begin(); it < vec.end() - 1; it++) {
         out << *it << ", ";
     }
-    out << *it << " ]" << std::endl;
+    out << *it << " ]";
     return out;
 }
 
@@ -252,20 +256,25 @@ static void test_resize() {
     println("test vector.resize()");
 
     ft::vector<int> numbers(5, 3);
+    ft::vector<int> vec_zero;
     
     std::cout << "numbers(5, 3): " << numbers << std::endl;
     numbers.resize(7, 7);
-    std::cout << "numbers.resize(7, 7): " << numbers << std::endl;
+    std::cout << "\nnumbers.resize(7, 7): " << numbers << std::endl;
     std::cout << "numbers.capacity(): " << numbers.capacity() << std::endl;
     std::cout << "numbers.size(): " << numbers.size() << std::endl;
     numbers.resize(3);
-    std::cout << "numbers.resize(3): " << numbers << std::endl;
+    std::cout << "\nnumbers.resize(3): " << numbers << std::endl;
     std::cout << "numbers.capacity(): " << numbers.capacity() << std::endl;
     std::cout << "numbers.size(): " << numbers.size() << std::endl;
     numbers.resize(30, 9);
     std::cout << "numbers.resize(30, 9): " << numbers << std::endl;
     std::cout << "numbers.capacity(): " << numbers.capacity() << std::endl;
     std::cout << "numbers.size(): " << numbers.size() << std::endl;
+    vec_zero.resize(0);
+    std::cout << "\nvec_zero.resize(0): " << vec_zero << std::endl;
+    std::cout << "vec_zero.capacity(): " << vec_zero.capacity() << std::endl;
+    std::cout << "vec_zero.size(): " << vec_zero.size() << std::endl;
 }
 
 // https://cplusplus.com/reference/vector/vector/resize/
