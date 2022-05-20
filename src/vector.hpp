@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 #include <stdexcept>
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
@@ -21,6 +22,7 @@ public:
     typedef T                                           value_type;
     typedef std::allocator<T>                           allocator_type;
     typedef std::size_t                                 size_type;
+    typedef ptrdiff_t                                   difference_type;
 
     typedef typename allocator_type::reference          reference;
     typedef typename allocator_type::const_reference    const_reference;
@@ -129,18 +131,6 @@ public:
         return this->current_capacity;
     }
 
-    void push_back(const value_type& x) {
-        if (this->data == 0) {
-            this->data = this->allocator.allocate(1);
-            this->current_capacity = 1;
-        } else if (this->num_items >= this->current_capacity) {
-            grow_vector(this->current_capacity * 2);
-        }
-
-        allocator.construct(&this->data[this->num_items], x);
-        this->num_items++;
-    }
-
     // iterator things
     iterator begin(void) {
         return VectorIterator<pointer, _Self>(this->data);
@@ -241,6 +231,85 @@ public:
 
     const_reference operator[](size_type n) const {
         return this->data[n];
+    }
+
+    void assign(size_type n, const value_type& val) {
+        fill_assign(n, val);
+        }
+
+public:
+    template<typename InputIterator>
+    void assign(InputIterator first, InputIterator last) {
+        typedef typename ft::is_integral<InputIterator>::type integral;
+
+        assign_dispatch(first, last, integral());
+    }
+
+private:
+    template<typename Integral>
+    void assign_dispatch(Integral n, Integral val, ft::true_type) {
+        this->fill_assign(n, val);
+    }
+
+    template<typename Iterator>
+    void assign_dispatch(Iterator first, Iterator last, ft::false_type) {
+        this->range_assign(first, last);
+    }
+
+    void fill_assign(size_type n, const value_type& val) {
+
+        bool mustReallocate = n > this->current_capacity;
+
+        if (mustReallocate) {
+            T* newBuffer = this->allocator.allocate(n);
+            this->destroy_data(this->data, this->num_items);
+            this->allocator.deallocate(this->data, this->current_capacity);
+            this->data = newBuffer;
+            this->current_capacity = n;
+
+        } else {
+            this->destroy_data(this->data, this->num_items);
+        }
+        for (size_type i = 0; i < n; i++) {
+            this->allocator.construct(this->data + i, val);
+        }
+
+        this->num_items = n;
+    }
+
+    template<typename Iterator>
+    void range_assign(Iterator first, Iterator last) {
+        size_type distance = static_cast<size_type>(last - first);
+        bool mustReallocate = distance > this->current_capacity;
+        if (mustReallocate) {
+            T* newBuffer = this->allocator.allocate(distance);
+            this->destroy_data(this->data, this->num_items);
+            this->allocator.deallocate(this->data, this->current_capacity);
+            this->data = newBuffer;
+            this->current_capacity = distance;
+
+        } else {
+            this->destroy_data(this->data, this->num_items);
+        }
+
+        for (size_type i = 0; first != last; i++, first++) {
+            this->allocator.construct(this->data + i, *first);
+        }
+    }
+
+
+
+public:
+    void push_back(const value_type& x) {
+        if (this->data == 0) {
+            this->data = this->allocator.allocate(1);
+            this->current_capacity = 1;
+        } else if (this->num_items >= this->current_capacity) {
+            grow_vector(this->current_capacity * 2);
+        }
+
+        allocator.construct(&this->data[this->num_items], x);
+        this->num_items++;
     }
 
 private:

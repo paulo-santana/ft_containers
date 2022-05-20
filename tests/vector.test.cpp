@@ -448,7 +448,7 @@ static void test_assign() {
     std::cout << "ints(10, 5) -> " << strings << std::endl;
 
     strings.assign(5, "joaozinho");
-    strings2.assign(strings.begin() + 2, strings.end());
+    strings2.assign(strings.begin(), strings.end());
 
     std::cout << "ints.assing(5, 3) -> " << strings << std::endl;
     std::cout << "ints.capacity() -> " << strings.capacity() << std::endl;
