@@ -227,6 +227,14 @@ public:
         return *this->data;
     }
 
+    reference back() {
+        return *(this->data + this->num_items - 1);
+    }
+
+    const_reference back() const {
+        return *(this->data + this->num_items - 1);
+    }
+
     reference operator[](size_type n) {
         return this->data[n];
     }

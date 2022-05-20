@@ -424,6 +424,20 @@ static void test_front() {
     std::cout << "const first: " << first << std::endl;
 }
 
+static void test_back() {
+    println("test vector.back()");
+
+    ft::vector<int> vec(1, 3);
+    vec.push_back(42);
+    vec.push_back(37);
+
+    int last = vec.back();
+    std::cout << "last: " << last << std::endl;
+    const ft::vector<int> cvec(vec);
+    last = cvec.back();
+    std::cout << "const last: " << last << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -449,4 +463,5 @@ void testVector(void) {
     test_offset_operator();
     test_at();
     test_front();
+    test_back();
 }
