@@ -44,11 +44,19 @@ public:
     }
 
     // fill constructor
-    template<typename _Integer>
-    vector(_Integer n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type(),
-            typename ft::enable_if<ft::is_integral<_Integer>::value, void>::type* = 0
-            ) {
-        
+    vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) {
+        fill_construct(n, val, alloc);
+    }
+
+    // range constructor
+    template<typename InputIterator>
+    vector(InputIterator start, InputIterator end, const allocator_type& alloc = allocator_type()) {
+        typedef typename ft::is_integral<InputIterator>::type integral;
+        range_construct_dispatch(start, end, alloc, integral());
+    }
+
+private:
+    void fill_construct(size_type n, const value_type& val, const allocator_type& alloc) {
         this->num_items = n;
         this->current_capacity = n;
         this->allocator = alloc;
@@ -61,15 +69,15 @@ public:
         }
     }
 
-    // range constructor
-    // TODO: trocar pro modo dispatcher
+    template<typename IntegralValue>
+    void range_construct_dispatch(IntegralValue n, IntegralValue val, const allocator_type& alloc,
+            ft::true_type) {
+        fill_construct(n, val, alloc);
+    }
+
     template<typename InputIterator>
-    vector(
-            InputIterator start,
-            InputIterator end,
-            const allocator_type& alloc = allocator_type(),
-            typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0
-            ) {
+    void range_construct_dispatch(InputIterator start, InputIterator end, const allocator_type& alloc,
+            ft::false_type) {
         size_type size = end - start;
         this->num_items = size;
         this->current_capacity = size;
@@ -81,7 +89,6 @@ public:
         for (size_type i = 0; i < this->num_items; i++) {
             this->allocator.construct(this->data + i, *start++);
         }
-        (void)end;
     }
 
 public:
