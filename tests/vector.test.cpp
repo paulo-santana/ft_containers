@@ -462,6 +462,7 @@ static void test_assign() {
     std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
 }
 
+// https://www.cplusplus.com/reference/vector/vector/assign/
 static void test_cplusplus_assign()
 {
   ft::vector<int> first;
@@ -482,6 +483,18 @@ static void test_cplusplus_assign()
   std::cout << "Size of second: " << int (second.size()) << '\n';
   std::cout << "Size of third: " << int (third.size()) << '\n';
 
+}
+
+static void test_pop_back() {
+    println("test vector.pop_back()");
+
+    ft::vector<std::string> strings(3, "test");
+
+    while (!strings.empty()) {
+        std::cout << "ints.pop_back() -> " << strings << std::endl;
+        strings.pop_back();
+    }
+    std::cout << "ints.capacity() -> " << strings.capacity() << std::endl;
 }
 
 void testVector(void) {
@@ -512,4 +525,5 @@ void testVector(void) {
     test_back();
     test_assign();
     test_cplusplus_assign();
+    test_pop_back();
 }

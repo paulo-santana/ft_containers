@@ -320,6 +320,10 @@ public:
         this->num_items++;
     }
 
+    void pop_back() {
+        this->allocator.destroy(this->data + this->num_items--);
+    }
+
 private:
     T *data;
 
