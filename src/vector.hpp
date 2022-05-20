@@ -209,6 +209,10 @@ public:
         return this->data[n];
     }
 
+    const_reference operator[](size_type n) const {
+        return this->data[n];
+    }
+
 private:
     T *data;
 

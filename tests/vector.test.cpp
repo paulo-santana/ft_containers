@@ -366,6 +366,24 @@ static void test_cplusplus_reserve()
   }
 }
 
+static void test_offset_operator() {
+    println("test vector operator[]");
+    ft::vector<int> ints;
+
+    for (int i = 0; i < 5; i++) {
+        ints.push_back(i * 17);
+    }
+
+    for (int i = 0; i < 5; i++) {
+        std::cout << "ints[" << i << "] -> " << ints[i] << std::endl;
+    }
+    const ft::vector<int> cints(ints);
+
+    for (int i = 0; i < 5; i++) {
+        std::cout << "cints[" << i << "] -> " << cints[i] << std::endl;
+    }
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -388,4 +406,5 @@ void testVector(void) {
     test_empty();
     test_reserve();
     test_cplusplus_reserve();
+    test_offset_operator();
 }
