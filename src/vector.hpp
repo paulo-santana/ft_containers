@@ -360,6 +360,31 @@ public:
         return iterator(target_ptr);
     }
 
+    // fill a range
+    void insert(iterator position, size_type n, const value_type& val) {
+        // pointer current_data = this->data;
+        pointer current_pos = position.base();
+        pointer current_end = this->end().base();
+
+        if (this->num_items + n <= this->current_capacity) {
+            this->shift_construct_backwards(current_end - n, current_end, current_end + n);
+            std::copy_backward(current_pos, current_end - n, current_end);
+
+            int i = n;
+            while (i--) {
+                *current_pos++ = val;
+            }
+        }
+        this->num_items += n;
+    }
+
+private:
+    void shift_construct_backwards(pointer start, pointer end, pointer result) {
+        while (start != end) {
+            this->allocator.construct(--result, *--end);
+        }
+    }
+
 private:
     T *data;
 

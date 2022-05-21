@@ -520,6 +520,20 @@ static void test_insert() {
     std::cout << "strings.size() -> " << strings.size() << std::endl;
 }
 
+static void test_fill_insert() {
+    println("test fill vector.insert()");
+
+    ft::vector<int> vec(10, 5);
+    std::cout << "vec -> " << vec << std::endl;
+    std::cout << "vec.size() -> " << vec.size() << std::endl;
+    vec.reserve(20);
+
+    vec.insert(vec.begin() + 5, 4, 3);
+
+    std::cout << "vec -> " << vec << std::endl;
+    std::cout << "vec.size() -> " << vec.size() << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -550,4 +564,5 @@ void testVector(void) {
     test_cplusplus_assign();
     test_pop_back();
     test_insert();
+    test_fill_insert();
 }
