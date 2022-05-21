@@ -1,11 +1,11 @@
 #pragma once
-#include <algorithm>
-#include <cstddef>
-#include <stdexcept>
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
 #include <memory>
+#include <algorithm>
+#include <cstddef>
+#include <stdexcept>
 
 #include "vector/iterator.hpp"
 #include "enable_if.hpp"
