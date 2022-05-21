@@ -498,6 +498,28 @@ static void test_pop_back() {
     std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
 }
 
+static void test_insert() {
+    println("test vector.insert()");
+
+    const char *contents[5] = {"ai sim", "beleza", "caraca", "daora", NULL};
+
+    ft::vector<std::string> strings;
+    ft::vector<std::string>::iterator it;
+
+    for (int i = 0; contents[i] != NULL; i++) {
+        it = strings.insert(strings.begin(), contents[i]);
+        std::cout << "strings.insert(\"" << contents[i] << "\"): " << strings << std::endl;
+        std::cout << "returned -> " << *it << std::endl;
+        std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
+        std::cout << "strings.size() -> " << strings.size() << std::endl;
+    }
+    it = strings.insert(strings.begin(), "opa");
+    std::cout << "strings.insert(\"opa\"): " << strings << std::endl;
+    std::cout << "returned -> " << *it << std::endl;
+    std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
+    std::cout << "strings.size() -> " << strings.size() << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -527,4 +549,5 @@ void testVector(void) {
     test_assign();
     test_cplusplus_assign();
     test_pop_back();
+    test_insert();
 }

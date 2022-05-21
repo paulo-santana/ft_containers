@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <cstddef>
 #include <stdexcept>
 #ifndef VECTOR_HPP
@@ -324,6 +325,41 @@ public:
         this->allocator.destroy(this->data + --this->num_items);
     }
 
+    iterator insert(iterator position, const value_type& val) {
+        pointer current_data = this->data;
+        pointer current_pos = position.base();
+        pointer current_end = this->data + this->num_items;
+
+        pointer target_ptr;
+
+        if (this->num_items < this->current_capacity) {
+
+            this->allocator.construct(current_end, *(current_end - 1));
+            std::copy_backward(current_pos, current_end - 1, current_end);
+            this->allocator.construct(current_pos, val);
+
+            target_ptr = current_pos;
+
+        } else {
+            if (this->current_capacity == 0)
+                this->current_capacity = 1;
+            else
+                this->current_capacity *= 2;
+
+            pointer target_data = this->allocator.allocate(this->current_capacity);
+            target_ptr = target_data + (current_pos - current_data);
+
+            this->copy_data(target_data, current_data, current_pos);
+            this->allocator.construct(target_ptr, val);
+            this->copy_data(target_ptr + 1, current_pos, current_end);
+            this->destroy_data(this->data, this->num_items);
+            this->data = target_data;
+        }
+
+        this->num_items++;
+        return iterator(target_ptr);
+    }
+
 private:
     T *data;
 
@@ -336,6 +372,14 @@ private:
     void copy_data(T* dest, T* src) {
         for (size_type i = 0; i < this->num_items; i++) {
             this->allocator.construct(dest + i, src[i]);
+        }
+    }
+
+    void copy_data(T* dest, T* src, T* src_end) {
+        int i = 0;
+        while (src < src_end) {
+            this->allocator.construct(dest + i, *src++);
+            i++;
         }
     }
 
