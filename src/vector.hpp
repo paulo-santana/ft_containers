@@ -325,6 +325,7 @@ public:
         this->allocator.destroy(this->data + --this->num_items);
     }
 
+    // insert a single element
     iterator insert(iterator position, const value_type& val) {
         pointer current_data = this->data;
         pointer current_pos = position.base();
@@ -333,11 +334,9 @@ public:
         pointer target_ptr;
 
         if (this->num_items < this->current_capacity) {
-
             this->allocator.construct(current_end, *(current_end - 1));
             std::copy_backward(current_pos, current_end - 1, current_end);
             this->allocator.construct(current_pos, val);
-
             target_ptr = current_pos;
 
         } else {
@@ -352,7 +351,9 @@ public:
             this->copy_data(target_data, current_data, current_pos);
             this->allocator.construct(target_ptr, val);
             this->copy_data(target_ptr + 1, current_pos, current_end);
+
             this->destroy_data(this->data, this->num_items);
+            this->allocator.deallocate(this->data, this->num_items);
             this->data = target_data;
         }
 
