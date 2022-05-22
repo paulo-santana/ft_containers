@@ -349,18 +349,19 @@ public:
 
     // fill a range
     void insert(iterator position, size_type n, const value_type& val) {
-        // pointer current_data = this->data;
         pointer current_pos = position.base();
-        pointer current_end = this->end().base();
+        pointer current_end = this->data + this->num_items;
 
         if (this->num_items + n <= this->current_capacity) {
-            this->shift_construct_backwards(current_end - n, current_end, current_end + n);
-            std::copy_backward(current_pos, current_end - n, current_end);
-
-            int i = n;
-            while (i--) {
-                *current_pos++ = val;
+            for (size_type i = 0; i < n; i++) {
+                this->allocator.construct(current_end + i, value_type());
             }
+
+            std::copy_backward(current_pos, current_end, current_end + n);
+            std::fill(current_pos, current_pos + n, val);
+
+        } else {
+            insert_reallocating(current_pos, n, val);
         }
         this->num_items += n;
     }

@@ -513,7 +513,7 @@ static void test_insert() {
         std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
         std::cout << "strings.size() -> " << strings.size() << std::endl;
     }
-    it = strings.insert(strings.begin(), "opa");
+    it = strings.insert(strings.begin() + 2, "opa");
     std::cout << "strings.insert(\"opa\"): " << strings << std::endl;
     std::cout << "returned -> " << *it << std::endl;
     std::cout << "strings.capacity() -> " << strings.capacity() << std::endl;
@@ -523,15 +523,59 @@ static void test_insert() {
 static void test_fill_insert() {
     println("test fill vector.insert()");
 
-    ft::vector<int> vec(10, 5);
+    ft::vector<int> vec;
+
+    vec.insert(vec.begin(), 10, 5);
+    std::cout << "vec.insert(vec.begin(), 10, 5)" << std::endl;
+
     std::cout << "vec -> " << vec << std::endl;
-    std::cout << "vec.size() -> " << vec.size() << std::endl;
+    std::cout << "new size() -> " << vec.size() << std::endl;
+    std::cout << "new capacity() -> " << vec.capacity() << std::endl;
     vec.reserve(20);
 
-    vec.insert(vec.begin() + 5, 4, 3);
+    std::cout << "vec.reserve(20)\nnew capacity -> "
+        << vec.capacity() << std::endl;
+    std::cout << "vec.insert((vec.begin() + 5), 7, 3)" << std::endl;
+    vec.insert((vec.begin() + 5), 7, 3);
 
     std::cout << "vec -> " << vec << std::endl;
-    std::cout << "vec.size() -> " << vec.size() << std::endl;
+    std::cout << "new size() -> " << vec.size() << std::endl;
+    std::cout << "new capacity() -> " << vec.capacity() << std::endl;
+
+    vec.insert(vec.begin(), 7, 7);
+
+    std::cout << "vec -> " << vec << std::endl;
+    std::cout << "new size() -> " << vec.size() << std::endl;
+    std::cout << "new capacity() -> " << vec.capacity() << std::endl;
+}
+
+static void test_fill_insert_string() {
+    println("test fill vector.insert()");
+
+    ft::vector<std::string> vec;
+
+    vec.insert(vec.begin(), 10, "1st");
+    std::cout << "vec.insert(vec.begin(), 10, 5)" << std::endl;
+
+    std::cout << "vec -> " << vec << std::endl;
+    std::cout << "new size() -> " << vec.size() << std::endl;
+    std::cout << "new capacity() -> " << vec.capacity() << std::endl;
+    vec.reserve(20);
+
+    std::cout << "vec.reserve(20)\nnew capacity -> "
+        << vec.capacity() << std::endl;
+    std::cout << "vec.insert((vec.begin() + 5), 7, 3)" << std::endl;
+    vec.insert((vec.begin() + 5), 7, "2nd");
+
+    std::cout << "vec -> " << vec << std::endl;
+    std::cout << "new size() -> " << vec.size() << std::endl;
+    std::cout << "new capacity() -> " << vec.capacity() << std::endl;
+
+    vec.insert(vec.begin(), 7, "3rd");
+
+    std::cout << "vec -> " << vec << std::endl;
+    std::cout << "new size() -> " << vec.size() << std::endl;
+    std::cout << "new capacity() -> " << vec.capacity() << std::endl;
 }
 
 void testVector(void) {
@@ -565,4 +609,5 @@ void testVector(void) {
     test_pop_back();
     test_insert();
     test_fill_insert();
+    test_fill_insert_string();
 }
