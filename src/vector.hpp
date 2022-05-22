@@ -381,7 +381,7 @@ private:
         if (this->current_capacity == 0)
             this->current_capacity = n;
         else
-            this->current_capacity *= 2;
+            this->current_capacity = this->num_items * 2;
 
         pointer target_data = this->allocator.allocate(this->current_capacity);
         target_ptr = target_data + (current_pos - current_data);
