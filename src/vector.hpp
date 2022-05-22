@@ -327,7 +327,6 @@ public:
 
     // insert a single element
     iterator insert(iterator position, const value_type& val) {
-        pointer current_data = this->data;
         pointer current_pos = position.base();
         pointer current_end = this->data + this->num_items;
 
@@ -336,25 +335,12 @@ public:
         if (this->num_items < this->current_capacity) {
             this->allocator.construct(current_end, *(current_end - 1));
             std::copy_backward(current_pos, current_end - 1, current_end);
-            this->allocator.construct(current_pos, val);
+            // this->allocator.construct(current_pos, val);
+            *current_pos = val;
             target_ptr = current_pos;
 
         } else {
-            if (this->current_capacity == 0)
-                this->current_capacity = 1;
-            else
-                this->current_capacity *= 2;
-
-            pointer target_data = this->allocator.allocate(this->current_capacity);
-            target_ptr = target_data + (current_pos - current_data);
-
-            this->copy_data(target_data, current_data, current_pos);
-            this->allocator.construct(target_ptr, val);
-            this->copy_data(target_ptr + 1, current_pos, current_end);
-
-            this->destroy_data(this->data, this->num_items);
-            this->allocator.deallocate(this->data, this->num_items);
-            this->data = target_data;
+            target_ptr = insert_reallocating(current_pos, 1, val);
         }
 
         this->num_items++;
@@ -384,6 +370,36 @@ private:
         while (start != end) {
             this->allocator.construct(--result, *--end);
         }
+    }
+
+    pointer insert_reallocating(pointer current_pos, size_type n, const value_type& val) {
+        pointer current_data = this->data;
+        pointer current_end = this->end().base();
+        pointer target_ptr;
+
+        if (this->current_capacity == 0)
+            this->current_capacity = n;
+        else
+            this->current_capacity *= 2;
+
+        pointer target_data = this->allocator.allocate(this->current_capacity);
+        target_ptr = target_data + (current_pos - current_data);
+
+        this->copy_data(target_data, current_data, current_pos);
+
+        int i = n;
+
+        while (i--)
+            this->allocator.construct(target_ptr + i, val);
+
+        this->copy_data(target_ptr + n, current_pos, current_end);
+
+        this->destroy_data(this->data, this->num_items);
+        this->allocator.deallocate(this->data, this->num_items);
+        this->data = target_data;
+
+        return target_ptr;
+
     }
 
 private:
