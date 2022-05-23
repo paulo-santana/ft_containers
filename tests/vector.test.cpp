@@ -550,32 +550,38 @@ static void test_fill_insert() {
 }
 
 static void test_fill_insert_string() {
-    println("test fill vector.insert()");
+    println("test fill vector.insert(position, amount, value)");
 
-    ft::vector<std::string> vec;
+    ft::vector<std::string> strvec;
 
-    vec.insert(vec.begin(), 10, "1st");
-    std::cout << "vec.insert(vec.begin(), 10, 5)" << std::endl;
+    strvec.insert(strvec.begin(), 5, "x");
+    std::cout << "insert on empty vector" << std::endl;
+    std::cout << strvec << std::endl;
 
-    std::cout << "vec -> " << vec << std::endl;
-    std::cout << "new size() -> " << vec.size() << std::endl;
-    std::cout << "new capacity() -> " << vec.capacity() << std::endl;
-    vec.reserve(20);
+    strvec.reserve(20);
+    std::cout << "case   [xxxxx               ] -> " << strvec << std::endl;
+    strvec.insert(strvec.begin() + 3, 9, "A");
+    std::cout << "target [xxxAAAAAAAAAxx      ] -> " << strvec << std::endl;
+    std::cout << "vec.size() -> " << strvec.size() << std::endl;
+    std::cout << "vec.capacity() -> " << strvec.capacity() << std::endl;
 
-    std::cout << "vec.reserve(20)\nnew capacity -> "
-        << vec.capacity() << std::endl;
-    std::cout << "vec.insert((vec.begin() + 5), 7, 3)" << std::endl;
-    vec.insert((vec.begin() + 5), 7, "2nd");
+    strvec.assign(strvec.size(), "x");
+    std::cout << "case   [xxxxxxxxxxxxxx      ] -> " << strvec << std::endl;
+    strvec.insert((strvec.begin() + 5), 4, "A");
+    std::cout << "target [xxxxxAAAAxxxxxxxxx  ] -> " << strvec << std::endl;
+    std::cout << "vec.size() -> " << strvec.size() << std::endl;
+    std::cout << "vec.capacity() -> " << strvec.capacity() << std::endl;
 
-    std::cout << "vec -> " << vec << std::endl;
-    std::cout << "new size() -> " << vec.size() << std::endl;
-    std::cout << "new capacity() -> " << vec.capacity() << std::endl;
+    std::cout << "test growing factors" << std::endl;
+    for (int i = 0; i < 30; i++) {
+        ft::vector<std::string> intvec(4, "-");
+        intvec.reserve(20);
+        intvec.insert(intvec.begin() + 2, i, "x");
 
-    vec.insert(vec.begin(), 7, "3rd");
-
-    std::cout << "vec -> " << vec << std::endl;
-    std::cout << "new size() -> " << vec.size() << std::endl;
-    std::cout << "new capacity() -> " << vec.capacity() << std::endl;
+        std::cout << "insert 30 -> " << intvec << std::endl;
+        std::cout << "intvec.size() -> " << intvec.size() << std::endl;
+        std::cout << "intvec.capacity() -> " << intvec.capacity() << std::endl;
+    }
 }
 
 void testVector(void) {
@@ -610,4 +616,5 @@ void testVector(void) {
     test_insert();
     test_fill_insert();
     test_fill_insert_string();
+    test_range_insert();
 }
