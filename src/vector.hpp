@@ -378,10 +378,7 @@ private:
         pointer current_end = this->end().base();
         pointer target_ptr;
 
-        if (this->current_capacity == 0)
-            this->current_capacity = n;
-        else
-            this->current_capacity = this->num_items * 2;
+        this->current_capacity = calculate_new_size(n);
 
         pointer target_data = this->allocator.allocate(this->current_capacity);
         target_ptr = target_data + (current_pos - current_data);
@@ -444,6 +441,19 @@ private:
         this->destroy_data(oldData, this->num_items);
         this->allocator.deallocate(oldData, this->num_items);
 
+    }
+
+    size_type calculate_new_size(size_type incomingAmount) {
+        size_type newSize;
+
+        if (this->num_items + incomingAmount > this->num_items * 2)
+            newSize = this->num_items + incomingAmount;
+        else if (this->current_capacity == 0)
+            newSize = incomingAmount;
+        else
+            newSize = this->num_items * 2;
+
+        return newSize;
     }
 };
 
