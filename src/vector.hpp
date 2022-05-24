@@ -349,6 +349,19 @@ public:
 
     // fill a range
     void insert(iterator position, size_type n, const value_type& val) {
+        insert_fill(position, n, val);
+    }
+
+    // insert from a range
+    template<typename InputIterator>
+    void insert(iterator position, InputIterator first, InputIterator last) {
+        typedef typename ft::is_integral<InputIterator>::type isIntegral;
+
+        insert_range_dispatch(position, first, last, isIntegral());
+    }
+
+private:
+    void insert_fill(iterator& position, size_type n, const value_type& val) {
         pointer current_pos = position.base();
         pointer current_end = this->data + this->num_items;
 
@@ -364,9 +377,38 @@ public:
             insert_reallocating(current_pos, n, val);
         }
         this->num_items += n;
+
     }
 
-private:
+    template<typename OtherIterator>
+    void insert_range(iterator& position, OtherIterator& first, OtherIterator& last) {
+        pointer current_pos = position.base();
+        pointer current_end = this->data + this->num_items;
+
+        size_type n = last - first;
+        if (this->num_items + n <= this->current_capacity) {
+            for (size_type i = 0; i < n; i++) {
+                this->allocator.construct(current_end, value_type());
+            }
+            std::copy_backward(current_pos, current_end, current_end + n);
+            std::copy(first, last, position);
+        } else {
+
+        }
+
+        this->num_items += n;
+    }
+
+    template<typename Integral>
+    void insert_range_dispatch(iterator& position, Integral& n, const Integral& val, ft::true_type) {
+        insert_fill(position, n, val);
+    }
+
+    template<typename OtherIterator>
+    void insert_range_dispatch(iterator& position, OtherIterator& first, OtherIterator& last, ft::false_type) {
+        insert_range(position, first, last);
+    }
+
     void shift_construct_backwards(pointer start, pointer end, pointer result) {
         while (start != end) {
             this->allocator.construct(--result, *--end);

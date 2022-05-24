@@ -584,6 +584,20 @@ static void test_fill_insert_string() {
     }
 }
 
+static void test_range_insert() {
+
+    println("test vector range insert");
+    ft::vector<int> base_vec(8, 1);
+
+    ft::vector<int> target(5, 0);
+    target.reserve(20);
+
+    target.insert(target.begin(), base_vec.begin(), base_vec.end());
+
+    std::cout << "target -> " << target << std::endl;
+
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
