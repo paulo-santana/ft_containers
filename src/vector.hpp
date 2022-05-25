@@ -463,10 +463,9 @@ private:
 
             this->copy_data(target_data, current_data, current_pos);
 
-            size_type i = 0;
-
-            while (i < n)
-                this->allocator.construct(target_ptr + i++, *first++);
+            for (size_type i = 0; i < n; ++i, ++first) {
+                this->allocator.construct(target_ptr + i, *first);
+            }
 
             this->copy_data(target_ptr + n, current_pos, current_end);
 
