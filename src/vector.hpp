@@ -266,9 +266,8 @@ public:
 
     void assign(size_type n, const value_type& val) {
         fill_assign(n, val);
-        }
+    }
 
-public:
     template<typename InputIterator>
     void assign(InputIterator first, InputIterator last) {
         typedef typename ft::is_integral<InputIterator>::type integral;
@@ -284,7 +283,8 @@ private:
 
     template<typename Iterator>
     void assign_dispatch(Iterator first, Iterator last, ft::false_type) {
-        this->range_assign(first, last);
+        typedef typename ft::iterator_traits<Iterator>::iterator_category category;
+        this->range_assign(first, last, category());
     }
 
     void fill_assign(size_type n, const value_type& val) {
@@ -308,8 +308,25 @@ private:
         this->num_items = n;
     }
 
-    template<typename Iterator>
-    void range_assign(Iterator first, Iterator last) {
+    template<typename InputIterator>
+    void range_assign(InputIterator first, InputIterator last, std::input_iterator_tag) {
+
+        size_type new_size = 0;
+        this->destroy_data(this->data, this->num_items);
+
+        for (; new_size < this->num_items && first != last; new_size++, ++first) {
+            this->allocator.construct(this->data + new_size, *first);
+        }
+        for (; first != last; ++first) {
+            this->push_back(*first);
+            ++new_size;
+        }
+
+        this->num_items = new_size;
+    }
+
+    template<typename ForwardIterator>
+    void range_assign(ForwardIterator first, ForwardIterator last, std::forward_iterator_tag) {
         size_type distance = static_cast<size_type>(last - first);
         bool mustReallocate = distance > this->current_capacity;
         if (mustReallocate) {

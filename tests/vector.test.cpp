@@ -500,6 +500,24 @@ static void test_cplusplus_assign()
 
 }
 
+static void test_input_iterator_assign() {
+    println("test vector range assign with input iterators");
+
+    ft::vector<int> target(8, 1);
+    const char* strings[] = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+
+    std::stringstream str;
+    for (int i = 0; i < 10; i++) {
+        str << strings[i] + std::string("\n");
+    }
+    std::istream_iterator<int> iter(str);
+
+    target.assign(iter, std::istream_iterator<int>());
+    std::cout << "contents: " << target << std::endl;
+    std::cout << "target.size(): " << target.size() << std::endl;
+    std::cout << "target.capacity(): " << target.capacity() << std::endl;
+}
+
 static void test_pop_back() {
     println("test vector.pop_back()");
 
@@ -668,6 +686,7 @@ void testVector(void) {
     test_back();
     test_assign();
     test_cplusplus_assign();
+    test_input_iterator_assign();
     test_pop_back();
     test_insert();
     test_fill_insert();
