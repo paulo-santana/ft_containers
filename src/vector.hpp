@@ -1,4 +1,5 @@
 #pragma once
+#include <iterator>
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
@@ -85,7 +86,6 @@ private:
         range_construct_dispatch(start, end, alloc, category());
     }
 
-private:
     template<typename InputIterator>
     void range_construct_dispatch(InputIterator start, InputIterator end, const allocator_type& alloc, std::input_iterator_tag) {
         this->num_items = 0;
@@ -102,7 +102,7 @@ private:
 
     template<typename InputIterator>
     void range_construct_dispatch(InputIterator start, InputIterator end, const allocator_type& alloc, std::forward_iterator_tag) {
-        size_type size = end - start;
+        size_type size = std::distance(start, end);
         this->num_items = size;
         this->current_capacity = size;
         this->allocator = alloc;
