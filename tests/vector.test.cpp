@@ -79,6 +79,19 @@ static void test_range_constructor() {
     std::cout << "size: " << vec_range.size() << std::endl;
 }
 
+static void test_input_iterator_range_constructor() {
+    println("test vector range constructor with input iterators");
+
+    std::stringstream str;
+    str << "32\n";
+    str << "42\n";
+    str << "52\n";
+    std::istream_iterator<int> iter(str);
+
+    ft::vector<int> target(iter, std::istream_iterator<int>());
+    std::cout << "contents: " << target << std::endl;
+}
+
 static void test_copy_constructor() {
     println("test vector copy constructor");
     ft::vector<std::string> strs;
@@ -631,6 +644,7 @@ void testVector(void) {
     test_allocator_constructor();
     test_fill_constructor();
     test_range_constructor();
+    test_input_iterator_range_constructor();
     test_copy_constructor();
     test_allocator();
     test_push_back();
