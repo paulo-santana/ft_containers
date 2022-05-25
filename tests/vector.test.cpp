@@ -2,6 +2,8 @@
 #include <algorithm>
 #include <exception>
 #include <iostream>
+#include <iterator>
+#include <sstream>
 #include <stdexcept>
 #include <string>
 #include <typeinfo>
@@ -596,6 +598,32 @@ static void test_range_insert() {
 
     std::cout << "target -> " << target << std::endl;
 
+    std::cout << "test growing factors" << std::endl;
+    for (int i = 0; i < 30; i++) {
+        ft::vector<int> intvec(i, 4);
+        ft::vector<int> loop_target(4, 0);
+        loop_target.reserve(20);
+        loop_target.insert(loop_target.begin() + 2, intvec.begin(), intvec.end());
+
+        std::cout << "insert " << i << " -> " << loop_target << std::endl;
+        std::cout << "intvec.size() -> " << loop_target.size() << std::endl;
+        std::cout << "intvec.capacity() -> " << loop_target.capacity() << std::endl;
+    }
+}
+
+static void test_input_iterator_insert() {
+    println("test vector range insert with input iterators");
+
+    ft::vector<int> target(8, 1);
+
+    std::stringstream str;
+    str << "32\n";
+    str << "42\n";
+    str << "52\n";
+    std::istream_iterator<int> iter(str);
+
+    target.insert(target.begin() + 3, iter, std::istream_iterator<int>());
+    std::cout << "contents: " << target << std::endl;
 }
 
 void testVector(void) {
@@ -631,4 +659,5 @@ void testVector(void) {
     test_fill_insert();
     test_fill_insert_string();
     test_range_insert();
+    test_input_iterator_insert();
 }

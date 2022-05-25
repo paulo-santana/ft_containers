@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <stdexcept>
 
+#include "iterator_traits.hpp"
 #include "vector/iterator.hpp"
 #include "enable_if.hpp"
 #include "type_traits.hpp"
@@ -79,6 +80,28 @@ private:
     template<typename InputIterator>
     void range_construct_dispatch(InputIterator start, InputIterator end, const allocator_type& alloc,
             ft::false_type) {
+        typedef typename ft::iterator_traits<InputIterator>::iterator_category category;
+
+        range_construct_dispatch(start, end, alloc, category());
+    }
+
+private:
+    template<typename InputIterator>
+    void range_construct_dispatch(InputIterator start, InputIterator end, const allocator_type& alloc, std::input_iterator_tag) {
+        this->num_items = 0;
+        this->current_capacity = 0;
+        this->allocator = alloc;
+        this->max_capacity = alloc.max_size();
+        this->data = 0;
+
+        while (start != end) {
+            this->push_back(*start);
+            ++start;
+        }
+    }
+
+    template<typename InputIterator>
+    void range_construct_dispatch(InputIterator start, InputIterator end, const allocator_type& alloc, std::forward_iterator_tag) {
         size_type size = end - start;
         this->num_items = size;
         this->current_capacity = size;
@@ -357,7 +380,7 @@ public:
     void insert(iterator position, InputIterator first, InputIterator last) {
         typedef typename ft::is_integral<InputIterator>::type isIntegral;
 
-        insert_range_dispatch(position, first, last, isIntegral());
+        insert_dispatch(position, first, last, isIntegral());
     }
 
 private:
@@ -381,11 +404,31 @@ private:
     }
 
     template<typename OtherIterator>
-    void insert_range(iterator& position, OtherIterator& first, OtherIterator& last) {
+    void insert_range(iterator& position, OtherIterator first, OtherIterator& last) {
+        typedef typename ft::iterator_traits<OtherIterator>::iterator_category category;
+
+        insert_range(position, first, last, category());
+    }
+
+    template<typename InputIterator>
+    void insert_range(iterator& position, InputIterator& first, InputIterator& last, std::input_iterator_tag) {
+        if (position == this->end()) {
+            for (; first != last; ++first) {
+                this->push_back(*first);
+            }
+
+        } else {
+            vector tmp(first, last, this->get_allocator());
+            insert(position, tmp.begin(), tmp.end());
+        }
+    }
+
+    template<typename ForwardIterator>
+    void insert_range(iterator& position, ForwardIterator& first, ForwardIterator &last, std::forward_iterator_tag) {
         pointer current_pos = position.base();
         pointer current_end = this->data + this->num_items;
 
-        size_type n = last - first;
+        size_type n = std::distance(first, last);
         if (this->num_items + n <= this->current_capacity) {
             for (size_type i = 0; i < n; i++) {
                 this->allocator.construct(current_end, value_type());
@@ -393,19 +436,40 @@ private:
             std::copy_backward(current_pos, current_end, current_end + n);
             std::copy(first, last, position);
         } else {
+            pointer current_data = this->data;
+            pointer target_ptr;
+
+            this->current_capacity = calculate_new_size(n);
+
+            pointer target_data = this->allocator.allocate(this->current_capacity);
+            target_ptr = target_data + (current_pos - current_data);
+
+            this->copy_data(target_data, current_data, current_pos);
+
+            size_type i = 0;
+
+            while (i < n)
+                this->allocator.construct(target_ptr + i++, *first++);
+
+            this->copy_data(target_ptr + n, current_pos, current_end);
+
+            this->destroy_data(this->data, this->num_items);
+            this->allocator.deallocate(this->data, this->num_items);
+            this->data = target_data;
 
         }
 
         this->num_items += n;
+
     }
 
     template<typename Integral>
-    void insert_range_dispatch(iterator& position, Integral& n, const Integral& val, ft::true_type) {
+    void insert_dispatch(iterator& position, Integral& n, const Integral& val, ft::true_type) {
         insert_fill(position, n, val);
     }
 
     template<typename OtherIterator>
-    void insert_range_dispatch(iterator& position, OtherIterator& first, OtherIterator& last, ft::false_type) {
+    void insert_dispatch(iterator& position, OtherIterator& first, OtherIterator& last, ft::false_type) {
         insert_range(position, first, last);
     }
 
