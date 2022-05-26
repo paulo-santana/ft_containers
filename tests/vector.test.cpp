@@ -740,6 +740,39 @@ static void test_swap() {
     std::cout << "vec2.begin(): " << *vec2.begin() << std::endl;
 }
 
+static void test_clear() {
+    println("test vector.clear()");
+
+    ft::vector<Mock> vec(3, Mock(3));
+
+    std::cout << "vec: " << vec << std::endl;
+    std::cout << "vec.clear() " << std::endl;
+    vec.clear();
+    std::cout << "vec: " << vec << std::endl;
+    std::cout << "vec.size(): " << vec.size() << std::endl;
+    std::cout << "vec.capacity(): " << vec.capacity() << std::endl;
+}
+
+static void test_non_member_swap() {
+    println("test vector non member swap()");
+
+    ft::vector<int> vec1(4, 4);
+    ft::vector<int> vec2(8, 7);
+
+    std::cout << "vec1: " << vec1 << std::endl;
+    std::cout << "vec2: " << vec2 << std::endl;
+    ft::swap(vec1, vec2);
+    std::cout << "vec1.swap(vec2)" << std::endl;
+    std::cout << "vec1: " << vec1 << std::endl;
+    std::cout << "vec2: " << vec2 << std::endl;
+    std::cout << "vec1.size(): " << vec1.size() << std::endl;
+    std::cout << "vec2.size(): " << vec2.size() << std::endl;
+    std::cout << "vec1.capacity(): " << vec1.capacity() << std::endl;
+    std::cout << "vec2.capacity(): " << vec2.capacity() << std::endl;
+    std::cout << "vec1.begin(): " << *vec1.begin() << std::endl;
+    std::cout << "vec2.begin(): " << *vec2.begin() << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -779,4 +812,6 @@ void testVector(void) {
     test_erase();
     test_iterator_erase();
     test_swap();
+    test_non_member_swap();
+    test_clear();
 }

@@ -560,6 +560,11 @@ public:
         other.current_capacity = capacity;
     }
 
+    void clear() {
+        this->destroy_data(this->data, this->num_items);
+        this->num_items = 0;
+    }
+
 private:
     T *data;
 
@@ -616,6 +621,11 @@ private:
         return newSize;
     }
 };
+
+template <class T, class Alloc>
+  void swap (ft::vector<T,Alloc>& x, ft::vector<T,Alloc>& y) {
+      x.swap(y);
+  }
 
 }
 
