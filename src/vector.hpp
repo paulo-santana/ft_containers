@@ -522,6 +522,17 @@ private:
 
     }
 
+public:
+    iterator erase(iterator position) {
+        pointer ptr = position.base();
+
+        std::copy(ptr + 1, this->end().base(), ptr);
+        this->allocator.destroy((this->end() - 1).base());
+
+        this->num_items--;
+        return iterator(ptr);
+    }
+
 private:
     T *data;
 
