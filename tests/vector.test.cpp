@@ -728,6 +728,8 @@ static void test_swap() {
 
     std::cout << "vec1: " << vec1 << std::endl;
     std::cout << "vec2: " << vec2 << std::endl;
+    ft::vector<int>::iterator it = vec1.begin();
+    ft::vector<int>::iterator it2 = vec2.begin();
     vec1.swap(vec2);
     std::cout << "vec1.swap(vec2)" << std::endl;
     std::cout << "vec1: " << vec1 << std::endl;
@@ -738,6 +740,12 @@ static void test_swap() {
     std::cout << "vec2.capacity(): " << vec2.capacity() << std::endl;
     std::cout << "vec1.begin(): " << *vec1.begin() << std::endl;
     std::cout << "vec2.begin(): " << *vec2.begin() << std::endl;
+
+    ft::vector<int>::iterator post_it = vec1.begin();
+    ft::vector<int>::iterator post_it2 = vec2.begin();
+
+    std::cout << "iterator points to new vector: " << (it == post_it2) << std::endl;
+    std::cout << "iterator 2 points to new vector: " << (it2 == post_it) << std::endl;
 }
 
 static void test_clear() {
