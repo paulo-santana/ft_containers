@@ -781,6 +781,47 @@ static void test_non_member_swap() {
     std::cout << "vec2.begin(): " << *vec2.begin() << std::endl;
 }
 
+static void test_vector_relational_operators() {
+    println("test vector relational operators");
+
+    ft::vector<int> empty1, empty2;
+    ft::vector<int> some1(5, 3), some2(5, 3);
+
+    ft::vector<int> bigger1(6, 3);
+
+    std::cout << "(empty1 == empty2): " << (empty1 == empty2) << std::endl;
+    std::cout << "(empty1 != empty2): " << (empty1 != empty2) << std::endl;
+
+    std::cout << "(some1 == some2): " << (some1 == some2) << std::endl;
+    std::cout << "(some1 != some2): " << (some1 != some2) << std::endl;
+
+    std::cout << "(empty1 == some2): " << (empty1 == some1) << std::endl;
+    std::cout << "(empty1 != some2): " << (empty1 != some1) << std::endl;
+
+    std::cout << "(some1 == bigger1): " << (some1 == bigger1) << std::endl;
+    std::cout << "(some1 != bigger1): " << (some1 != bigger1) << std::endl;
+
+    std::cout << "(empty1 < empty2): " << (empty1 < empty2) << std::endl;
+    std::cout << "(empty1 > empty2): " << (empty1 > empty2) << std::endl;
+    std::cout << "(empty1 <= empty2): " << (empty1 <= empty2) << std::endl;
+    std::cout << "(empty1 >= empty2): " << (empty1 >= empty2) << std::endl;
+
+    std::cout << "(some1 <  some2): " << (some1 < some2) << std::endl;
+    std::cout << "(some1 >  some2): " << (some1 > some2) << std::endl;
+    std::cout << "(some1 <= some2): " << (some1 <= some2) << std::endl;
+    std::cout << "(some1 >= some2): " << (some1 >= some2) << std::endl;
+
+    std::cout << "(empty1 <  some2): " << (empty1 < some2) << std::endl;
+    std::cout << "(empty1 >  some2): " << (empty1 > some2) << std::endl;
+    std::cout << "(empty1 <= some2): " << (empty1 <= some2) << std::endl;
+    std::cout << "(empty1 >= some2): " << (empty1 >= some2) << std::endl;
+
+    std::cout << "(some1 <  bigger1): " << (some1 <  bigger1) << std::endl;
+    std::cout << "(some1 >  bigger1): " << (some1 >  bigger1) << std::endl;
+    std::cout << "(some1 <= bigger1): " << (some1 <= bigger1) << std::endl;
+    std::cout << "(some1 >= bigger1): " << (some1 >= bigger1) << std::endl;
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -822,4 +863,6 @@ void testVector(void) {
     test_swap();
     test_non_member_swap();
     test_clear();
+
+    test_vector_relational_operators();
 }
