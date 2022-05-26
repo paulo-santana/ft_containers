@@ -1,5 +1,4 @@
 #pragma once
-#include <iterator>
 #ifndef VECTOR_HPP
 #define VECTOR_HPP
 
@@ -13,6 +12,9 @@
 #include "enable_if.hpp"
 #include "type_traits.hpp"
 #include "vector/reverse_iterator.hpp"
+
+#include "equal.hpp"
+#include "lexicographical_compare.hpp"
 
 namespace ft
 {
@@ -621,6 +623,32 @@ private:
         return newSize;
     }
 };
+
+template <class T, class Alloc>
+bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    return lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+}
+template <class T, class Alloc>
+bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    return !(lhs == rhs);
+}
+template <class T, class Alloc>
+bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    return true;
+    return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+}
+template <class T, class Alloc>
+bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    return !(lhs > rhs);
+}
+template <class T, class Alloc>
+bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    return rhs < lhs;
+}
+template <class T, class Alloc>
+bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+    return !(lhs < rhs);
+}
 
 template <class T, class Alloc>
 void swap (ft::vector<T,Alloc>& x, ft::vector<T,Alloc>& y) {
