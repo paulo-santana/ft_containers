@@ -533,6 +533,18 @@ public:
         return iterator(ptr);
     }
 
+    iterator erase(iterator first, iterator last) {
+        pointer ptr = first.base();
+        pointer last_ptr = last.base();
+
+        size_type size = last_ptr - ptr;
+
+        std::copy(last_ptr, end().base(), ptr);
+        this->destroy_data(end().base() - size, size);
+        this->num_items -= size;
+        return iterator(ptr);
+    }
+
 private:
     T *data;
 

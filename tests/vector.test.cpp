@@ -4,7 +4,6 @@
 #include <iostream>
 #include <iterator>
 #include <sstream>
-#include <stdexcept>
 #include <string>
 #include <typeinfo>
 #include <vector>
@@ -672,10 +671,11 @@ public:
 
     Mock& operator=(const Mock& other) {
         delete this->allocated_data;
+        this->index = other.index;
         this->allocated_data = new int(*other.allocated_data);
         return *this;
     }
-    friend std::ostream& operator<<(std::ostream& os, Mock& me) {
+    friend std::ostream& operator<<(std::ostream& os, const Mock& me) {
         os << me.index;
         return os;
     }
@@ -703,6 +703,21 @@ static void test_erase() {
         ft::vector<Mock>::iterator it = ints.erase(begin);
         std::cout << ": returned -> " << *it << std::endl;
     }
+}
+
+void test_iterator_erase() {
+    println("test vector range erase");
+
+    ft::vector<Mock> vec;
+
+    for (int i = 0; i < 8; i++) {
+        vec.push_back(Mock(i * i));
+    }
+
+    ft::vector<Mock>::iterator pos = vec.erase(vec.begin() + 2, vec.end() - 2);
+
+    std::cout << "vec.erase(begin, end) -> " << vec << std::endl;
+    std::cout << "returned: " << *pos << std::endl;
 }
 
 void testVector(void) {
@@ -742,4 +757,5 @@ void testVector(void) {
     test_range_insert();
     test_input_iterator_insert();
     test_erase();
+    test_iterator_erase();
 }
