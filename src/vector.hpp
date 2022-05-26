@@ -545,6 +545,21 @@ public:
         return iterator(ptr);
     }
 
+
+    void swap(vector& other) {
+        size_type size = this->num_items;
+        size_type capacity = this->current_capacity;
+        T* tmp = this->data;
+
+        this->data = other.data;
+        this->num_items = other.num_items;
+        this->current_capacity = other.current_capacity;
+
+        other.data = tmp;
+        other.num_items = size;
+        other.current_capacity = capacity;
+    }
+
 private:
     T *data;
 

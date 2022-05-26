@@ -705,7 +705,7 @@ static void test_erase() {
     }
 }
 
-void test_iterator_erase() {
+static void test_iterator_erase() {
     println("test vector range erase");
 
     ft::vector<Mock> vec;
@@ -718,6 +718,26 @@ void test_iterator_erase() {
 
     std::cout << "vec.erase(begin, end) -> " << vec << std::endl;
     std::cout << "returned: " << *pos << std::endl;
+}
+
+static void test_swap() {
+    println("test vector.swap()");
+
+    ft::vector<int> vec1(4, 4);
+    ft::vector<int> vec2(8, 7);
+
+    std::cout << "vec1: " << vec1 << std::endl;
+    std::cout << "vec2: " << vec2 << std::endl;
+    vec1.swap(vec2);
+    std::cout << "vec1.swap(vec2)" << std::endl;
+    std::cout << "vec1: " << vec1 << std::endl;
+    std::cout << "vec2: " << vec2 << std::endl;
+    std::cout << "vec1.size(): " << vec1.size() << std::endl;
+    std::cout << "vec2.size(): " << vec2.size() << std::endl;
+    std::cout << "vec1.capacity(): " << vec1.capacity() << std::endl;
+    std::cout << "vec2.capacity(): " << vec2.capacity() << std::endl;
+    std::cout << "vec1.begin(): " << *vec1.begin() << std::endl;
+    std::cout << "vec2.begin(): " << *vec2.begin() << std::endl;
 }
 
 void testVector(void) {
@@ -758,4 +778,5 @@ void testVector(void) {
     test_input_iterator_insert();
     test_erase();
     test_iterator_erase();
+    test_swap();
 }
