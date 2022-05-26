@@ -623,9 +623,9 @@ private:
 };
 
 template <class T, class Alloc>
-  void swap (ft::vector<T,Alloc>& x, ft::vector<T,Alloc>& y) {
-      x.swap(y);
-  }
+void swap (ft::vector<T,Alloc>& x, ft::vector<T,Alloc>& y) {
+    x.swap(y);
+}
 
 }
 
