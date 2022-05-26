@@ -13,7 +13,7 @@ public:
     typedef Container                       container_type;
     typedef typename Container::size_type   size_type;
 
-    stack(const container_type& cont = container_type()): container(cont) { }
+    explicit stack(const container_type& cont = container_type()): container(cont) { }
 
     size_type size() const {
         return this->container.size();
