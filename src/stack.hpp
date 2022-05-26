@@ -19,6 +19,10 @@ public:
         return this->container.size();
     }
 
+    bool empty() const {
+        return this->container.empty();
+    }
+
 private:
     container_type container;
 };

@@ -21,7 +21,7 @@ static void test_stack_default_constructor() {
 }
 
 static void test_stack_wrapper_constructor() {
-    println("test stack default constructor");
+    println("test stack wrapper constructor");
 
     ft::vector<int> vec(3, 2);
     int_stack stack(vec);
@@ -29,8 +29,21 @@ static void test_stack_wrapper_constructor() {
     std::cout << "stack.size(): " << stack.size() << std::endl;
 }
 
+static void test_empty() {
+    println("test vector.empty()");
+
+    ft::vector<int> vec(8, 8);
+    int_stack stack;
+
+    std::cout << "stack.empty() -> " << stack.empty() << std::endl;
+
+    int_stack full(vec);
+    std::cout << "full.empty() -> " << full.empty() << std::endl;
+}
+
 void testStack() {
     test_stack_default_constructor();
     test_stack_wrapper_constructor();
+    test_empty();
 
 }
