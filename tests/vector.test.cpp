@@ -820,6 +820,16 @@ static void test_vector_relational_operators() {
     std::cout << "(some1 >  bigger1): " << (some1 >  bigger1) << std::endl;
     std::cout << "(some1 <= bigger1): " << (some1 <= bigger1) << std::endl;
     std::cout << "(some1 >= bigger1): " << (some1 >= bigger1) << std::endl;
+
+    std::cout << "(some2 <  empty1): " << (some2 <  empty1) << std::endl;
+    std::cout << "(some2 >  empty1): " << (some2 >  empty1) << std::endl;
+    std::cout << "(some2 <= empty1): " << (some2 <= empty1) << std::endl;
+    std::cout << "(some2 >= empty1): " << (some2 >= empty1) << std::endl;
+
+    std::cout << "(bigger1 <  some1): " << (bigger1 <  some1) << std::endl;
+    std::cout << "(bigger1 >  some1): " << (bigger1 >  some1) << std::endl;
+    std::cout << "(bigger1 <= some1): " << (bigger1 <= some1) << std::endl;
+    std::cout << "(bigger1 >= some1): " << (bigger1 >= some1) << std::endl;
 }
 
 void testVector(void) {
