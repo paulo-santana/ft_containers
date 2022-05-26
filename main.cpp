@@ -20,4 +20,5 @@ int main (void)
     testVectorIterator();
     testReverseIterator();
     testVector();
+    testStack();
 }

@@ -2,6 +2,7 @@
 #define TESTS_HPP
 
 void testVector(void);
+void testStack(void);
 void testVectorIterator(void);
 void testReverseIterator(void);
 

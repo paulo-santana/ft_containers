@@ -5,6 +5,7 @@ SRC := main.cpp \
 	   vector.test.cpp \
 	   vector_iterator.test.cpp \
 	   reverse_iterator.test.cpp \
+	   stack.test.cpp \
 	   test_utils.cpp \
 
 OBJ_DIR ?= ./obj
