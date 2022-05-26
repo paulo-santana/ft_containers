@@ -8,10 +8,13 @@
 	#include <stack.hpp>
 #endif
 
+typedef ft::stack<int, ft::vector<int> > int_stack;
+typedef ft::stack<std::string, ft::vector<std::string> > string_stack;
+
 static void test_stack_default_constructor() {
     println("test stack default constructor");
 
-    ft::stack<int> stack;
+    int_stack stack;
 
     std::cout << "stack.size(): " << stack.size() << std::endl;
 
@@ -21,7 +24,7 @@ static void test_stack_wrapper_constructor() {
     println("test stack default constructor");
 
     ft::vector<int> vec(3, 2);
-    ft::stack<int, ft::vector<int> > stack(vec);
+    int_stack stack(vec);
 
     std::cout << "stack.size(): " << stack.size() << std::endl;
 }
