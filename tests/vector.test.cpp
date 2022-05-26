@@ -657,6 +657,54 @@ static void test_input_iterator_insert() {
     std::cout << "contents: " << target << std::endl;
 }
 
+class Mock {
+public:
+    Mock(): index(0) {
+        this->allocated_data = new int(3);
+    }
+    Mock(int i): index(i) {
+        this->allocated_data = new int(i);
+    }
+
+    Mock(const Mock& other): index(other.index) {
+        this->allocated_data = new int(*other.allocated_data);
+    }
+
+    Mock& operator=(const Mock& other) {
+        delete this->allocated_data;
+        this->allocated_data = new int(*other.allocated_data);
+        return *this;
+    }
+    friend std::ostream& operator<<(std::ostream& os, Mock& me) {
+        os << me.index;
+        return os;
+    }
+
+    ~Mock() {
+        std::cout << " [Mock " << index << " destructor called]" << std::endl;
+        delete this->allocated_data;
+    }
+private:
+    int index;
+    int* allocated_data;
+};
+
+static void test_erase() {
+    println("test vector erase");
+
+    ft::vector<Mock> ints;
+    for (int i = 0; i < 10; i++) {
+        ints.push_back(Mock(i));
+    }
+
+    while (!ints.empty()) {
+        ft::vector<Mock>::iterator begin = ints.begin();
+        std::cout << "erase " << *begin;
+        ft::vector<Mock>::iterator it = ints.erase(begin);
+        std::cout << ": returned -> " << *it << std::endl;
+    }
+}
+
 void testVector(void) {
     test_default_constructor();
     test_allocator_constructor();
@@ -693,4 +741,5 @@ void testVector(void) {
     test_fill_insert_string();
     test_range_insert();
     test_input_iterator_insert();
+    test_erase();
 }
