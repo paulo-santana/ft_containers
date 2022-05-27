@@ -123,7 +123,10 @@ static void test_relational_operators() {
     std::cout << "empty == empty -> " << (empty == empty) << std::endl;
     std::cout << "empty == some -> " << (empty == some) << std::endl;
     std::cout << "bigger == some -> " << (bigger == some) << std::endl;
-    // std::cout << "empty != empty" << (empty != empty) << std::endl;
+
+    std::cout << "empty != empty -> " << (empty != empty) << std::endl;
+    std::cout << "empty != some -> " << (empty != some) << std::endl;
+    std::cout << "bigger != some -> " << (bigger != some) << std::endl;
 }
 
 void testStack() {
