@@ -138,8 +138,13 @@ public:
         this->num_items = other.num_items;
         this->data = this->allocator.allocate(this->current_capacity);
 
-        for (size_type i = 0; i < this->num_items; i++) {
-            this->allocator.construct(this->data + i, other.data[i]);
+        if (other.data == 0) {
+            this->data = 0;
+
+        } else {
+            for (size_type i = 0; i < this->num_items; i++) {
+                this->allocator.construct(this->data + i, other.data[i]);
+            }
         }
         return *this;
     }
