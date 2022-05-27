@@ -96,9 +96,34 @@ static void test_pop() {
     std::cout << "stack.top() -> " << stack.top() << std::endl;
     
     while (!stack.empty()) {
-        stack.pop();
         std::cout << "stack.pop() -> " << stack.top() << std::endl;
+        stack.pop();
     }
+}
+
+static void test_relational_operators() {
+    println("test stack relational operators");
+
+    ft::vector<int> empty_vec;
+    ft::vector<int> some_vec;
+    ft::vector<int> bigger_vec;
+
+    for (int i = 0; i < 8; i++) {
+        some_vec.push_back(i);
+        bigger_vec.push_back(i);
+    }
+    for (int i = 8; i < 10; i++) {
+        bigger_vec.push_back(i * i);
+    }
+
+    int_stack empty(empty_vec);
+    int_stack some(some_vec);
+    int_stack bigger(bigger_vec);
+
+    std::cout << "empty == empty -> " << (empty == empty) << std::endl;
+    std::cout << "empty == some -> " << (empty == some) << std::endl;
+    std::cout << "bigger == some -> " << (bigger == some) << std::endl;
+    // std::cout << "empty != empty" << (empty != empty) << std::endl;
 }
 
 void testStack() {
@@ -110,4 +135,5 @@ void testStack() {
     test_top();
     test_push();
     test_pop();
+    test_relational_operators();
 }
