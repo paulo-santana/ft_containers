@@ -116,9 +116,9 @@ static void test_relational_operators() {
         bigger_vec.push_back(i * i);
     }
 
-    int_stack empty(empty_vec);
+    const int_stack empty(empty_vec);
     int_stack some(some_vec);
-    int_stack bigger(bigger_vec);
+    const int_stack bigger(bigger_vec);
 
     std::cout << "empty == empty -> " << (empty == empty) << std::endl;
     std::cout << "empty == some -> " << (empty == some) << std::endl;
@@ -127,6 +127,36 @@ static void test_relational_operators() {
     std::cout << "empty != empty -> " << (empty != empty) << std::endl;
     std::cout << "empty != some -> " << (empty != some) << std::endl;
     std::cout << "bigger != some -> " << (bigger != some) << std::endl;
+
+    std::cout << "(empty < empty): " << (empty < empty) << std::endl;
+    std::cout << "(empty > empty): " << (empty > empty) << std::endl;
+    std::cout << "(empty <= empty): " << (empty <= empty) << std::endl;
+    std::cout << "(empty >= empty): " << (empty >= empty) << std::endl;
+
+    std::cout << "(some <  some): " << (some < some) << std::endl;
+    std::cout << "(some >  some): " << (some > some) << std::endl;
+    std::cout << "(some <= some): " << (some <= some) << std::endl;
+    std::cout << "(some >= some): " << (some >= some) << std::endl;
+
+    std::cout << "(empty <  some): " << (empty < some) << std::endl;
+    std::cout << "(empty >  some): " << (empty > some) << std::endl;
+    std::cout << "(empty <= some): " << (empty <= some) << std::endl;
+    std::cout << "(empty >= some): " << (empty >= some) << std::endl;
+
+    std::cout << "(some <  bigger): " << (some <  bigger) << std::endl;
+    std::cout << "(some >  bigger): " << (some >  bigger) << std::endl;
+    std::cout << "(some <= bigger): " << (some <= bigger) << std::endl;
+    std::cout << "(some >= bigger): " << (some >= bigger) << std::endl;
+
+    std::cout << "(some <  empty): " << (some <  empty) << std::endl;
+    std::cout << "(some >  empty): " << (some >  empty) << std::endl;
+    std::cout << "(some <= empty): " << (some <= empty) << std::endl;
+    std::cout << "(some >= empty): " << (some >= empty) << std::endl;
+
+    std::cout << "(bigger <  some): " << (bigger <  some) << std::endl;
+    std::cout << "(bigger >  some): " << (bigger >  some) << std::endl;
+    std::cout << "(bigger <= some): " << (bigger <= some) << std::endl;
+    std::cout << "(bigger >= some): " << (bigger >= some) << std::endl;
 }
 
 void testStack() {
