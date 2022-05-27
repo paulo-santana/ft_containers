@@ -36,6 +36,9 @@ std::ostream& operator<<(std::ostream& out, const ft::vector<T>& vec)
 static void test_default_constructor(void) {
     println("\ntest vector default constructor");
     ft::vector<int> *vector1 = new ft::vector<int>();
+    std::cout << "vector.size() -> " << vector1->size() << std::endl;
+    std::cout << "vector.capacity() -> " << vector1->capacity() << std::endl;
+    std::cout << "vector.empty() -> " << vector1->empty() << std::endl;
     delete vector1;
 }
 
