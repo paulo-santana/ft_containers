@@ -95,8 +95,7 @@ static void test_pop() {
 
     std::cout << "stack.top() -> " << stack.top() << std::endl;
     
-    while (stack.empty()) 
-    {
+    while (!stack.empty()) {
         stack.pop();
         std::cout << "stack.pop() -> " << stack.top() << std::endl;
     }
