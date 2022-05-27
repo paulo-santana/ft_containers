@@ -12,6 +12,7 @@ class stack {
 public:
     typedef Container                       container_type;
     typedef typename Container::size_type   size_type;
+    typedef typename Container::value_type  value_type;
 
     explicit stack(const container_type& cont = container_type()): container(cont) { }
 
@@ -22,6 +23,23 @@ public:
     bool empty() const {
         return this->container.empty();
     }
+
+    value_type& top() {
+        return this->container.back();
+    }
+
+    const value_type& top() const {
+        return this->container.back();
+    }
+
+    void push(const value_type& item) {
+        this->container.push_back(item);
+    }
+
+    void pop() {
+        this->container.pop_back();
+    }
+    
 
 private:
     container_type container;
