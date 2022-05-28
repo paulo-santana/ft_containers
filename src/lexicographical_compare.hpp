@@ -17,6 +17,20 @@ bool lexicographical_compare(
     return (first1 == last1 && first2 != last2);
 }
 
+template <typename Iter1, typename Iter2, typename Compare>
+bool lexicographical_compare(
+        Iter1 first1, Iter1 last1,
+        Iter2 first2, Iter2 last2, Compare pred) {
+
+    while (first1 != last1 && first2 != last2) {
+        if (pred(*first1, *first2)) return true;
+        else if (pred(*first2, *first1)) return false;
+        ++first1;
+        ++first2;
+    }
+    return (first1 == last1 && first2 != last2);
+}
+
 }
 
 #endif // !LEXICOGRAPHICAL_COMPARE_HPP
