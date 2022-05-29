@@ -64,7 +64,6 @@ public:
         return lhs.container >= rhs.container;
     }
 
-
 private:
     container_type container;
 };

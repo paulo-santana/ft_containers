@@ -21,4 +21,6 @@ int main (void)
     testReverseIterator();
     testVector();
     testStack();
+    testRBTree();
+    testMap();
 }
