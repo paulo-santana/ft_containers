@@ -6,6 +6,7 @@ SRC := main.cpp \
 	   vector_iterator.test.cpp \
 	   reverse_iterator.test.cpp \
 	   stack.test.cpp \
+	   pair.test.cpp \
 	   rb_tree.test.cpp \
 	   map.test.cpp \
 	   test_utils.cpp \

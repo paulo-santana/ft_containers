@@ -6,6 +6,7 @@ void testStack(void);
 void testMap(void);
 void testVectorIterator(void);
 void testReverseIterator(void);
+void testPair(void);
 void testRBTree(void);
 
 #endif // !VECTOR_TEST_HPP
