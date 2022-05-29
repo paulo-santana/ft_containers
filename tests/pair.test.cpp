@@ -38,8 +38,20 @@ static void test_initialization_constructor() {
     std::cout << item << std::endl;
 }
 
+// this operator is completely useless in c++ 98
+static void test_assignment_operator() {
+    println("test pair assignment operator");
+
+    ft::pair<std::string, int> item("first", 42);
+    ft::pair<const std::string, int> other("second", 82);
+
+    item = other;
+    std::cout << item << std::endl;
+}
+
 void testPair() {
     test_default_constructor();
     test_copy_constructor();
     test_initialization_constructor();
+    test_assignment_operator();
 }

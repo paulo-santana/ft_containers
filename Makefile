@@ -44,7 +44,7 @@ fclean: clean
 re: fclean all
 
 
-run: __compile_ft __compile_std
+run: __compile_std __compile_ft 
 	./$(NAME_STD) > std_out
 	./$(NAME) > my_out
 	delta --diff-so-fancy my_out std_out && echo "OK :)"
