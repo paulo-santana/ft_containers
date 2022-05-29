@@ -13,8 +13,8 @@ public:
     // default constructor
     pair(): first(), second() {}
 
-    // template<typename U1, typename U2>
-    // pair(pair<U1, U2>& other): first(other.first), second(other.second) { }
+    template<typename U1, typename U2>
+    pair(pair<U1, U2>& other): first(other.first), second(other.second) { }
 
 };
 

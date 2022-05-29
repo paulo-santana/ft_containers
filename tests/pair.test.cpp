@@ -21,7 +21,18 @@ static void test_default_constructor() {
     std::cout << item << std::endl;
 }
 
+static void test_copy_constructor() {
+    println("test pair copy constructor");
+
+    ft::pair<const int, int> item;
+    item.second = 3;
+
+    ft::pair<const int, float> copy(item);
+    std::cout << copy << std::endl;
+}
+
 void testPair() {
     test_default_constructor();
+    test_copy_constructor();
 
 }
