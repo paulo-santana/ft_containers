@@ -31,8 +31,15 @@ static void test_copy_constructor() {
     std::cout << copy << std::endl;
 }
 
+static void test_initialization_constructor() {
+    println("test pair initialization constructor");
+
+    ft::pair<const std::string, int> item("first", 42);
+    std::cout << item << std::endl;
+}
+
 void testPair() {
     test_default_constructor();
     test_copy_constructor();
-
+    test_initialization_constructor();
 }
