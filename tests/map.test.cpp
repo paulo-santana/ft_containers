@@ -7,15 +7,18 @@
 #endif
 
 void testMap() {
-    std::map<int, int> map;
+    std::map<int, std::string> map;
 
-    map.insert(std::make_pair(1, 3));
+    map.insert(std::make_pair(1, "empty"));
     
-    std::map<int, int>::iterator begin = map.begin();
-    int first = begin->first;
-    int second = begin->second;
+    std::map<int, std::string>::iterator begin = map.begin();
+    // int first = begin->first;
+    std::string second = begin->second;
+    std::pair<const int, std::string> p = *begin;
 
-    if (first == second) {
-        std::cout << "true? " << true << std::endl;
-    }
+    second = p.second;
+
+    // if (first == second) {
+    //     std::cout << "true? " << true << std::endl;
+    // }
 }

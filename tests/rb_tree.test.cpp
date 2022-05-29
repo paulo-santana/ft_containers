@@ -3,7 +3,8 @@
 #include <ostream>
 #include <iostream>
 
-std::ostream& operator<<(std::ostream& out, const ft::RB_Tree &tree) {
+template<typename T>
+std::ostream& operator<<(std::ostream& out, const ft::RB_Tree<T> &tree) {
     (void)tree;
     out << "[";
 
@@ -19,7 +20,7 @@ std::ostream& operator<<(std::ostream& out, const ft::RB_Tree &tree) {
 static void test_default_constructor() {
     println("test RB Tree default constructor");
 
-    ft::RB_Tree tree;
+    ft::RB_Tree<int> tree;
 
     (void)tree;
     std::cout << "at least it compiles" << std::endl;
