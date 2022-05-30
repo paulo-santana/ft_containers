@@ -22,6 +22,36 @@ public:
     pair(const first_type& key, const second_type& value): first(key), second(value) { }
 };
 
+template<typename T1, typename T2>
+bool operator==(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+    return lhs.first == rhs.first && lhs.second == rhs.second;
+}
+
+template<typename T1, typename T2>
+bool operator!=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+    return !(lhs == rhs);
+}
+
+template<typename T1, typename T2>
+bool operator<(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+    return lhs.first < rhs.first || (!(rhs.first < lhs.first) && lhs.second < rhs.second);
+}
+
+template<typename T1, typename T2>
+bool operator>(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+    return !(lhs <= rhs);
+}
+
+template<typename T1, typename T2>
+bool operator<=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+    return !(rhs < lhs);
+}
+
+template<typename T1, typename T2>
+bool operator>=(const pair<T1, T2>& lhs, const pair<T1, T2>& rhs) {
+    return !(lhs < rhs);
+}
+
 }
 
 #endif // !PAIR_HPP
