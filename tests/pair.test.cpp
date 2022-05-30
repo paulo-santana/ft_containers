@@ -111,6 +111,14 @@ static void test_cplusplus_relational_operators()
   if (foo>=bar) std::cout << "foo is greater than or equal to bar\n";
 }
 
+static void test_make_pair() {
+    println("test make_pair()");
+
+    ft::pair<int, int> result = ft::make_pair(10, 20);
+
+    std::cout << "ft::make_pair(10, 20): " << result << std::endl;
+}
+
 void testPair() {
     test_default_constructor();
     test_copy_constructor();
@@ -119,4 +127,5 @@ void testPair() {
 
     test_relational_operators();
     test_cplusplus_relational_operators();
+    test_make_pair();
 }
