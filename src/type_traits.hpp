@@ -20,7 +20,55 @@ struct is_integral<bool> {
 };
 
 template<>
+struct is_integral<char> {
+    enum { value = 1 };
+    typedef true_type type;
+};
+
+template<>
+struct is_integral<wchar_t> {
+    enum { value = 1 };
+    typedef true_type type;
+};
+
+template<>
+struct is_integral<signed char> {
+    enum { value = 1 };
+    typedef true_type type;
+};
+
+template<>
+struct is_integral<short int> {
+    enum { value = 1 };
+    typedef true_type type;
+};
+
+template<>
 struct is_integral<int> {
+    enum { value = 1 };
+    typedef true_type type;
+};
+
+template<>
+struct is_integral<long int> {
+    enum { value = 1 };
+    typedef true_type type;
+};
+
+template<>
+struct is_integral<long long int> {
+    enum { value = 1 };
+    typedef true_type type;
+};
+
+template<>
+struct is_integral<unsigned char> {
+    enum { value = 1 };
+    typedef true_type type;
+};
+
+template<>
+struct is_integral<unsigned short int> {
     enum { value = 1 };
     typedef true_type type;
 };
@@ -32,13 +80,13 @@ struct is_integral<unsigned int> {
 };
 
 template<>
-struct is_integral<long> {
+struct is_integral<unsigned long int> {
     enum { value = 1 };
     typedef true_type type;
 };
 
 template<>
-struct is_integral<unsigned long> {
+struct is_integral<unsigned long long int> {
     enum { value = 1 };
     typedef true_type type;
 };
