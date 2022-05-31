@@ -22,6 +22,6 @@ int main (void)
     testVector();
     testStack();
     testRBTree();
-    testPair();
-    testMap();
+    // testPair();
+    // testMap();
 }
