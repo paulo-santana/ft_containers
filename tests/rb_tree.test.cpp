@@ -111,11 +111,12 @@ static void test_search() {
     tree.insert(19);
     tree.insert(13);
 
-    ft::RB_Tree_Node<const int, int>* result = tree.search(13);
-    if (result)
-        std::cout << "result: " << *result << std::endl;
-    else
-        std::cout << "13 not found" << std::endl;
+#if REAL_STD
+    std::cout << "result:  node[19, 19]" << std::endl << std::endl;
+#else
+    ft::RB_Tree_Node<const int, int>* result = tree.search(19);
+    std::cout << "result:" << *result << std::endl;
+#endif
 }
 
 void testRBTree() {
