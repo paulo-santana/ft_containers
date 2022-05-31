@@ -8,7 +8,7 @@
 #endif
 
 template<typename T1, typename T2>
-std::ostream& operator<<(std::ostream& out, const ft::pair<T1, T2>& pair) {
+static std::ostream& operator<<(std::ostream& out, const ft::pair<T1, T2>& pair) {
     out << "  pair[" << pair.first << "," << pair.second << "]";
     return out;
 }
