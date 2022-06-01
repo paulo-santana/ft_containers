@@ -74,6 +74,34 @@ public:
         return get_right_most(this->root);
     } 
 
+    RB_Node* get_predecessor(RB_Node* node) {
+        if (node->left != NIL)
+            return get_right_most(node->left);
+
+        RB_Node* target = node->parent;
+        while (target != NIL && node == target->left)
+        {
+            node = target;
+            target = target->parent;
+        }
+
+        return target;
+    }
+
+    RB_Node* get_successor(RB_Node* node) {
+        if (node->right != NIL)
+            return get_left_most(node->right);
+
+        RB_Node* target = node->parent;
+        while (target != NIL && node == target->right)
+        {
+            node = target;
+            target = target->parent;
+        }
+
+        return target;
+    }
+
 private:
 
     RB_Node* get_left_most(RB_Node* item) const {

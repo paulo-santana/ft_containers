@@ -4,6 +4,8 @@
 
 namespace ft {
 
+#define NIL 0
+
 template<typename Key, typename Value>
 class RB_Tree_Node {
 

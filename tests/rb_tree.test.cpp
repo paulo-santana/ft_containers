@@ -4,6 +4,7 @@
 #include <map>
 #include <ostream>
 #include <iostream>
+#include <sys/types.h>
 #include <utility>
 
 typedef ft::RB_Tree_Node<const int, int> int_int_node;
@@ -23,7 +24,7 @@ std::ostream& operator<<(std::ostream& out, const std::pair<T, U>& pair) {
 
 template<typename T, typename U>
 std::ostream& operator<<(std::ostream& out, const ft::RB_Tree_Node<T, U>& node) {
-    out << "  node[" << node.key << ", " << node.value << "]" << std::endl;
+    out << "  node[" << node.key << ", " << node.value << "]";
     return out;
 }
 
@@ -32,7 +33,7 @@ void inorder_tree_walk(std::ostream& out, const ft::RB_Tree_Node<T, U>* node) {
     if (node == 0)
         return ;
     inorder_tree_walk(out, node->left);
-    out << *node;
+    out << *node << std::endl;
     inorder_tree_walk(out, node->right);
 }
 
@@ -112,11 +113,74 @@ static void test_search() {
     tree.insert(13);
 
 #if REAL_STD
-    std::cout << "result:  node[19, 19]" << std::endl << std::endl;
+    std::cout << "result:  node[19, 19]" << std::endl;
 #else
     ft::RB_Tree_Node<const int, int>* result = tree.search(19);
     std::cout << "result:" << *result << std::endl;
 #endif
+}
+
+static void test_node_successor() {
+    println("test RB Node successor");
+
+    int_int_tree tree;
+    tree.insert(30);
+    tree.insert(20);
+    tree.insert(25);
+    tree.insert(37);
+    tree.insert(21);
+    tree.insert(19);
+    tree.insert(13);
+    int_int_tree::RB_Node* node = tree.search(13);
+    
+    std::cout << "tree: " << tree << std::endl;
+#if REAL_STD
+    std::cout << "result:  node[19, 19]" << std::endl;
+    std::cout << "result:  node[20, 20]" << std::endl;
+    std::cout << "result:  node[21, 21]" << std::endl;
+    std::cout << "result:  node[25, 25]" << std::endl;
+    std::cout << "result:  node[30, 30]" << std::endl;
+    std::cout << "result:  node[37, 37]" << std::endl;
+    (void)node;
+#else
+    int_int_tree::RB_Node* result = tree.get_successor(node);
+    for (int i = 0; i < 10 && result != 0; i++) {
+        std::cout << "result:" << *result << std::endl;
+        result = tree.get_successor(result);
+    }
+#endif
+}
+
+static void test_node_predecessor() {
+    println("test RB Node predecessor");
+
+    int_int_tree tree;
+    tree.insert(30);
+    tree.insert(20);
+    tree.insert(25);
+    tree.insert(37);
+    tree.insert(21);
+    tree.insert(19);
+    tree.insert(13);
+    int_int_tree::RB_Node* node = tree.search(37);
+    
+    std::cout << "tree: " << tree << std::endl;
+#if REAL_STD
+    std::cout << "result:  node[30, 30]" << std::endl;
+    std::cout << "result:  node[25, 25]" << std::endl;
+    std::cout << "result:  node[21, 21]" << std::endl;
+    std::cout << "result:  node[20, 20]" << std::endl;
+    std::cout << "result:  node[19, 19]" << std::endl;
+    std::cout << "result:  node[13, 13]" << std::endl;
+    (void)node;
+#else
+    int_int_tree::RB_Node* result = tree.get_predecessor(node);
+    for (int i = 0; i < 10 && result != 0; i++) {
+        std::cout << "result:" << *result << std::endl;
+        result = tree.get_predecessor(result);
+    }
+#endif
+
 }
 
 void testRBTree() {
@@ -125,4 +189,7 @@ void testRBTree() {
     test_insert_at_empty();
     test_get_minimum();
     test_search();
+
+    test_node_successor();
+    test_node_predecessor();
 }
