@@ -7,19 +7,19 @@ namespace ft {
 #define NIL 0
 
 template<typename Key, typename Value>
-class RB_Tree_Node {
+class RBTreeNode {
 
 public:
-    Key             key;
-    Value           value;
+    Key           key;
+    Value         value;
 
-    RB_Tree_Node*   parent;
-    RB_Tree_Node*   left;
-    RB_Tree_Node*   right;
+    RBTreeNode*   parent;
+    RBTreeNode*   left;
+    RBTreeNode*   right;
 
-    bool            black;
+    bool          black;
 
-    RB_Tree_Node():
+    RBTreeNode():
         key(Key()),
         value(Value()),
         parent(),
@@ -27,7 +27,7 @@ public:
         right(),
         black(false) {}
 
-    RB_Tree_Node(const RB_Tree_Node& other):
+    RBTreeNode(const RBTreeNode& other):
         key(other.key),
         value(other.value),
         parent(other.parent),
@@ -35,10 +35,10 @@ public:
         right(other.right),
         black(other.black) {}
 
-    RB_Tree_Node(const Value& data):
+    RBTreeNode(const Value& data):
         value(data), parent(), left(), right(), black(false) {}
 
-    RB_Tree_Node(const Key& key, const Value& data):
+    RBTreeNode(const Key& key, const Value& data):
         key(key),
         value(data),
         parent(),
