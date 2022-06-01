@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <memory>
 #ifndef RED_BLACK_TREE_HPP
 #define RED_BLACK_TREE_HPP
@@ -55,7 +56,23 @@ public:
     }
 
     void remove(const key_type& key) {
-        (void)key;
+        Node* node = search_node(this->root, key);
+        if (node == NIL) {
+            return;
+        }
+
+        Node* parent = node->parent;
+
+        if (parent == NIL) {
+            this->root = NIL;
+        } else {
+            if (parent->left == node)
+                parent->left = NIL;
+            else 
+                parent->right = NIL;
+        }
+        this->node_allocator.destroy(node);
+        this->node_allocator.deallocate(node, 1);
     }
 
     Node* search(const key_type& key) {
@@ -106,6 +123,10 @@ public:
         return target;
     }
 
+    bool is_empty() const {
+        return this->root == NIL;
+    }
+
 private:
 
     Node* get_left_most(Node* item) const {
@@ -137,8 +158,8 @@ private:
     }
 
 private:
-    Node*            root;
-    allocator_type      allocator;
+    Node*           root;
+    allocator_type  allocator;
     NodeAllocator   node_allocator;
 };
 

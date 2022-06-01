@@ -39,11 +39,13 @@ void inorder_tree_walk(std::ostream& out, const ft::RBTreeNode<T, U>* node) {
 
 template<typename T, typename U, typename V>
 std::ostream& operator<<(std::ostream& out, const ft::RBTree<T, U, V> &tree) {
-    out << "[" << std::endl;
 
-    // if (tree) {
-    //
-    // }
+    if (tree.is_empty()) {
+        out << "[ ]" << std::endl;
+        return out;
+    }
+
+    out << "[" << std::endl;
 
     const ft::RBTreeNode<T, U>* first = tree.get_minimum();
     const ft::RBTreeNode<T, U>* root = first;
@@ -188,15 +190,21 @@ static void test_remove() {
 
     int_int_tree tree;
     tree.insert(30);
-    tree.insert(20);
-    tree.insert(25);
-    tree.insert(37);
-    tree.insert(21);
-    tree.insert(19);
     tree.insert(13);
 
+    std::cout << "tree: " << tree << std::endl;
+    
+    std::cout << "remove an edge element" << std::endl;
     tree.remove(13);
+    std::cout << "after remove(13): " << tree << std::endl;
 
+    std::cout << "remove the last alive element" << std::endl;
+    tree.remove(30);
+#if REAL_STD
+    std::cout << "after remove(30): [ ]" << std::endl;
+#else
+    std::cout << "after remove(30): " << tree;
+#endif
 }
 
 void testRBTree() {

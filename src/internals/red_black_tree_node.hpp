@@ -9,6 +9,8 @@ namespace ft {
 template<typename Key, typename Value>
 class RBTreeNode {
 
+#define NIL 0
+
 public:
     Key           key;
     Value         value;
@@ -22,9 +24,9 @@ public:
     RBTreeNode():
         key(Key()),
         value(Value()),
-        parent(),
-        left(),
-        right(),
+        parent(NIL),
+        left(NIL),
+        right(NIL),
         black(false) {}
 
     RBTreeNode(const RBTreeNode& other):
@@ -36,14 +38,14 @@ public:
         black(other.black) {}
 
     RBTreeNode(const Value& data):
-        value(data), parent(), left(), right(), black(false) {}
+        value(data), parent(NIL), left(NIL), right(NIL), black(false) {}
 
     RBTreeNode(const Key& key, const Value& data):
         key(key),
         value(data),
-        parent(),
-        left(),
-        right(),
+        parent(NIL),
+        left(NIL),
+        right(NIL),
         black(false) {}
 };
 
