@@ -10,6 +10,8 @@
 namespace ft {
 
 #define NIL 0
+#define IS_LEFT_CHILD(X) (X) == (X)->parent->left
+#define IS_RIGHT_CHILD(X) (X) == (X)->parent->right
 
 template<
     typename Key,
@@ -155,6 +157,59 @@ private:
             return search_node(current_root->left, key);
         else 
             return search_node(current_root->right, key);
+    }
+
+    /*
+       |           |
+       X     ->    Y
+      / \         / \   
+     a   Y       X   c
+        / \     / \
+       b   c   a   b
+   */ 
+    void left_rotate(Node* nodeX) {
+        Node* nodeY = nodeX->right;
+
+        nodeX->right = nodeY->left;
+        if (nodeY->left != NIL) {
+            nodeY->left->parent = nodeX;
+        }
+
+        nodeY->parent = nodeX->parent;
+        if (nodeX->parent == NIL) {
+            this->root = nodeY;
+        } else if (IS_LEFT_CHILD(nodeX)) {
+            nodeX->parent->left = nodeY;
+        } else {
+            nodeX->parent->right = nodeY;
+        }
+
+    }
+
+    /*
+        |          |    
+        X    ->    Y    
+       / \        / \   
+      Y   c      a   X  
+     / \            / \ 
+    a   b          b   c
+    */ 
+    void right_rotate(Node* nodeX) {
+        Node* nodeY = nodeX->right;
+
+        nodeX->left = nodeY->right;
+        if (nodeY->right != NIL) {
+            nodeY->right->parent = nodeX;
+        }
+
+        nodeY->parent = nodeX->parent;
+        if (nodeX->parent == NIL) {
+            this->root = nodeY;
+        } else if (IS_RIGHT_CHILD(nodeX)) {
+            nodeX->parent->right = nodeY;
+        } else {
+            nodeX->parent->left = nodeY;
+        }
     }
 
 private:
