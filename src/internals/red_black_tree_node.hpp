@@ -27,7 +27,7 @@ public:
         parent(this),
         left(this),
         right(this),
-        color(RED) {}
+        color(BLACK) {}
 
     RBTreeNode(const RBTreeNode& other):
         key(other.key),
@@ -37,13 +37,19 @@ public:
         right(other.right),
         color(other.color) {}
 
-    RBTreeNode(const Value& data):
+    RBTreeNode(const Value& data, const RBTreeNode* NIL):
         value(data),
+        parent(NIL),
+        left(NIL),
+        right(NIL),
         color(RED) {}
 
-    RBTreeNode(const Key& key, const Value& data):
+    RBTreeNode(const Key& key, const Value& data, RBTreeNode* NIL):
         key(key),
         value(data),
+        parent(NIL),
+        left(NIL),
+        right(NIL),
         color(RED) {}
 };
 

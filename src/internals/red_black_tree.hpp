@@ -33,11 +33,22 @@ public:
         root(NIL),
         allocator(allocator_type()) { }
 
+    Node* get_root() {
+        return this->root;
+    }
+
     void insert(const value_type& data) {
         Node* new_node = create_node(data);
 
+        if (this->root == this->NIL) {
+            this->root = new_node;
+            new_node->color = BLACK;
+            new_node->parent = NIL;
+            return ;
+        }
         Node* iter = this->root;
         Node* parent = NIL;
+
         while (iter != NIL) {
             parent = iter;
 
@@ -56,9 +67,7 @@ public:
         } else {
             parent->right = new_node;
         }
-        new_node->left = NIL;
-        new_node->right = NIL;
-        new_node->color = RED;
+        insert_fixup(new_node);
     }
 
     void remove(const key_type& key) {
@@ -133,6 +142,7 @@ public:
         return this->root == NIL;
     }
 
+
 private:
 
     Node* get_left_most(Node* item) const {
@@ -149,13 +159,13 @@ private:
 
     Node* create_node(const value_type& data) {
         Node* new_node = this->node_allocator.allocate(1);
-        this->node_allocator.construct(new_node, Node(KeyOfValue()(data), data));
+        this->node_allocator.construct(new_node, Node(KeyOfValue()(data), data, NIL));
         this->allocator.construct(&new_node->value, data);
         return new_node;
     }
 
     Node* search_node(Node* current_root, const key_type& key) {
-        if (current_root == 0 || current_root->key == key)
+        if (current_root == NIL || current_root->key == key)
             return current_root;
         else if (key < current_root->key)
             return search_node(current_root->left, key);
@@ -187,7 +197,8 @@ private:
         } else {
             nodeX->parent->right = nodeY;
         }
-
+        nodeY->left = nodeX;
+        nodeX->parent = nodeY;
     }
 
     /*
@@ -214,10 +225,12 @@ private:
         } else {
             nodeX->parent->left = nodeY;
         }
+        nodeY->right = nodeX;
+        nodeX->parent = nodeY;
     }
 
     void insert_fixup(Node* node) {
-        Node* uncle = 0;
+        Node* uncle = NIL;
         while (node->parent->color == RED) {
 
             if (IS_LEFT_CHILD(node->parent)) {
@@ -258,7 +271,6 @@ private:
         }
         this->root->color = BLACK;
     }
-
 private:
     static Node         _leaf;
     Node*               root;
