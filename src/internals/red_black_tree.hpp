@@ -9,7 +9,6 @@
 
 namespace ft {
 
-#define NIL 0
 #define IS_LEFT_CHILD(X) (X) == (X)->parent->left
 #define IS_RIGHT_CHILD(X) (X) == (X)->parent->right
 
@@ -21,13 +20,18 @@ template<
 class RBTree {
 
 public:
+
     typedef RBTreeNode<Key, Value>      Node;
     typedef std::allocator<Node>        NodeAllocator;
     typedef Key                         key_type;
     typedef Value                       value_type;
     typedef _Allocator                  allocator_type;
 
-    RBTree(): root(NIL), allocator(allocator_type()) { }
+    static Node*                               NIL;
+
+    RBTree():
+        root(NIL),
+        allocator(allocator_type()) { }
 
     void insert(const value_type& data) {
         Node* new_node = create_node(data);
@@ -54,7 +58,7 @@ public:
         }
         new_node->left = NIL;
         new_node->right = NIL;
-        new_node->black = false;
+        new_node->color = RED;
     }
 
     void remove(const key_type& key) {
@@ -195,7 +199,7 @@ private:
     a   b          b   c
     */ 
     void right_rotate(Node* nodeX) {
-        Node* nodeY = nodeX->right;
+        Node* nodeY = nodeX->left;
 
         nodeX->left = nodeY->right;
         if (nodeY->right != NIL) {
@@ -212,12 +216,61 @@ private:
         }
     }
 
+    void insert_fixup(Node* node) {
+        Node* uncle = 0;
+        while (node->parent->color == RED) {
+
+            if (IS_LEFT_CHILD(node->parent)) {
+                uncle = node->parent->parent->right;
+                if (uncle->color == RED) {
+                    node->parent->color = BLACK;
+                    uncle->color = BLACK;
+                    node->parent->parent->color = RED;
+                    node = node->parent->parent;
+
+                } else {
+                    if (IS_RIGHT_CHILD(node)) {
+                        node = node->parent;
+                        left_rotate(node);
+                    }
+                    node->parent->color = BLACK;
+                    node->parent->parent->color = RED;
+                    right_rotate(node->parent->parent);
+                }
+            } else {
+                uncle = node->parent->parent->left;
+                if (uncle->color == RED) {
+                    node->parent->color = BLACK;
+                    uncle->color = BLACK;
+                    node->parent->parent->color = RED;
+                    node = node->parent->parent;
+
+                } else {
+                    if (IS_LEFT_CHILD(node)) {
+                        node = node->parent;
+                        right_rotate(node);
+                    }
+                    node->parent->color = BLACK;
+                    node->parent->parent->color = RED;
+                    left_rotate(node->parent->parent);
+                }
+            }
+        }
+        this->root->color = BLACK;
+    }
+
 private:
-    Node*           root;
-    allocator_type  allocator;
-    NodeAllocator   node_allocator;
+    static Node         _leaf;
+    Node*               root;
+    allocator_type      allocator;
+    NodeAllocator       node_allocator;
 };
 
+template<typename T, typename U, typename V, typename W>
+typename RBTree<T, U, V, W>::Node RBTree<T, U, V, W>::_leaf = RBTree<T, U, V, W>::Node();
+
+template<typename T, typename U, typename V, typename W>
+typename RBTree<T, U, V, W>::Node* RBTree<T, U, V, W>::NIL = &RBTree<T, U, V, W>::_leaf;
 }
 
 #endif // !RED_BLACK_TREE_HPP

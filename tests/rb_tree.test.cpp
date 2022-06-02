@@ -28,13 +28,13 @@ std::ostream& operator<<(std::ostream& out, const ft::RBTreeNode<T, U>& node) {
     return out;
 }
 
-template<typename T, typename U>
+template<typename T, typename U, typename V>
 void inorder_tree_walk(std::ostream& out, const ft::RBTreeNode<T, U>* node) {
-    if (node == 0)
+    if (node == ft::RBTree<T, U, V>::NIL)
         return ;
-    inorder_tree_walk(out, node->left);
+    inorder_tree_walk<T, U, V>(out, node->left);
     out << *node << std::endl;
-    inorder_tree_walk(out, node->right);
+    inorder_tree_walk<T, U, V>(out, node->right);
 }
 
 template<typename T, typename U, typename V>
@@ -49,10 +49,10 @@ std::ostream& operator<<(std::ostream& out, const ft::RBTree<T, U, V> &tree) {
 
     const ft::RBTreeNode<T, U>* first = tree.get_minimum();
     const ft::RBTreeNode<T, U>* root = first;
-    while (root->parent != 0)
+    while (root->parent != tree.NIL)
         root = root->parent;
     
-    inorder_tree_walk<T, U>(out, root);
+    inorder_tree_walk<T, U, V>(out, root);
     out << "]";
 
     return out;
@@ -84,7 +84,7 @@ static void test_insert_at_empty() {
 }
 
 static void test_get_minimum() {
-    println("test RB Tree get_first()");
+    println("test RB Tree get_minimum()");
 
     int_int_tree tree;
     tree.insert(3);
@@ -146,7 +146,7 @@ static void test_node_successor() {
     (void)node;
 #else
     int_int_tree::Node* result = tree.get_successor(node);
-    for (int i = 0; i < 10 && result != 0; i++) {
+    for (int i = 0; i < 10 && result != int_int_tree::NIL; i++) {
         std::cout << "result:" << *result << std::endl;
         result = tree.get_successor(result);
     }
@@ -177,7 +177,7 @@ static void test_node_predecessor() {
     (void)node;
 #else
     int_int_tree::Node* result = tree.get_predecessor(node);
-    for (int i = 0; i < 10 && result != 0; i++) {
+    for (int i = 0; i < 10 && result != int_int_tree::NIL; i++) {
         std::cout << "result:" << *result << std::endl;
         result = tree.get_predecessor(result);
     }
