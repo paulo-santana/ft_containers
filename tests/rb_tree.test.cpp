@@ -1,6 +1,7 @@
 #include "internals/red_black_tree_node.hpp"
 #include "test_utils.hpp"
 #include "internals/red_black_tree.hpp"
+#include <algorithm>
 #include <functional>
 #include <map>
 #include <ostream>
@@ -69,10 +70,7 @@ std::ostream& operator<<(std::ostream& out, const ft::RBTree<T, U, V> &tree) {
 
     out << "[" << std::endl;
 
-    const ft::RBTreeNode<T, U>* first = tree.get_minimum();
-    const ft::RBTreeNode<T, U>* root = first;
-    while (root->parent != tree.NIL)
-        root = root->parent;
+    const ft::RBTreeNode<T, U>* root = tree.get_root();
     
     inorder_tree_walk<T, U, V>(out, root);
     out << "]";
@@ -81,10 +79,31 @@ std::ostream& operator<<(std::ostream& out, const ft::RBTree<T, U, V> &tree) {
 }
 
 void prettyPrint(int_int_tree& tree) {
-    std::cout << "---------------- " << std::endl;
+    std::cout << "\n------------------------------------" << std::endl;
     if (tree.get_root()) {
         printHelper(tree.get_root(), tree.NIL, "", true);
     }
+}
+
+template<typename T, typename U, typename V>
+bool is_ordered(const ft::RBTree<T, U, V> &tree) {
+    const typename ft::RBTree<T, U, V>::Node* current = tree.get_minimum();
+    const typename ft::RBTree<T, U, V>::Node* next = tree.get_successor(current);
+
+    while (next != tree.NIL) {
+        if (current->key > next->key) 
+            return false;
+        current = next;
+        next = tree.get_successor(next);
+    }
+    return true;
+}
+
+template<typename T, typename U, typename V>
+bool validateTree(const ft::RBTree<T, U, V> &tree) {
+    const typename ft::RBTree<T, U, V>::Node* root = tree.get_root();
+    (void)root;
+    return is_ordered(tree);
 }
 
 static void test_default_constructor() {
@@ -251,10 +270,11 @@ static void test_remove() {
     tree.insert(13);
 
     std::cout << "tree: " << tree << std::endl;
-    
+
     std::cout << "remove an edge element" << std::endl;
     tree.remove(13);
     std::cout << "after remove(13): " << tree << std::endl;
+    std::cout << "tree is valid: " << validateTree(tree) << std::endl;
 
     std::cout << "remove the last alive element" << std::endl;
     tree.remove(30);

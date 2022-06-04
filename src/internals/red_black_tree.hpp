@@ -37,6 +37,10 @@ public:
         return this->root;
     }
 
+    const Node* get_root() const {
+        return this->root;
+    }
+
     void insert(const value_type& data) {
         Node* new_node = create_node(data);
 
@@ -76,18 +80,36 @@ public:
             return;
         }
 
-        Node* parent = node->parent;
+        Node* y = node;
+        bool y_original_color = y->color;
 
-        if (parent == NIL) {
-            this->root = NIL;
+        Node* x;
+        if (node->left == NIL) {
+            x = node->right;
+            transplant(node, node->right);
+        } else if (node->right == NIL) {
+            x = node->left;
+            transplant(node, node->left);
         } else {
-            if (parent->left == node)
-                parent->left = NIL;
-            else 
-                parent->right = NIL;
+            y = get_left_most(node->right);
+            y_original_color = y->color;
+            x = y->right;
+
+            if (y != node->right) {
+                transplant(y, y->right);
+                y->right = node->right;
+                y->right->parent = y;
+
+            } else {
+                x->parent = y;
+                transplant(node, y);
+                y->left = node->left;
+                y->left->parent = y;
+                y->color = node->color;
+            }
         }
-        this->node_allocator.destroy(node);
-        this->node_allocator.deallocate(node, 1);
+        if (y_original_color == BLACK)
+            remove_fixup(x);
     }
 
     Node* search(const key_type& key) {
@@ -124,7 +146,35 @@ public:
         return target;
     }
 
-    Node* get_successor(Node* node) {
+    const Node* get_predecessor(Node* node) const {
+        if (node->left != NIL)
+            return get_right_most(node->left);
+
+        Node* target = node->parent;
+        while (target != NIL && node == target->left)
+        {
+            node = target;
+            target = target->parent;
+        }
+
+        return target;
+    }
+
+    Node* get_successor(const Node* node) {
+        if (node->right != NIL)
+            return get_left_most(node->right);
+
+        Node* target = node->parent;
+        while (target != NIL && node == target->right)
+        {
+            node = target;
+            target = target->parent;
+        }
+
+        return target;
+    }
+
+    const Node* get_successor(const Node* node) const {
         if (node->right != NIL)
             return get_left_most(node->right);
 
@@ -203,9 +253,9 @@ private:
 
     /*
         |          |    
-        X    ->    Y    
+       (X)   ->   (Y)   
        / \        / \   
-      Y   c      a   X  
+     (Y)  c      a  (X) 
      / \            / \ 
     a   b          b   c
     */ 
@@ -271,6 +321,78 @@ private:
         }
         this->root->color = BLACK;
     }
+
+    void transplant(Node* target, Node* replacement) {
+        if (target->parent == NIL) {
+            this->root = replacement;
+        } else if (IS_LEFT_CHILD(target)) {
+            target->parent->left = replacement;
+        } else  {
+            target->parent->right = replacement;
+        }
+        replacement->parent = target->parent;
+    }
+
+    void remove_fixup(Node* x) {
+        Node* w;
+
+        while (x != this->root && x->color == BLACK) {
+            if (IS_LEFT_CHILD(x)) {
+                w = x->parent->right;
+
+                if (w->color == RED) {
+                    w->color = BLACK;
+                    x->parent->color = RED;
+                    left_rotate(x->parent);
+                    w = x->parent->right;
+                }
+                if (w->left->color == BLACK && w->right->color == BLACK) {
+                    w->color = RED;
+                    x = x->parent;
+
+                } else {
+                    if (w->right->color == BLACK) {
+                        w->left->color = BLACK;
+                        w->color = RED;
+                        right_rotate(w);
+                        w = x->parent->right;
+                    }
+                    w->color = x->parent->color;
+                    x->parent->color = BLACK;
+                    w->right->color = BLACK;
+                    left_rotate(x->parent);
+                    x = this->root;
+                }
+            } else {
+                w = x->parent->left;
+                if (w->color == RED) {
+                    w->color = BLACK;
+                    x->parent->color = RED;
+                    right_rotate(x->parent);
+                    w = x->parent->left;
+                }
+                if (w->right->color == BLACK && w->left->color == BLACK) {
+                    w->color = RED;
+                    x = x->parent;
+
+                } else {
+                    if (w->left->color == BLACK) {
+                        w->right->color = BLACK;
+                        w->color = RED;
+                        left_rotate(w);
+                        w = x->parent->left;
+                    }
+                    w->color = x->parent->color;
+                    x->parent->color = BLACK;
+                    w->left->color = BLACK;
+                    right_rotate(x->parent);
+                    x = this->root;
+                }
+            }
+        }
+        x->color = BLACK;
+    }
+
 private:
     static Node         _leaf;
     Node*               root;
