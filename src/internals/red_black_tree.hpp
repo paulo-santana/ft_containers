@@ -33,6 +33,10 @@ public:
         root(NIL),
         allocator(allocator_type()) { }
 
+    ~RBTree() {
+        this->clear();
+    }
+
     Node* get_root() {
         return this->root;
     }
@@ -110,6 +114,8 @@ public:
         }
         if (y_original_color == BLACK)
             remove_fixup(x);
+        this->node_allocator.destroy(node);
+        this->node_allocator.deallocate(node, 1);
     }
 
     Node* search(const key_type& key) {
@@ -192,8 +198,21 @@ public:
         return this->root == NIL;
     }
 
+    void clear() {
+        flush(this->root);
+    }
+
 
 private:
+
+    void flush(Node* node) {
+        if (node == NIL)
+            return ;
+        flush(node->left);
+        flush(node->right);
+        this->node_allocator.destroy(node);
+        this->node_allocator.deallocate(node, 1);
+    }
 
     Node* get_left_most(Node* item) const {
         while(item->left != NIL)
