@@ -9,6 +9,9 @@
 #include <sys/types.h>
 #include <utility>
 
+#define RED false
+#define BLACK true
+
 typedef ft::RBTreeNode<const int, int> int_int_node;
 
 typedef ft::RBTree<const int, int, std::_Identity<int> > int_int_tree;
@@ -99,11 +102,56 @@ bool is_ordered(const ft::RBTree<T, U, V> &tree) {
     return true;
 }
 
+template<typename T, typename U>
+int get_black_height(const ft::RBTreeNode<T, U>* node, ft::RBTreeNode<T, U>* nil) {
+    if (node->left == nil && node->right == nil)
+        return 1 + (node->color == BLACK);
+    
+    int left_height = get_black_height(node->left, nil);
+    int right_height = get_black_height(node->right, nil);
+    if (left_height != right_height) 
+        return -1;
+    return left_height + 1 + (node->color == BLACK);
+}
+
+template<typename T, typename U, typename V>
+bool same_black_height(const ft::RBTree<T, U, V> &tree) {
+    int height = get_black_height(tree.get_root(), tree.NIL);
+    return height != -1;
+}
+
+template<typename T, typename U>
+bool has_consecutive_red(const ft::RBTreeNode<T, U>* node) {
+    if (node != node->left->parent && node != node->right->parent)
+        return false;
+    if (node->color == RED) {
+        if (node->left->color == RED || node->right->color == RED)
+            return true;
+    }
+    bool left_have = false;
+    if (node == node->left->parent)
+        left_have = has_consecutive_red(node->left);
+    if (left_have)
+        return true;
+    if (node == node->right->parent)
+        return (has_consecutive_red(node->right));
+    return false;
+}
+
+template<typename T, typename U, typename V>
+bool no_consective_reds(const ft::RBTree<T, U, V> &tree) {
+    if (has_consecutive_red(tree.get_root()))
+        return false;
+    return true;
+}
+
 template<typename T, typename U, typename V>
 bool validateTree(const ft::RBTree<T, U, V> &tree) {
-    const typename ft::RBTree<T, U, V>::Node* root = tree.get_root();
-    (void)root;
-    return is_ordered(tree);
+    return
+        tree.get_root()->color == BLACK
+        && is_ordered(tree)
+        && same_black_height(tree)
+        && no_consective_reds(tree);
 }
 
 static void test_default_constructor() {
@@ -228,19 +276,13 @@ static void test_node_predecessor() {
 
     int_int_tree tree;
     tree.insert(30);
-    prettyPrint(tree);
     tree.insert(20);
-    prettyPrint(tree);
     tree.insert(25);
-    prettyPrint(tree);
     tree.insert(37);
-    prettyPrint(tree);
     tree.insert(21);
-    prettyPrint(tree);
     tree.insert(19);
-    prettyPrint(tree);
     tree.insert(13);
-    prettyPrint(tree);
+    std::cout << "tree is valid: " << validateTree(tree) << std::endl;
     int_int_tree::Node* node = tree.search(37);
     
     std::cout << "tree: " << tree << std::endl;
@@ -285,6 +327,26 @@ static void test_remove() {
 #endif
 }
 
+static void test_double_red_validator() {
+    println("test the validator validates correctly");
+
+    int_int_tree tree;
+    tree.insert(1);
+    tree.insert(2);
+    tree.insert(3);
+    tree.insert(4);
+    int_int_node* root = tree.get_root();
+#if REAL_STD
+    std::cout << "no reds? true" << std::endl;
+    root->right->color = RED;
+    std::cout << "no reds? false" << std::endl;
+#else
+    std::cout << "no reds? " << no_consective_reds(tree) << std::endl;
+    root->right->color = RED;
+    std::cout << "no reds? " << no_consective_reds(tree) << std::endl;
+#endif
+}
+
 void testRBTree() {
     test_default_constructor();
     test_dump_tree();
@@ -296,4 +358,6 @@ void testRBTree() {
 
     test_node_successor();
     test_node_predecessor();
+
+    test_double_red_validator();
 }
