@@ -121,7 +121,19 @@ public:
 
     // copy
     vector(const vector &other) {
-        *this = other;
+        this->current_capacity = other.current_capacity;
+        this->num_items = other.num_items;
+        this->allocator = allocator_type();
+        this->max_capacity = this->allocator.max_size();
+
+        if (other.data == 0) {
+            this->data = 0;
+            return;
+        }
+        this->data = this->allocator.allocate(other.current_capacity);
+        this->shift_construct_backwards(other.data,
+                other.data + other.num_items,
+                this->data + this->num_items);
     }
 
     // destructor
@@ -133,19 +145,7 @@ public:
 
     // assignment operator
     vector &operator=(const vector &other) {
-        this->current_capacity = other.current_capacity;
-        this->allocator = other.allocator;
-        this->num_items = other.num_items;
-        this->data = this->allocator.allocate(this->current_capacity);
-
-        if (other.data == 0) {
-            this->data = 0;
-
-        } else {
-            for (size_type i = 0; i < this->num_items; i++) {
-                this->allocator.construct(this->data + i, other.data[i]);
-            }
-        }
+        this->assign(other.begin(), other.end());
         return *this;
     }
 
