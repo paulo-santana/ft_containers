@@ -95,7 +95,7 @@ public:
             x = node->left;
             transplant(node, node->left);
         } else {
-            y = get_left_most(node->right);
+            y = Node::get_left_most(node->right);
             y_original_color = y->color;
             x = y->right;
 
@@ -123,76 +123,21 @@ public:
     }
 
     Node* get_minimum() {
-        return get_left_most(this->root);
+        return Node::get_left_most(this->root);
     }
 
     const Node* get_minimum() const {
-        return get_left_most(this->root);
+        return Node::get_left_most(this->root);
     }
 
     Node* get_maximum() {
-        return get_right_most(this->root);
+        return Node::get_right_most(this->root);
     } 
 
     const Node* get_maximum() const {
-        return get_right_most(this->root);
+        return Node::get_right_most(this->root);
     } 
 
-    Node* get_predecessor(Node* node) {
-        if (node->left != NIL)
-            return get_right_most(node->left);
-
-        Node* target = node->parent;
-        while (target != NIL && node == target->left)
-        {
-            node = target;
-            target = target->parent;
-        }
-
-        return target;
-    }
-
-    const Node* get_predecessor(Node* node) const {
-        if (node->left != NIL)
-            return get_right_most(node->left);
-
-        Node* target = node->parent;
-        while (target != NIL && node == target->left)
-        {
-            node = target;
-            target = target->parent;
-        }
-
-        return target;
-    }
-
-    Node* get_successor(const Node* node) {
-        if (node->right != NIL)
-            return get_left_most(node->right);
-
-        Node* target = node->parent;
-        while (target != NIL && node == target->right)
-        {
-            node = target;
-            target = target->parent;
-        }
-
-        return target;
-    }
-
-    const Node* get_successor(const Node* node) const {
-        if (node->right != NIL)
-            return get_left_most(node->right);
-
-        Node* target = node->parent;
-        while (target != NIL && node == target->right)
-        {
-            node = target;
-            target = target->parent;
-        }
-
-        return target;
-    }
 
     bool is_empty() const {
         return this->root == NIL;
@@ -212,18 +157,6 @@ private:
         flush(node->right);
         this->node_allocator.destroy(node);
         this->node_allocator.deallocate(node, 1);
-    }
-
-    Node* get_left_most(Node* item) const {
-        while(item->left != NIL)
-            item = item->left;
-        return item;
-    }
-
-    Node* get_right_most(Node* item) const {
-        while(item->right != NIL)
-            item = item->right;
-        return item;
     }
 
     Node* create_node(const value_type& data) {
