@@ -1,5 +1,6 @@
 #include "internals/red_black_tree_node.hpp"
 #include "test_utils.hpp"
+#include "pair.hpp"
 #include "internals/red_black_tree.hpp"
 #include <algorithm>
 #include <functional>
@@ -20,9 +21,16 @@ typedef ft::RBTree<
     std::pair<const int, int>,
     std::_Select1st<std::pair<const int, int> > > int_pair_tree;
 
+template<typename T, typename U>
+std::ostream& operator<<(std::ostream& out, const ft::pair<T, U>& pair)
+{
+    out << "pair[" << pair.first << ", " << pair.second << "]";
+    return out;
+}
 
 template<typename T, typename U>
-std::ostream& operator<<(std::ostream& out, const std::pair<T, U>& pair) {
+std::ostream& operator<<(std::ostream& out, const std::pair<T, U>& pair)
+{
     out << "pair[" << pair.first << ", " << pair.second << "]";
     return out;
 }
@@ -91,13 +99,13 @@ void prettyPrint(int_int_tree& tree) {
 template<typename T, typename U, typename V>
 bool is_ordered(const ft::RBTree<T, U, V> &tree) {
     const typename ft::RBTree<T, U, V>::Node* current = tree.get_minimum();
-    const typename ft::RBTree<T, U, V>::Node* next = tree.get_successor(current);
+    const typename ft::RBTree<T, U, V>::Node* next = current->successor();
 
     while (next != tree.NIL) {
         if (current->key > next->key) 
             return false;
         current = next;
-        next = tree.get_successor(next);
+        next = next->successor();
     }
     return true;
 }
@@ -263,10 +271,10 @@ static void test_node_successor() {
     std::cout << "result:  node[37, 37]" << std::endl;
     (void)node;
 #else
-    int_int_tree::Node* result = tree.get_successor(node);
+    int_int_tree::Node* result = node->successor();
     for (int i = 0; i < 10 && result != int_int_tree::NIL; i++) {
         std::cout << "result:" << *result << std::endl;
-        result = tree.get_successor(result);
+        result = result->successor();
     }
 #endif
 }
@@ -295,10 +303,10 @@ static void test_node_predecessor() {
     std::cout << "result:  node[13, 13]" << std::endl;
     (void)node;
 #else
-    int_int_tree::Node* result = tree.get_predecessor(node);
+    int_int_tree::Node* result = node->predecessor();
     for (int i = 0; i < 10 && result != int_int_tree::NIL; i++) {
         std::cout << "result:" << *result << std::endl;
-        result = tree.get_predecessor(result);
+        result = result->predecessor();
     }
 #endif
 

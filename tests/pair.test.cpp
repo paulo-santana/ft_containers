@@ -7,9 +7,10 @@
     #include "pair.hpp"
 #endif
 
-template<typename T1, typename T2>
-static std::ostream& operator<<(std::ostream& out, const ft::pair<T1, T2>& pair) {
-    out << "  pair[" << pair.first << "," << pair.second << "]";
+template<typename T, typename U>
+std::ostream& operator<<(std::ostream& out, const ft::pair<T, U>& pair)
+{
+    out << "pair[" << pair.first << ", " << pair.second << "]";
     return out;
 }
 
