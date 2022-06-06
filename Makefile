@@ -8,6 +8,7 @@ SRC := main.cpp \
 	   stack.test.cpp \
 	   pair.test.cpp \
 	   rb_tree.test.cpp \
+	   map_iterator.test.cpp \
 	   map.test.cpp \
 	   test_utils.cpp \
 
