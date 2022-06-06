@@ -12,6 +12,7 @@ namespace ft {
 #define IS_LEFT_CHILD(X) (X) == (X)->parent->left
 #define IS_RIGHT_CHILD(X) (X) == (X)->parent->right
 
+// TODO: compare values with the templated object
 template<
     typename Key,
     typename Value,
@@ -45,14 +46,14 @@ public:
         return this->root;
     }
 
-    void insert(const value_type& data) {
+    Node* insert(const value_type& data) {
         Node* new_node = create_node(data);
 
         if (this->root == this->NIL) {
             this->root = new_node;
             new_node->color = BLACK;
             new_node->parent = NIL;
-            return ;
+            return new_node;
         }
         Node* iter = this->root;
         Node* parent = NIL;
@@ -76,6 +77,7 @@ public:
             parent->right = new_node;
         }
         insert_fixup(new_node);
+        return new_node;
     }
 
     void remove(const key_type& key) {

@@ -42,6 +42,15 @@ public:
         return const_iterator(tree.get_minimum());
     }
 
+    ft::pair<iterator, bool> insert(const value_type& val) {
+        typename tree_type::Node* item = tree.search(val.first);
+        if (item != tree.NIL)
+            return make_pair(iterator(item), false);
+
+        typename tree_type::Node* newItem = tree.insert(val);
+        return make_pair(iterator(newItem), true);
+    }
+
 private:
     typedef RBTree<const Key, value_type, std::_Select1st<value_type> > tree_type;
 

@@ -10,14 +10,14 @@
 namespace ft {
 
 // for a map, Value is ft::pair
-// for a map, Value is ft::pair
 // so value_type is a pair
+// for a set, Value is Key
 template<typename Key, typename Value>
 class RBTreeIterator {
 
 public:
-    typedef Key                             key_type; // pair.first;
-    typedef Value                           value_type; // pair {first, second}
+    typedef Key                             key_type; // int
+    typedef Value                           value_type; // int
     typedef Value*                          pointer;
     typedef Value&                          reference;
     typedef RBTreeNode<Key, Value>          node_type;
@@ -46,8 +46,7 @@ public:
 
     // ++iter
     RBTreeIterator& operator++() {
-        // _M_node++;
-        // _M_node = _M_node->successor();
+        _M_node = _M_node->successor();
         return *this;
     }
 

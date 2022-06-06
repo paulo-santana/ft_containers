@@ -4,7 +4,7 @@
 # include "test_utils.hpp"
 # include "tests.hpp"
 
-#if 1
+#if REAL_STD
   namespace ft = std;
   typedef ft::map<int, int>           int_int_map;
   typedef ft::map<int, int>::iterator int_int_iterator;
@@ -80,15 +80,20 @@ static void test_constructors(void) {
 static void test_increment(void) {
     int_int_map map;
 
-    map.insert(ft::make_pair(1, 1));
+    // ft::pair<const int, int> pair(ft::make_pair(1, 1));
+    // TODO: test insert results on map
+    map.insert(ft::make_pair(1, -1));
+    map.insert(ft::make_pair(8, 24));
+    map.insert(ft::make_pair(2, 24));
     int_int_iterator it = map.begin();
 
-    println("\ntest VectorIterator operator ++");
+    println("\ntest map iterator operator ++");
 
     // Cannot increment value of type 'int_int_iterator' (aka 'map<int, int>')
+    std::cout << "*it == " << *it   << std::endl;
     std::cout << "*++it == " << *++it << std::endl;
     std::cout << "*it++ == " << *it++ << std::endl;
-    std::cout << "*it++ == " << *it++ << std::endl;
+    std::cout << "*it == " << *it   << std::endl;
 }
 
 // static void test_decrement(void) {
