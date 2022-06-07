@@ -1,12 +1,10 @@
 #pragma once
-#include "internals/red_black_tree.hpp"
-#include "map/RBTreeIterator.hpp"
-#include "pair.hpp"
-#include <memory>
 #ifndef MAP_HPP
 #define MAP_HPP
 
-#include <functional>
+#include "internals/red_black_tree.hpp"
+#include "map/RBTreeIterator.hpp"
+#include "pair.hpp"
 
 namespace ft {
 
@@ -27,10 +25,15 @@ public:
     typedef Key                                                   key_type;
     typedef Value                                                 mapped_type;
     typedef typename ft::pair<const Key, Value>                   value_type;
+private:
+    typedef RBTree<const Key, value_type, std::_Select1st<value_type> > tree_type;
+
+    tree_type tree;
+public:
     typedef std::allocator<value_type>                            allocator_type;
 
     typedef RBTreeIterator<const Key, value_type>                 iterator;
-    typedef RBTreeIterator<const Key, const value_type>           const_iterator;
+    typedef RBTreeConstIterator<const Key, value_type>            const_iterator;
 
     map(): tree() { }
 
@@ -45,16 +48,13 @@ public:
     ft::pair<iterator, bool> insert(const value_type& val) {
         typename tree_type::Node* item = tree.search(val.first);
         if (item != tree.NIL)
-            return make_pair(iterator(item), false);
+            return ft::make_pair(iterator(item), false);
 
         typename tree_type::Node* newItem = tree.insert(val);
-        return make_pair(iterator(newItem), true);
+        return ft::make_pair(iterator(newItem), true);
     }
 
 private:
-    typedef RBTree<const Key, value_type, std::_Select1st<value_type> > tree_type;
-
-    tree_type tree;
 
 };
 

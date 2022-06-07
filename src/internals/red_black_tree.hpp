@@ -1,10 +1,12 @@
 #pragma once
-#include <iostream>
-#include <memory>
 #ifndef RED_BLACK_TREE_HPP
 #define RED_BLACK_TREE_HPP
 
 #include <ostream>
+#include <iostream>
+#include <memory>
+
+#include "map/RBTreeIterator.hpp"
 #include "internals/red_black_tree_node.hpp"
 
 namespace ft {
@@ -22,11 +24,14 @@ class RBTree {
 
 public:
 
-    typedef RBTreeNode<Key, Value>      Node;
-    typedef std::allocator<Node>        NodeAllocator;
-    typedef Key                         key_type;
-    typedef Value                       value_type;
-    typedef _Allocator                  allocator_type;
+    typedef RBTreeNode<Key, Value>                  Node;
+    typedef std::allocator<Node>                    NodeAllocator;
+    typedef Key                                     key_type;
+    typedef Value                                   value_type;
+    typedef _Allocator                              allocator_type;
+
+    typedef RBTreeIterator<Key, value_type>         iterator;
+    typedef RBTreeIterator<Key, const value_type>   const_iterator;
 
     static Node*                               NIL;
 
