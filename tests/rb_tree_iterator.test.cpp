@@ -1,13 +1,11 @@
-#include <map>
-#include <utility>
-#include <iostream>
 # include "test_utils.hpp"
-# include "tests.hpp"
 
 #if REAL_STD
   namespace ft = std;
-  typedef ft::map<int, int>           int_int_map;
-  typedef ft::map<int, int>::iterator int_int_iterator;
+# include <map>
+# include <iostream>
+
+# include <utility>
 
 
 #else
@@ -15,10 +13,15 @@
 # include "map/RBTreeIterator.hpp"
 # include "map.hpp"
 # include "pair.hpp"
-  typedef ft::map<int, int>             int_int_map;
-  typedef ft::map<int, int>::iterator   int_int_iterator;
 
 #endif
+
+typedef ft::map<int, int>                                   int_int_map;
+typedef ft::map<int, int>::iterator                         int_int_iterator;
+typedef ft::map<int, int>::const_iterator                   const_int_int_iterator;
+typedef ft::map<std::string, std::string>                   string_string_map;
+typedef ft::map<std::string, std::string>::iterator         string_string_iterator;
+typedef ft::map<std::string, std::string>::const_iterator   const_string_string_iterator;
 
 template<typename T, typename U>
 std::ostream& operator<<(std::ostream& out, const ft::pair<T, U>& pair)
@@ -44,40 +47,7 @@ static void test_constructors(void) {
     delete it;
 }
 
-// static void test_equality(void) {
-//     int values[] = {42, 21, 84};
-//
-//     int_int_iterator it(values);
-//     int_int_iterator otherIt(values);
-//     int_int_iterator differentIt(values + 1);
-//
-//     println("\ntest VectorIterator operator ==");
-//     std::cout << "it == otherIt: " << std::boolalpha << (it == otherIt) << std::endl;
-//     std::cout << "it == differentIt: " << std::boolalpha << (it == differentIt) << std::endl;
-//
-//     println("\ntest VectorIterator operator !=");
-//     std::cout << "it != otherIt: " << std::boolalpha << (it != otherIt) << std::endl;
-//     std::cout << "it != differentIt: " << std::boolalpha << (it != differentIt) << std::endl;
-// }
-//
-// static void test_dereference(void) {
-//     std::string strings[] = {"HI!", "BYE!"};
-//     int values[] = {42, 21, 84};
-//
-//     int_int_iterator strIt(strings);
-//     int_int_iterator it(values);
-//
-//     println("\ntest VectorIterator operator *");
-//
-//     std::cout << "*it: " << *it << std::endl;
-//
-//     println("\ntest VectorIterator operator ->");
-//
-//     std::cout << "strIt->size(): " << strIt->size() << std::endl;
-//
-// }
-
-static void test_increment(void) {
+static void test_equality(void) {
     int_int_map map;
 
     // ft::pair<const int, int> pair(ft::make_pair(1, 1));
@@ -85,15 +55,64 @@ static void test_increment(void) {
     map.insert(ft::make_pair(1, -1));
     map.insert(ft::make_pair(8, 24));
     map.insert(ft::make_pair(2, 24));
+
     int_int_iterator it = map.begin();
+    int_int_iterator otherIt = map.begin();
+    int_int_iterator differentIt = map.begin();
+    differentIt++;
+
+    println("\ntest VectorIterator operator ==");
+    std::cout << "it == otherIt: " << std::boolalpha << (it == otherIt) << std::endl;
+    std::cout << "it == differentIt: " << std::boolalpha << (it == differentIt) << std::endl;
+
+    println("\ntest VectorIterator operator !=");
+    std::cout << "it != otherIt: " << std::boolalpha << (it != otherIt) << std::endl;
+    std::cout << "it != differentIt: " << std::boolalpha << (it != differentIt) << std::endl;
+}
+
+static void test_dereference(void) {
+    // std::string strings[] = {"HI!", "BYE!"};
+    int_int_map strings;
+    // strings.insert(ft::make_pair("opa", "daora"));
+
+    int_int_iterator strIt = strings.begin();
+    const_int_int_iterator it(strIt);
+    // shoudn't compile
+    // int_int_iterator mutIt = it;
+
+    println("\ntest VectorIterator operator *");
+
+    std::cout << "*it: " << *it << std::endl;
+
+    println("\ntest VectorIterator operator ->");
+
+    std::cout << "strIt->first.size(): " << strIt->first << std::endl;
+    std::cout << "strIt->second.size(): " << strIt->second << std::endl;
+
+}
+
+static void test_increment(void) {
+    int_int_map map;
+
+    // ft::pair<const int, int> pair(ft::make_pair(1, 1));
+    map.insert(ft::make_pair(1, -1));
+    map.insert(ft::make_pair(8, 24));
+    map.insert(ft::make_pair(2, 24));
+    int_int_iterator it = map.begin();
+    int_int_iterator otherIt = map.begin();
 
     println("\ntest map iterator operator ++");
 
-    // Cannot increment value of type 'int_int_iterator' (aka 'map<int, int>')
+
+    std::cout << "it == otherIt" << (it == otherIt) << std::endl;
     std::cout << "*it == " << *it   << std::endl;
     std::cout << "*++it == " << *++it << std::endl;
     std::cout << "*it++ == " << *it++ << std::endl;
     std::cout << "*it == " << *it   << std::endl;
+    otherIt++;
+    otherIt++;
+    std::cout << "it == otherIt" << (it == otherIt) << std::endl;
+
 }
 
 // static void test_decrement(void) {
@@ -231,10 +250,11 @@ static void test_increment(void) {
 void testMapIterator(void) {
 
     test_constructors();
-    // test_equality();
-    // test_dereference();
+    test_equality();
+    test_dereference();
     //
     test_increment();
+
     // test_decrement();
     //
     // test_arithmetic();
