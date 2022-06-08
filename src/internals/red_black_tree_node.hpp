@@ -56,6 +56,8 @@ public:
 
     RBTreeNode* predecessor() {
         RBTreeNode* node = this;
+        if (IS_NILL(node))
+            return (get_right_most(get_root(this)));
         if (IS_NOT_NIL(node->left))
             return get_right_most(node->left);
 
@@ -70,6 +72,8 @@ public:
 
     const RBTreeNode* predecessor() const {
         RBTreeNode* node = this;
+        if (IS_NILL(node))
+            return (get_right_most(get_root(this)));
         if (IS_NOT_NIL(node->left))
             return get_right_most(node->left);
 
@@ -84,6 +88,8 @@ public:
 
     RBTreeNode* successor() {
         RBTreeNode* node = this;
+        if (IS_NILL(node))
+            return (get_right_most(get_root(this)));
         if (IS_NOT_NIL(node->right))
             return get_left_most(node->right);
 
@@ -98,6 +104,8 @@ public:
 
     const RBTreeNode* successor() const {
         const RBTreeNode* node = this;
+        if (IS_NILL(this))
+            return (get_right_most(get_root(this)));
         if (IS_NOT_NIL(node->right))
             return get_left_most(node->right);
 
@@ -132,6 +140,34 @@ public:
         while(IS_NOT_NIL(item->right))
             item = item->right;
         return item;
+    }
+
+    static RBTreeNode* get_nil(RBTreeNode* node) {
+        while (IS_NOT_NIL(node))
+            node = node->left;
+        return node;
+    }
+
+    static const RBTreeNode* get_nil(const RBTreeNode* node) {
+        while (IS_NOT_NIL(node))
+            node = node->left;
+        return node;
+    }
+
+    static RBTreeNode* get_root(RBTreeNode* node) {
+        RBTreeNode* nil = get_nil(node);
+        while (node->parent != nil) {
+            node = node->parent;
+        }
+        return node;
+    }
+
+    static const RBTreeNode* get_root(const RBTreeNode* node) {
+        const RBTreeNode* nil = get_nil(node);
+        while (node->parent != nil) {
+            node = node->parent;
+        }
+        return node;
     }
 };
 

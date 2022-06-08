@@ -33,9 +33,11 @@ public:
     typedef RBTreeIterator<Key, value_type>         iterator;
     typedef RBTreeIterator<Key, const value_type>   const_iterator;
 
-    static Node*                               NIL;
+    Node*                                           NIL;
 
     RBTree():
+        NIL(&_leaf),
+        _leaf(),
         root(NIL),
         allocator(allocator_type()) { }
 
@@ -82,6 +84,8 @@ public:
             parent->right = new_node;
         }
         insert_fixup(new_node);
+        this->NIL->parent = this->root;
+        this->root->parent = this->NIL;
         return new_node;
     }
 
@@ -121,6 +125,8 @@ public:
         }
         if (y_original_color == BLACK)
             remove_fixup(x);
+        this->NIL->parent = this->root;
+        this->root->parent = this->NIL;
         this->node_allocator.destroy(node);
         this->node_allocator.deallocate(node, 1);
     }
@@ -353,17 +359,12 @@ private:
     }
 
 private:
-    static Node         _leaf;
+    Node                _leaf;
     Node*               root;
     allocator_type      allocator;
     NodeAllocator       node_allocator;
 };
 
-template<typename T, typename U, typename V, typename W>
-typename RBTree<T, U, V, W>::Node RBTree<T, U, V, W>::_leaf = RBTree<T, U, V, W>::Node();
-
-template<typename T, typename U, typename V, typename W>
-typename RBTree<T, U, V, W>::Node* RBTree<T, U, V, W>::NIL = &RBTree<T, U, V, W>::_leaf;
 }
 
 #endif // !RED_BLACK_TREE_HPP
