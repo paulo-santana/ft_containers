@@ -92,7 +92,7 @@ public:
     typedef Value                           value_type;
     typedef const Value*                    pointer;
     typedef const Value&                    reference;
-    typedef RBTreeNode<Key, Value>          node_type;
+    typedef const RBTreeNode<Key, Value>    node_type;
     typedef std::ptrdiff_t                  difference_type;
     typedef std::bidirectional_iterator_tag iterator_category;
 
