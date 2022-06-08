@@ -1,4 +1,5 @@
 #pragma once
+#include <cstddef>
 #ifndef MAP_HPP
 #define MAP_HPP
 
@@ -25,8 +26,10 @@ public:
     typedef Key                                                   key_type;
     typedef Value                                                 mapped_type;
     typedef typename ft::pair<const Key, Value>                   value_type;
+    typedef std::size_t                                           size_type;
 private:
     typedef RBTree<const Key, value_type, std::_Select1st<value_type> > tree_type;
+    typedef typename tree_type::Node node_type;
 
     tree_type tree;
 public:
@@ -35,7 +38,7 @@ public:
     typedef RBTreeIterator<const Key, value_type>                 iterator;
     typedef RBTreeConstIterator<const Key, value_type>            const_iterator;
 
-    map(): tree() { }
+    map(): tree(), num_items(0) { }
 
     iterator begin() {
         return iterator(tree.get_minimum());
@@ -45,16 +48,24 @@ public:
         return const_iterator(tree.get_minimum());
     }
 
+    iterator end() {
+        return iterator(tree.NIL);
+    }
+
     ft::pair<iterator, bool> insert(const value_type& val) {
         typename tree_type::Node* item = tree.search(val.first);
         if (item != tree.NIL)
             return ft::make_pair(iterator(item), false);
 
-        typename tree_type::Node* newItem = tree.insert(val);
+        node_type* newItem = tree.insert(val);
+        Key* key = const_cast<Key*>(&tree.NIL->value.first);
+        num_items++;
+        *key = num_items;
         return ft::make_pair(iterator(newItem), true);
     }
 
 private:
+    size_type num_items;
 
 };
 

@@ -43,7 +43,7 @@ std::ostream& operator<<(std::ostream& out, const ft::RBTreeNode<T, U>& node) {
 
 template<typename T, typename U, typename V>
 void inorder_tree_walk(std::ostream& out, const ft::RBTreeNode<T, U>* node) {
-    if (node == ft::RBTree<T, U, V>::NIL)
+    if (node == ft::RBTreeNode<T, U>::get_nil(node))
         return ;
     inorder_tree_walk<T, U, V>(out, node->left);
     out << *node << std::endl;
@@ -166,6 +166,9 @@ static void test_default_constructor() {
     println("test RB Tree default constructor");
 
     int_int_tree tree;
+    int_int_node* node = tree.get_root();
+    int_int_node* root = int_int_node::get_root(node);
+    (void)root;
     std::cout << "at least it compiles" << std::endl;
 }
 
@@ -272,7 +275,9 @@ static void test_node_successor() {
     (void)node;
 #else
     int_int_tree::Node* result = node->successor();
-    for (int i = 0; i < 10 && result != int_int_tree::NIL; i++) {
+    
+    int_int_tree::Node* nil = int_int_tree::Node::get_nil(node);
+    for (int i = 0; i < 10 && result != nil; i++) {
         std::cout << "result:" << *result << std::endl;
         result = result->successor();
     }
@@ -304,7 +309,8 @@ static void test_node_predecessor() {
     (void)node;
 #else
     int_int_tree::Node* result = node->predecessor();
-    for (int i = 0; i < 10 && result != int_int_tree::NIL; i++) {
+    int_int_tree::Node* nil = int_int_tree::Node::get_nil(node);
+    for (int i = 0; i < 10 && result != nil; i++) {
         std::cout << "result:" << *result << std::endl;
         result = result->predecessor();
     }

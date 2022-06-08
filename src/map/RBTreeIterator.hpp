@@ -71,6 +71,19 @@ public:
         _M_node = _M_node->successor();
         return tmp;
     }
+
+    // --iter
+    RBTreeIterator& operator--() {
+        _M_node = _M_node->predecessor();
+        return *this;
+    }
+
+    // iter--
+    RBTreeIterator operator--(int) {
+        RBTreeIterator tmp = *this;
+        _M_node = _M_node->predecessor();
+        return tmp;
+    }
 };
 
 // TODO: implement this shit
@@ -130,6 +143,19 @@ public:
     RBTreeConstIterator operator++(int) {
         RBTreeConstIterator tmp = *this;
         _M_node = _M_node->successor();
+        return tmp;
+    }
+
+    // ++iter
+    RBTreeConstIterator& operator--() {
+        _M_node = _M_node->predecessor();
+        return *this;
+    }
+
+    // ++iter
+    RBTreeConstIterator operator--(int) {
+        RBTreeConstIterator tmp(*this);
+        _M_node = _M_node->predecessor();
         return tmp;
     }
 };

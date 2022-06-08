@@ -95,10 +95,11 @@ static void test_increment(void) {
     int_int_map map;
 
     // ft::pair<const int, int> pair(ft::make_pair(1, 1));
-    map.insert(ft::make_pair(1, -1));
-    map.insert(ft::make_pair(8, 24));
-    map.insert(ft::make_pair(2, 24));
+    for (int i = 30; i > 10; i--) {
+        map.insert(ft::make_pair(i, i * i));
+    }
     int_int_iterator it = map.begin();
+    // int_int_iterator end = map.end();
     int_int_iterator otherIt = map.begin();
 
     println("\ntest map iterator operator ++");
@@ -113,20 +114,66 @@ static void test_increment(void) {
     otherIt++;
     std::cout << "it == otherIt" << (it == otherIt) << std::endl;
 
+    for (int i = 0; i < 50; i++) {
+        std::cout << "*it++ == " << *it++ << std::endl;
+    }
+
 }
 
-// static void test_decrement(void) {
-//     int values[] = {42, 21, 84};
-//
-//     int_int_iterator it(values + 2);
-//
-//     println("\ntest VectorIterator operator --");
-//
-//     std::cout << "*--it == " << *--it << std::endl;
-//     std::cout << "*it-- == " << *it-- << std::endl;
-//     std::cout << "*it-- == " << *it-- << std::endl;
-// }
-//
+static void test_increment_string(void) {
+    string_string_map map;
+
+    // ft::pair<const int, int> pair(ft::make_pair(1, 1));
+    map.insert(ft::make_pair("oba", "oba"));
+    map.insert(ft::make_pair("daora", "daora"));
+    map.insert(ft::make_pair("massa", "legal"));
+
+    string_string_iterator it = map.begin();
+    string_string_iterator otherIt = map.begin();
+
+    println("\ntest map iterator operator ++");
+
+
+    std::cout << "it == otherIt" << (it == otherIt) << std::endl;
+    std::cout << "*it == " << *it   << std::endl;
+    std::cout << "*++it == " << *++it << std::endl;
+    std::cout << "*it++ == " << *it++ << std::endl;
+    std::cout << "*it == " << *it   << std::endl;
+    otherIt++;
+    otherIt++;
+    std::cout << "it == otherIt" << (it == otherIt) << std::endl;
+
+    // undefined behaviour
+    // for (int i = 0; i < 50; i++) {
+    //     std::cout << "*it++ == " << *it++ << std::endl;
+    // }
+
+}
+
+static void test_decrement(void) {
+    string_string_map map;
+
+    // ft::pair<const int, int> pair(ft::make_pair(1, 1));
+    map.insert(ft::make_pair("oba", "oba"));
+    map.insert(ft::make_pair("daora", "daora"));
+    map.insert(ft::make_pair("massa", "legal"));
+
+    string_string_iterator it = map.end();
+    string_string_iterator otherIt = map.end();
+
+    println("\ntest map iterator operator --");
+
+    std::cout << "it == otherIt -> " << (it == otherIt) << std::endl;
+    std::cout << "*it == " << *--it   << std::endl;
+    std::cout << "*--it == " << *it << std::endl;
+    std::cout << "*it-- == " << *it-- << std::endl;
+    std::cout << "*it == " << *it   << std::endl;
+    otherIt--;
+    otherIt--;
+    std::cout << "it == otherIt" << (it == otherIt) << std::endl;
+
+}
+
 // static void test_arithmetic() {
 //
 //     int values[] = {42, 21, 84, 22};
@@ -252,10 +299,10 @@ void testMapIterator(void) {
     test_constructors();
     test_equality();
     test_dereference();
-    //
-    test_increment();
 
-    // test_decrement();
+    test_increment();
+    test_increment_string();
+    test_decrement();
     //
     // test_arithmetic();
     // test_relational();
