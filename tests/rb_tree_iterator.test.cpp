@@ -105,7 +105,7 @@ static void test_increment(void) {
     println("\ntest map iterator operator ++");
 
 
-    std::cout << "it == otherIt" << (it == otherIt) << std::endl;
+    std::cout << "it == otherIt" << (otherIt == it) << std::endl;
     std::cout << "*it == " << *it   << std::endl;
     std::cout << "*++it == " << *++it << std::endl;
     std::cout << "*it++ == " << *it++ << std::endl;
@@ -114,9 +114,10 @@ static void test_increment(void) {
     otherIt++;
     std::cout << "it == otherIt" << (it == otherIt) << std::endl;
 
-    for (int i = 0; i < 50; i++) {
-        std::cout << "*it++ == " << *it++ << std::endl;
-    }
+    // undefined behaviour
+    // for (int i = 0; i < 50; i++) {
+    //     std::cout << "*it++ == " << *it++ << std::endl;
+    // }
 
 }
 

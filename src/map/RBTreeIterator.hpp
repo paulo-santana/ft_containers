@@ -51,34 +51,30 @@ public:
         return &_M_node->value;
     }
 
-    bool operator==(const RBTreeIterator& other) const {
+    bool operator==(const RBTreeIterator& other) {
         return _M_node == other._M_node;
     }
 
-    bool operator!=(const RBTreeIterator& other) const {
+    bool operator!=(const RBTreeIterator& other) {
         return _M_node != other._M_node;
     }
 
-    // ++iter
     RBTreeIterator& operator++() {
         _M_node = _M_node->successor();
         return *this;
     }
 
-    // iter++
     RBTreeIterator operator++(int) {
         RBTreeIterator tmp = *this;
         _M_node = _M_node->successor();
         return tmp;
     }
 
-    // --iter
     RBTreeIterator& operator--() {
         _M_node = _M_node->predecessor();
         return *this;
     }
 
-    // iter--
     RBTreeIterator operator--(int) {
         RBTreeIterator tmp = *this;
         _M_node = _M_node->predecessor();
@@ -86,7 +82,6 @@ public:
     }
 };
 
-// TODO: implement this shit
 template<typename Key, typename Value>
 class RBTreeConstIterator {
 
@@ -125,34 +120,30 @@ public:
         return &_M_node->value;
     }
 
-    bool operator==(const RBTreeConstIterator& other) const {
-        return _M_node == other._M_node;
+    friend bool operator==(const RBTreeConstIterator& me, const RBTreeConstIterator& other) {
+        return me._M_node == other._M_node;
     }
 
-    bool operator!=(const RBTreeConstIterator& other) const {
-        return _M_node != other._M_node;
+    friend bool operator!=(const RBTreeConstIterator& me, const RBTreeConstIterator& other) {
+        return me._M_node != other._M_node;
     }
 
-    // ++iter
     RBTreeConstIterator& operator++() {
         _M_node = _M_node->successor();
         return *this;
     }
 
-    // iter++
     RBTreeConstIterator operator++(int) {
         RBTreeConstIterator tmp = *this;
         _M_node = _M_node->successor();
         return tmp;
     }
 
-    // ++iter
     RBTreeConstIterator& operator--() {
         _M_node = _M_node->predecessor();
         return *this;
     }
 
-    // ++iter
     RBTreeConstIterator operator--(int) {
         RBTreeConstIterator tmp(*this);
         _M_node = _M_node->predecessor();
