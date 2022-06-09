@@ -10,7 +10,7 @@
 #include "map.hpp"
 #endif
 
-static void test_default_constructor() {
+static void test_empty_constructor() {
     println("test map default constructor");
 
     ft::map<int, int> int_map;
@@ -26,6 +26,6 @@ static void test_size() {
 }
 
 void testMap() {
-    test_default_constructor();
+    test_empty_constructor();
     test_size();
 }
