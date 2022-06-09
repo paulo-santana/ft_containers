@@ -23,22 +23,31 @@ template<
 class map {
 
 public:
-    typedef Key                                                   key_type;
-    typedef Value                                                 mapped_type;
-    typedef typename ft::pair<const Key, Value>                   value_type;
-    typedef std::size_t                                           size_type;
+    typedef Key                                                 key_type;
+    typedef Value                                               mapped_type;
+    typedef typename ft::pair<const Key, Value>                 value_type;
+    typedef Compare                                             key_compare; 
+    typedef std::size_t                                         size_type;
 private:
     typedef RBTree<const Key, value_type, std::_Select1st<value_type>, Compare, Allocator> tree_type;
     typedef typename tree_type::Node node_type;
 
     tree_type tree;
+    key_compare key_comparator;
 public:
     typedef std::allocator<value_type>                            allocator_type;
 
     typedef RBTreeIterator<const Key, value_type>                 iterator;
     typedef RBTreeConstIterator<const Key, value_type>            const_iterator;
 
-    map(): tree(), num_items(0) { }
+    map(
+            const key_compare& comp = key_compare(),
+            const allocator_type& alloc = allocator_type()) :
+        tree(),
+        key_comparator(comp),
+        num_items(0),
+        allocator(alloc)
+    { }
 
     size_type size() const {
         return this->num_items;
@@ -71,6 +80,7 @@ public:
 private:
     size_type num_items;
 
+    allocator_type allocator;
 };
 
 }
