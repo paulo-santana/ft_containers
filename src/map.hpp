@@ -40,7 +40,7 @@ public:
     typedef RBTreeIterator<const Key, value_type>                 iterator;
     typedef RBTreeConstIterator<const Key, value_type>            const_iterator;
 
-    map(
+    explicit map(
             const key_compare& comp = key_compare(),
             const allocator_type& alloc = allocator_type()) :
         tree(),
