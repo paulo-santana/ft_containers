@@ -40,6 +40,10 @@ public:
 
     map(): tree(), num_items(0) { }
 
+    size_type size() const {
+        return this->num_items;
+    }
+
     iterator begin() {
         return iterator(tree.get_minimum());
     }

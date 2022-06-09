@@ -1,24 +1,31 @@
+#include "test_utils.hpp"
 #include <map>
 #include <iostream>
 #include <utility>
 
 #if REAL_STD
     namespace ft = std;
+
+#else
+#include "map.hpp"
 #endif
 
+static void test_default_constructor() {
+    println("test map default constructor");
+
+    ft::map<int, int> int_map;
+    ft::map<std::string, int> string_map;
+    std::cout << "at least it compiles" << std::endl;
+}
+
+static void test_size() {
+    ft::map<int, int> int_map;
+    ft::map<std::string, int> string_map;
+
+    std::cout << "int_map size: " << int_map.size() << std::endl;
+}
+
 void testMap() {
-    std::map<int, std::string> map;
-
-    map.insert(std::make_pair(1, "empty"));
-    
-    std::map<int, std::string>::iterator begin = map.begin();
-    // int first = begin->first;
-    std::string second = begin->second;
-    std::pair<const int, std::string> p = *begin;
-
-    second = p.second;
-
-    // if (first == second) {
-    //     std::cout << "true? " << true << std::endl;
-    // }
+    test_default_constructor();
+    test_size();
 }

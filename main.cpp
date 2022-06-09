@@ -39,6 +39,6 @@ int main (void)
     testStack();
     testRBTree();
     testMapIterator();
-    // testPair();
-    // testMap();
+    testPair();
+    testMap();
 }
