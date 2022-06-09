@@ -15,11 +15,13 @@
 
 typedef ft::RBTreeNode<const int, int> int_int_node;
 
-typedef ft::RBTree<const int, int, std::_Identity<int> > int_int_tree;
+typedef ft::RBTree<const int, int, std::_Identity<int>, std::less<const int> > int_int_tree;
 typedef ft::RBTree<
     const int,
     std::pair<const int, int>,
-    std::_Select1st<std::pair<const int, int> > > int_pair_tree;
+    std::_Select1st<std::pair<const int, int> >,
+    std::less<const int>
+    > int_pair_tree;
 
 template<typename T, typename U>
 std::ostream& operator<<(std::ostream& out, const ft::pair<T, U>& pair)
@@ -71,8 +73,8 @@ void printHelper(ft::RBTreeNode<T, U>* root, ft::RBTreeNode<T, U>* NIL, std::str
     // cout<<root->left->data<<endl;
 }
 
-template<typename T, typename U, typename V>
-std::ostream& operator<<(std::ostream& out, const ft::RBTree<T, U, V> &tree) {
+template<typename T, typename U, typename V, typename W>
+std::ostream& operator<<(std::ostream& out, const ft::RBTree<T, U, V, W> &tree) {
 
     if (tree.is_empty()) {
         out << "[ ]" << std::endl;
@@ -96,10 +98,10 @@ void prettyPrint(int_int_tree& tree) {
     }
 }
 
-template<typename T, typename U, typename V>
-bool is_ordered(const ft::RBTree<T, U, V> &tree) {
-    const typename ft::RBTree<T, U, V>::Node* current = tree.get_minimum();
-    const typename ft::RBTree<T, U, V>::Node* next = current->successor();
+template<typename T, typename U, typename V, typename W>
+bool is_ordered(const ft::RBTree<T, U, V, W> &tree) {
+    const typename ft::RBTree<T, U, V, W>::Node* current = tree.get_minimum();
+    const typename ft::RBTree<T, U, V, W>::Node* next = current->successor();
 
     while (next != tree.NIL) {
         if (current->key > next->key) 
@@ -122,8 +124,8 @@ int get_black_height(const ft::RBTreeNode<T, U>* node, ft::RBTreeNode<T, U>* nil
     return left_height + 1 + (node->color == BLACK);
 }
 
-template<typename T, typename U, typename V>
-bool same_black_height(const ft::RBTree<T, U, V> &tree) {
+template<typename T, typename U, typename V, typename W>
+bool same_black_height(const ft::RBTree<T, U, V, W> &tree) {
     int height = get_black_height(tree.get_root(), tree.NIL);
     return height != -1;
 }
@@ -146,15 +148,15 @@ bool has_consecutive_red(const ft::RBTreeNode<T, U>* node) {
     return false;
 }
 
-template<typename T, typename U, typename V>
-bool no_consective_reds(const ft::RBTree<T, U, V> &tree) {
+template<typename T, typename U, typename V, typename W>
+bool no_consective_reds(const ft::RBTree<T, U, V, W> &tree) {
     if (has_consecutive_red(tree.get_root()))
         return false;
     return true;
 }
 
-template<typename T, typename U, typename V>
-bool validateTree(const ft::RBTree<T, U, V> &tree) {
+template<typename T, typename U, typename V, typename W>
+bool validateTree(const ft::RBTree<T, U, V, W> &tree) {
     return
         tree.get_root()->color == BLACK
         && is_ordered(tree)

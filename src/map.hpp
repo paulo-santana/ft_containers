@@ -28,7 +28,7 @@ public:
     typedef typename ft::pair<const Key, Value>                   value_type;
     typedef std::size_t                                           size_type;
 private:
-    typedef RBTree<const Key, value_type, std::_Select1st<value_type> > tree_type;
+    typedef RBTree<const Key, value_type, std::_Select1st<value_type>, Compare, Allocator> tree_type;
     typedef typename tree_type::Node node_type;
 
     tree_type tree;

@@ -1,4 +1,5 @@
 #pragma once
+#include <functional>
 #ifndef RED_BLACK_TREE_HPP
 #define RED_BLACK_TREE_HPP
 
@@ -19,6 +20,7 @@ template<
     typename Key,
     typename Value,
     typename KeyOfValue,
+    typename Compare,
     typename _Allocator = std::allocator<Value> >
 class RBTree {
 
@@ -68,7 +70,7 @@ public:
         while (iter != NIL) {
             parent = iter;
 
-            if (new_node->key < iter->key) {
+            if (Compare()(new_node->key, iter->key)) {
                 iter = iter->left;
             } else {
                 iter = iter->right;
@@ -78,7 +80,7 @@ public:
 
         if (parent == NIL) {
             this->root = new_node;
-        } else if (new_node->key < parent->key) {
+        } else if (Compare()(new_node->key, parent->key)) {
             parent->left = new_node;
         } else {
             parent->right = new_node;
@@ -182,7 +184,7 @@ private:
     Node* search_node(Node* current_root, const key_type& key) {
         if (current_root == NIL || current_root->key == key)
             return current_root;
-        else if (key < current_root->key)
+        else if (Compare()(key, current_root->key))
             return search_node(current_root->left, key);
         else 
             return search_node(current_root->right, key);
