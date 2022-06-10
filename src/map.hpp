@@ -1,5 +1,4 @@
 #pragma once
-#include <cstddef>
 #ifndef MAP_HPP
 #define MAP_HPP
 
@@ -25,11 +24,11 @@ class map {
 public:
     typedef Key                                                 key_type;
     typedef Value                                               mapped_type;
-    typedef typename ft::pair<const Key, Value>                 value_type;
+    typedef ft::pair<const Key, Value>                          value_type;
     typedef Compare                                             key_compare; 
     typedef std::size_t                                         size_type;
 private:
-    typedef RBTree<const Key, value_type, std::_Select1st<value_type>, Compare, Allocator> tree_type;
+    typedef RBTree<key_type, value_type, std::_Select1st<value_type>, key_compare, Allocator> tree_type;
     typedef typename tree_type::Node node_type;
 
     tree_type tree;
@@ -37,8 +36,10 @@ private:
 public:
     typedef std::allocator<value_type>                            allocator_type;
 
-    typedef RBTreeIterator<const Key, value_type>                 iterator;
-    typedef RBTreeConstIterator<const Key, value_type>            const_iterator;
+    typedef typename tree_type::iterator iterator;
+    typedef typename tree_type::const_iterator const_iterator;
+    // typedef RBTreeIterator<const Key, value_type>                 iterator;
+    // typedef RBTreeConstIterator<const Key, value_type>            const_iterator;
 
     explicit map(
             const key_compare& comp = key_compare(),
@@ -48,6 +49,23 @@ public:
         num_items(0),
         allocator(alloc)
     { }
+
+    template<typename InputIterator>
+    map (InputIterator first, InputIterator last,
+            const key_compare& comp = key_compare(),
+            const allocator_type& alloc = allocator_type()):
+        tree(),
+        key_comparator(comp),
+        num_items(0),
+        allocator(alloc)
+    {
+        while (first != last) {
+            tree.insert(*first);
+            ++first;
+        }
+    }
+
+    ~map() {}
 
     size_type size() const {
         return this->num_items;

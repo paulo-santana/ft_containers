@@ -33,7 +33,7 @@ public:
     typedef _Allocator                              allocator_type;
 
     typedef RBTreeIterator<Key, value_type>         iterator;
-    typedef RBTreeIterator<Key, const value_type>   const_iterator;
+    typedef RBTreeConstIterator<Key, value_type>   const_iterator;
 
     Node*                                           NIL;
 
@@ -160,6 +160,7 @@ public:
 
     void clear() {
         flush(this->root);
+        this->root = NIL;
     }
 
 

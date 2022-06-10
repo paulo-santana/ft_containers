@@ -1,5 +1,7 @@
 #include "test_utils.hpp"
 #include <map>
+#include <ostream>
+#include <vector>
 #include <iostream>
 #include <utility>
 
@@ -8,7 +10,25 @@
 
 #else
 #include "map.hpp"
+#include "vector.hpp"
+#include "pair.hpp"
 #endif
+
+template<typename T, typename U>
+static std::ostream& operator<<(std::ostream& out, ft::pair<T, U>& p) {
+    out << "  pair[" << p.first << ", " << p.second << "]";
+    return out;
+}
+
+template<typename T, typename U>
+std::ostream& operator<<(std::ostream& out, ft::map<T, U>& map) {
+    typename ft::map<T, U>::iterator it = map.begin();
+    while (it != map.end()) {
+        out << *it << std::endl;
+        ++it;
+    }
+    return out;
+}
 
 static void test_empty_constructor() {
     println("test map default constructor");
@@ -36,7 +56,21 @@ static void test_size() {
     std::cout << "string_map size: " << string_map.size() << std::endl;
 }
 
+static void test_range_constructor() {
+    println("test map range constructor");
+
+    ft::vector<ft::pair<int, int> > int_vec;
+
+    for (int i = 0; i < 20; i++) {
+        int_vec.push_back(ft::make_pair(20 - i, i));
+    }
+
+    ft::map<int, int> int_map(int_vec.begin(), int_vec.end());
+    std::cout << "map:\n" << int_map << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
+    test_range_constructor();
     test_size();
 }
