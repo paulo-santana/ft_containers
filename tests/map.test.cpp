@@ -67,6 +67,7 @@ static void test_range_constructor() {
 
     ft::map<int, int> int_map(int_vec.begin(), int_vec.end());
     std::cout << "map:\n" << int_map << std::endl;
+    std::cout << "map size: " << int_map.size() << std::endl;
 }
 
 void testMap() {

@@ -29,6 +29,7 @@ public:
     typedef RBTreeNode<Key, Value>                  Node;
     typedef std::allocator<Node>                    NodeAllocator;
     typedef Key                                     key_type;
+    typedef typename NodeAllocator::size_type       size_type;
     typedef Value                                   value_type;
     typedef _Allocator                              allocator_type;
 
@@ -41,7 +42,9 @@ public:
         NIL(&_leaf),
         _leaf(),
         root(NIL),
-        allocator(allocator_type()) { }
+        allocator(allocator_type()),
+        num_items(0)
+    { }
 
     ~RBTree() {
         this->clear();
@@ -62,6 +65,7 @@ public:
             this->root = new_node;
             new_node->color = BLACK;
             new_node->parent = NIL;
+            this->num_items++;
             return new_node;
         }
         Node* iter = this->root;
@@ -85,6 +89,7 @@ public:
         } else {
             parent->right = new_node;
         }
+        this->num_items++;
         insert_fixup(new_node);
         this->NIL->parent = this->root;
         this->root->parent = this->NIL;
@@ -131,6 +136,7 @@ public:
         this->root->parent = this->NIL;
         this->node_allocator.destroy(node);
         this->node_allocator.deallocate(node, 1);
+        this->num_items--;
     }
 
     Node* search(const key_type& key) {
@@ -153,6 +159,9 @@ public:
         return Node::get_right_most(this->root);
     } 
 
+    size_type size() const {
+        return this->num_items;
+    }
 
     bool is_empty() const {
         return this->root == NIL;
@@ -365,6 +374,7 @@ private:
     Node                _leaf;
     Node*               root;
     allocator_type      allocator;
+    size_type           num_items;
     NodeAllocator       node_allocator;
 };
 

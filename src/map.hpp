@@ -68,7 +68,7 @@ public:
     ~map() {}
 
     size_type size() const {
-        return this->num_items;
+        return this->tree.size();
     }
 
     iterator begin() {
