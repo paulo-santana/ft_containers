@@ -43,7 +43,8 @@ public:
         _leaf(),
         root(NIL),
         allocator(allocator_type()),
-        num_items(0)
+        num_items(0),
+        last(NIL)
     { }
 
     ~RBTree() {
@@ -93,8 +94,16 @@ public:
         insert_fixup(new_node);
         this->NIL->parent = this->root;
         this->root->parent = this->NIL;
+        if (last == NIL || Compare()(last->key, new_node->key))
+            last = new_node;
         return new_node;
     }
+
+    // iterator insert(iterator position, const value_type& value) {
+    //     if (position._M_node == NIL) {
+    //
+    //     }
+    // }
 
     void remove(const key_type& key) {
         Node* node = search_node(this->root, key);
@@ -134,6 +143,8 @@ public:
             remove_fixup(x);
         this->NIL->parent = this->root;
         this->root->parent = this->NIL;
+        if (node == last)
+            last = node->predecessor();
         this->node_allocator.destroy(node);
         this->node_allocator.deallocate(node, 1);
         this->num_items--;
@@ -172,6 +183,9 @@ public:
         this->root = NIL;
     }
 
+    Node* get_last() const {
+        return this->last;
+    }
 
 private:
 
@@ -376,6 +390,8 @@ private:
     allocator_type      allocator;
     size_type           num_items;
     NodeAllocator       node_allocator;
+
+    Node*               last;
 };
 
 }
