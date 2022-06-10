@@ -363,6 +363,38 @@ static void test_double_red_validator() {
 #endif
 }
 
+static void test_last() {
+    println("test tree.get_last()");
+
+    int_int_tree tree;
+
+    int_int_node* last = tree.get_last();
+#if REAL_STD
+    std::cout << "last == NIL: " << true << std::endl;
+#else
+    std::cout << "last == NIL: " << (last == tree.NIL) << std::endl;
+#endif
+
+    tree.insert(3);
+    tree.insert(5);
+    tree.insert(2);
+    last = tree.get_last();
+#if REAL_STD
+    std::cout << "last->value == " << 5 << std::endl;
+#else
+    std::cout << "last->value == " << last->value << std::endl;
+#endif
+    (void)last;
+
+    tree.remove(5);
+    last = tree.get_last();
+#if REAL_STD
+    std::cout << "last->value == " << 3 << std::endl;
+#else
+    std::cout << "last->value == " << last->value << std::endl;
+#endif
+}
+
 void testRBTree() {
     test_default_constructor();
     test_dump_tree();
@@ -376,4 +408,5 @@ void testRBTree() {
     test_node_predecessor();
 
     test_double_red_validator();
+    test_last();
 }
