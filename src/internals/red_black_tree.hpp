@@ -1,5 +1,4 @@
 #pragma once
-#include <functional>
 #ifndef RED_BLACK_TREE_HPP
 #define RED_BLACK_TREE_HPP
 
@@ -15,7 +14,6 @@ namespace ft {
 #define IS_LEFT_CHILD(X) (X) == (X)->parent->left
 #define IS_RIGHT_CHILD(X) (X) == (X)->parent->right
 
-// TODO: compare values with the templated object
 template<
     typename Key,
     typename Value,
@@ -23,6 +21,7 @@ template<
     typename Compare,
     typename _Allocator = std::allocator<Value> >
 class RBTree {
+    Compare                                         keyCompare;
 
 public:
 
@@ -39,6 +38,7 @@ public:
     Node*                                           NIL;
 
     RBTree():
+        keyCompare(Compare()),
         NIL(&_leaf),
         _leaf(),
         root(NIL),
@@ -67,20 +67,11 @@ public:
             new_node->color = BLACK;
             new_node->parent = NIL;
             this->num_items++;
+            this->last = new_node;
             return new_node;
         }
-        Node* iter = this->root;
-        Node* parent = NIL;
-
-        while (iter != NIL) {
-            parent = iter;
-
-            if (Compare()(new_node->key, iter->key)) {
-                iter = iter->left;
-            } else {
-                iter = iter->right;
-            }
-        }
+        // Node* iter = this->root;
+        Node* parent = find_parent(this->root, new_node);
         new_node->parent = parent;
 
         if (parent == NIL) {
@@ -99,11 +90,55 @@ public:
         return new_node;
     }
 
-    // iterator insert(iterator position, const value_type& value) {
-    //     if (position._M_node == NIL) {
-    //
-    //     }
-    // }
+    iterator insert(iterator position, const value_type& data) {
+        Node* new_node = create_node(data);
+
+        Node* parent = find_parent(position._M_node, new_node);
+        new_node->parent = parent;
+        if (parent == NIL) {
+            this->root = new_node;
+        } else if (keyCompare(new_node->key, parent->key)) {
+            parent->left = new_node;
+        } else {
+            parent->right = new_node;
+        }
+        this->num_items++;
+        insert_fixup(new_node);
+        this->NIL->parent = this->root;
+        this->root->parent = this->NIL;
+        if (last == NIL || keyCompare(last->key, new_node->key))
+            last = new_node;
+        return iterator(new_node);
+    }
+
+    Node* find_parent(Node* hint, Node* new_node) {
+        // insert at the end
+        if (hint == NIL) {
+            return this->last;
+        // check if hint is optimal (hint < new_node)
+        } else if (keyCompare(hint->key, new_node->key)) {
+            // hint was the last element
+            if (hint->successor() == NIL) 
+                return hint;
+            // new_node is right after the hint (hint.successor() > new_node)
+            if (keyCompare(new_node->key, hint->successor()->key))
+                return hint;
+        }
+        // hint was not optimal, search from the top
+        Node* iter = this->root;
+        Node* parent = NIL;
+
+        while (iter != NIL) {
+            parent = iter;
+
+            if (keyCompare(new_node->key, iter->key)) {
+                iter = iter->left;
+            } else {
+                iter = iter->right;
+            }
+        }
+        return parent;
+    }
 
     void remove(const key_type& key) {
         Node* node = search_node(this->root, key);
@@ -208,7 +243,7 @@ private:
     Node* search_node(Node* current_root, const key_type& key) {
         if (current_root == NIL || current_root->key == key)
             return current_root;
-        else if (Compare()(key, current_root->key))
+        else if (keyCompare(key, current_root->key))
             return search_node(current_root->left, key);
         else 
             return search_node(current_root->right, key);

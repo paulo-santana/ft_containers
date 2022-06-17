@@ -1,3 +1,4 @@
+#include <functional>
 #include <iostream>
 #include <algorithm>
 #include <iterator>
@@ -28,6 +29,7 @@ int main (void)
         std::cout << "*it-- -> " << (*it--).first << std::endl;
     }
     std::_Rb_tree_const_iterator<std::pair<const int, int> > const_iter = it;
+    std::_Rb_tree<int, int, std::_Identity<int>, std::less<int> > tree;
     // if (it == const_iter) {
     //     // return 1;
     // }
@@ -50,4 +52,5 @@ int main (void)
     testMapIterator();
     testPair();
     testMap();
+    std::cout << std::endl;
 }

@@ -357,9 +357,9 @@ static void test_double_red_validator() {
     root->right->color = RED;
     std::cout << "no reds? false" << std::endl;
 #else
-    std::cout << "no reds? " << no_consective_reds(tree) << std::endl;
+    std::cout << "no reds? " << std::boolalpha << no_consective_reds(tree) << std::endl;
     root->right->color = RED;
-    std::cout << "no reds? " << no_consective_reds(tree) << std::endl;
+    std::cout << "no reds? " << std::boolalpha << no_consective_reds(tree) << std::endl;
 #endif
 }
 
@@ -370,7 +370,7 @@ static void test_last() {
 
     int_int_node* last = tree.get_last();
 #if REAL_STD
-    std::cout << "last == NIL: " << true << std::endl;
+    std::cout << "last == NIL: " << std::boolalpha << true << std::endl;
 #else
     std::cout << "last == NIL: " << (last == tree.NIL) << std::endl;
 #endif
