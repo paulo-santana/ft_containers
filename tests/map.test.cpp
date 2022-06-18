@@ -79,9 +79,9 @@ static void test_copy_constructor() {
 
     ft::map<std::string, std::string> strmap;
 
-    strmap.insert(ft::make_pair("a", "arara"));
-    strmap.insert(ft::make_pair("b", "banab"));
     strmap.insert(ft::make_pair("c", "carac"));
+    strmap.insert(ft::make_pair("b", "banab"));
+    strmap.insert(ft::make_pair("a", "arara"));
     strmap.insert(ft::make_pair("d", "debed"));
 
     ft::map<std::string, std::string> copy_map(strmap);

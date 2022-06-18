@@ -65,7 +65,12 @@ public:
         }
     }
 
-    map(const map& other) {
+    map(const map& other) :
+        tree(),
+        key_comparator(other.key_comparator),
+        num_items(0),
+        allocator(allocator_type())
+    {
         const_iterator first = other.begin();
         const_iterator last = other.end();
 
