@@ -2,16 +2,20 @@
 #include <map>
 #include <ostream>
 #include <vector>
+#include <iterator>
 #include <iostream>
+#include <sstream>
 #include <utility>
 
 #if REAL_STD
     namespace ft = std;
 
 #else
+
 #include "map.hpp"
 #include "vector.hpp"
 #include "pair.hpp"
+
 #endif
 
 template<typename T, typename U>
@@ -70,8 +74,23 @@ static void test_range_constructor() {
     std::cout << "map size: " << int_map.size() << std::endl;
 }
 
+static void test_copy_constructor() {
+    println("test map copy constructor");
+
+    ft::map<std::string, std::string> strmap;
+
+    strmap.insert(ft::make_pair("a", "arara"));
+    strmap.insert(ft::make_pair("b", "banab"));
+    strmap.insert(ft::make_pair("c", "carac"));
+    strmap.insert(ft::make_pair("d", "debed"));
+
+    ft::map<std::string, std::string> copy_map(strmap);
+    std::cout << "copy map:\n" << copy_map << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
+    test_copy_constructor();
     test_size();
 }

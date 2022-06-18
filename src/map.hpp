@@ -51,7 +51,7 @@ public:
     { }
 
     template<typename InputIterator>
-    map (InputIterator first, InputIterator last,
+    map(InputIterator first, InputIterator last,
             const key_compare& comp = key_compare(),
             const allocator_type& alloc = allocator_type()):
         tree(),
@@ -59,6 +59,16 @@ public:
         num_items(0),
         allocator(alloc)
     {
+        while (first != last) {
+            tree.insert(*first);
+            ++first;
+        }
+    }
+
+    map(const map& other) {
+        const_iterator first = other.begin();
+        const_iterator last = other.end();
+
         while (first != last) {
             tree.insert(*first);
             ++first;
@@ -80,6 +90,10 @@ public:
     }
 
     iterator end() {
+        return iterator(tree.NIL);
+    }
+
+    const_iterator end() const {
         return iterator(tree.NIL);
     }
 
