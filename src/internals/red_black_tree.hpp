@@ -76,7 +76,7 @@ public:
 
         if (parent == NIL) {
             this->root = new_node;
-        } else if (Compare()(new_node->key, parent->key)) {
+        } else if (keyCompare(new_node->key, parent->key)) {
             parent->left = new_node;
         } else {
             parent->right = new_node;
@@ -117,12 +117,16 @@ public:
             return this->last;
         // check if hint is optimal (hint < new_node)
         } else if (keyCompare(hint->key, new_node->key)) {
+            Node* successor = hint->successor();
             // hint was the last element
-            if (hint->successor() == NIL) 
+            if (successor == NIL) 
                 return hint;
             // new_node is right after the hint (hint.successor() > new_node)
-            if (keyCompare(new_node->key, hint->successor()->key))
+            if (keyCompare(new_node->key, successor->key)) {
+                if (successor->left == NIL)
+                    return successor;
                 return hint;
+            }
         }
         // hint was not optimal, search from the top
         Node* iter = this->root;

@@ -197,7 +197,7 @@ static void test_insert_balanced() {
 
     int_int_tree tree;
     tree.insert(8);
-    tree.insert(18);
+    tree.insert(18); // leaks
     tree.insert(5);
     tree.insert(15);
     tree.insert(17);
@@ -216,7 +216,9 @@ static void test_get_minimum() {
     int_int_tree tree;
     tree.insert(3);
     prettyPrint(tree);
-    tree.insert(8);
+    // FIXME: inserting a second element that's bigger than the first leaks
+    std::cout << "inserting a second element that's bigger than the first leaks" << std::endl;
+    tree.insert(8); 
     prettyPrint(tree);
     tree.insert(6);
     prettyPrint(tree);
