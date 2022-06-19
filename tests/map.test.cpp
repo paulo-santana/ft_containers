@@ -159,6 +159,14 @@ static void test_rbegin() {
     for (ft::map<int, int>::size_type i = 0; i < map.size() ; ++i, ++riter) {
         std::cout << "item with key " << riter->first << ": " << riter->second << std::endl;
     }
+
+    ft::map<int, int>::const_reverse_iterator criter = map.rbegin();
+
+    std::cout << "test the const_reverse_iterator" << std::endl;
+    for (ft::map<int, int>::size_type i = 0; i < map.size() ; ++i, ++criter) {
+        std::cout << "item with key " << criter->first << ": " << criter->second << std::endl;
+    }
+
 }
 
 void testMap() {

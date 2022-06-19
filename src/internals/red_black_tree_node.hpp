@@ -71,7 +71,7 @@ public:
     }
 
     const RBTreeNode* predecessor() const {
-        RBTreeNode* node = this;
+        const RBTreeNode* node = this;
         if (IS_NILL(node))
             return (get_right_most(get_root(this)));
         if (IS_NOT_NIL(node->left))
