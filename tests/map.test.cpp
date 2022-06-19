@@ -91,6 +91,7 @@ static void test_copy_constructor() {
 static void test_assignment_operator() {
     println("test map assignment operator");
 
+    ft::map<std::string, int> empty_map;
     ft::map<std::string, int> strint_map;
 
     strint_map.insert(ft::make_pair("mathematics", 92));
@@ -100,8 +101,11 @@ static void test_assignment_operator() {
     strint_map.insert(ft::make_pair("history", 40));
 
     ft::map<std::string, int> map_copy;
+    ft::map<std::string, int> empty_copy;
     map_copy = strint_map;
+    empty_copy = empty_map;
 
+    std::cout << "the empty copy:\n" << empty_copy << std::endl;
     std::cout << "the copy:\n" << map_copy << std::endl;
 }
 
