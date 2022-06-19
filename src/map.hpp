@@ -115,6 +115,10 @@ public:
         return reverse_iterator(begin());
     }
 
+    bool empty() const {
+        return this->size() == 0;
+    }
+
     ft::pair<iterator, bool> insert(const value_type& val) {
         typename tree_type::Node* item = tree.search(val.first);
         if (item != tree.NIL)

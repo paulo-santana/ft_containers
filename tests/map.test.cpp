@@ -210,6 +210,15 @@ static void test_rend() {
 //     }
 // }
 
+static void test_empty() {
+    println("test map.empty()");
+
+    ft::map<int, int> empty_map;
+    std::cout << "map empty: " << empty_map.empty() << std::endl;
+    empty_map.insert(ft::make_pair(1, 3));
+    std::cout << "empty after inserting?: " << empty_map.empty() << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -221,4 +230,5 @@ void testMap() {
     test_rbegin();
     test_rend();
     // test_reverse_iterator_quirks();
+    test_empty();
 }
