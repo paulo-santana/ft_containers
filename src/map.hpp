@@ -111,6 +111,10 @@ public:
         return reverse_iterator(end());
     }
 
+    reverse_iterator rend() {
+        return reverse_iterator(begin());
+    }
+
     ft::pair<iterator, bool> insert(const value_type& val) {
         typename tree_type::Node* item = tree.search(val.first);
         if (item != tree.NIL)

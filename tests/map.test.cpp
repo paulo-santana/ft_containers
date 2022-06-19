@@ -154,7 +154,6 @@ static void test_rbegin() {
     }
 
     ft::map<int, int>::reverse_iterator riter = map.rbegin();
-    // ft::map<int, int>::reverse_iterator rend = map.rbegin();
 
     for (ft::map<int, int>::size_type i = 0; i < map.size() ; ++i, ++riter) {
         std::cout << "item with key " << riter->first << ": " << riter->second << std::endl;
@@ -169,6 +168,28 @@ static void test_rbegin() {
 
 }
 
+static void test_rend() {
+    println("test map rend");
+
+    ft::map<int, int> map;
+    for (int i = 1; i < 10; i++) {
+        map.insert(ft::make_pair(1000 / i, 12 * i));
+    }
+
+    ft::map<int, int>::reverse_iterator rend = map.rend();
+
+    for (; rend != map.rbegin(); --rend) {
+        std::cout << "item with key " << rend->first << ": " << rend->second << std::endl;
+    }
+
+    std::cout << "test the const_reverse_iterator" << std::endl;
+    ft::map<int, int>::const_reverse_iterator crend = map.rend();
+
+    for (; crend != map.rbegin(); --crend) {
+        std::cout << "item with key " << crend->first << ": " << crend->second << std::endl;
+    }
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -178,4 +199,5 @@ void testMap() {
     test_begin();
     test_end();
     test_rbegin();
+    test_rend();
 }
