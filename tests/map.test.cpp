@@ -51,15 +51,6 @@ static void test_empty_constructor() {
     std::cout << "at least it compiles" << std::endl;
 }
 
-static void test_size() {
-    println("test map size");
-    ft::map<int, int> int_map;
-    ft::map<std::string, int> string_map;
-
-    std::cout << "int_map size: " << int_map.size() << std::endl;
-    std::cout << "string_map size: " << string_map.size() << std::endl;
-}
-
 static void test_range_constructor() {
     println("test map range constructor");
 
@@ -107,6 +98,16 @@ static void test_assignment_operator() {
 
     std::cout << "the empty copy:\n" << empty_copy << std::endl;
     std::cout << "the copy:\n" << map_copy << std::endl;
+    std::cout << "the copy size:\n" << map_copy.size() << std::endl;
+}
+
+static void test_size() {
+    println("test map size");
+    ft::map<int, int> int_map;
+    ft::map<std::string, int> string_map;
+
+    std::cout << "int_map size: " << int_map.size() << std::endl;
+    std::cout << "string_map size: " << string_map.size() << std::endl;
 }
 
 void testMap() {

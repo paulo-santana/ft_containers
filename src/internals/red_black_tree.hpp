@@ -63,6 +63,8 @@ public:
         this->clear();
         this->root = this->copy_subtree(other.root, other.NIL);
         this->root->parent = NIL;
+        this->num_items = other.num_items;
+        this->last = get_maximum();
         return *this;
     }
 
