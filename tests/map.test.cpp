@@ -232,6 +232,21 @@ static void test_max_size() {
     }
 }
 
+static void test_access_operator() {
+    println("test map operator[]");
+
+    ft::map<std::string, int> int_map;
+    int_map["physics"] = 90;
+    int_map["mathematics"] = 94;
+    int_map["logic"] = 89;
+    int_map["history"] = 44;
+
+    std::cout << "The map:\n" << int_map << std::endl;
+
+    std::cout << "the 'logic' value: " << int_map["logic"] << std::endl;;
+
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -245,4 +260,5 @@ void testMap() {
     test_empty();
     test_size();
     test_max_size();
+    test_access_operator();
 }

@@ -135,6 +135,14 @@ public:
         return ft::make_pair(iterator(newItem), true);
     }
 
+    // The insert operation returns an iterator to the new inserted element,
+    // or to the old element that already existed.
+    // We only need to return the value field of the map.
+    mapped_type& operator[](const key_type& key) {
+        ft::pair<iterator, bool> inserted = this->insert(ft::make_pair(key, mapped_type()));
+        return inserted.first->second;
+    }
+
 private:
     size_type num_items;
 
