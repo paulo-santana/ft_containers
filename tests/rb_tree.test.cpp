@@ -203,8 +203,9 @@ static void test_insert_at_empty() {
     println("test RB Tree first insertion");
 
     int_int_tree tree;
+    std::cout << "tree before: " << tree << std::endl;
     tree.insert(1);
-    std::cout << "It probably works" << std::endl;
+    std::cout << "tree after: " << tree << std::endl;
 }
 
 static void test_insert_balanced() {
@@ -221,7 +222,6 @@ static void test_insert_balanced() {
     tree.insert(80);
     tree.insert(1);
     prettyPrint(tree);
-    std::cout << "It probably works" << std::endl;
 
 }
 
