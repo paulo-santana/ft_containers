@@ -47,6 +47,20 @@ public:
         last(NIL)
     { }
 
+    RBTree(const RBTree& other):
+        keyCompare(other.keyCompare),
+        NIL(&_leaf),
+        _leaf(),
+        root(NIL),
+        allocator(allocator_type()),
+        num_items(other.num_items),
+        last(NIL)
+    {
+        this->root = this->copy_subtree(other.root, other.NIL);
+        this->root->parent = NIL;
+        this->last = get_maximum();
+    }
+
     ~RBTree() {
         this->clear();
     }

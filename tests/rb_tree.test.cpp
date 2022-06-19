@@ -174,6 +174,21 @@ static void test_default_constructor() {
     std::cout << "at least it compiles" << std::endl;
 }
 
+static void test_copy_constructor() {
+    println("test RB Tree copy constructor");
+
+    int_pair_tree tree ;
+    tree.insert(std::make_pair(3, 4));
+    tree.insert(std::make_pair(2, 3));
+    tree.insert(std::make_pair(4, 6));
+
+    int_pair_tree copy_tree(tree) ;
+    std::cout << "original tree: " << tree << std::endl;
+    std::cout << "original size: " << tree.size() << std::endl;
+    std::cout << "copy tree: " << copy_tree << std::endl;
+    std::cout << "copy size: " << copy_tree.size() << std::endl;
+}
+
 static void test_dump_tree() {
     println("test dump tree");
 
@@ -399,6 +414,7 @@ static void test_last() {
 
 void testRBTree() {
     test_default_constructor();
+    test_copy_constructor();
     test_dump_tree();
     test_insert_at_empty();
     test_insert_balanced();
