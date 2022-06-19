@@ -101,15 +101,6 @@ static void test_assignment_operator() {
     std::cout << "the copy size:\n" << map_copy.size() << std::endl;
 }
 
-static void test_size() {
-    println("test map size");
-    ft::map<int, int> int_map;
-    ft::map<std::string, int> string_map;
-
-    std::cout << "int_map size: " << int_map.size() << std::endl;
-    std::cout << "string_map size: " << string_map.size() << std::endl;
-}
-
 static void test_begin() {
     println("test map begin");
 
@@ -219,16 +210,25 @@ static void test_empty() {
     std::cout << "empty after inserting?: " << empty_map.empty() << std::endl;
 }
 
+static void test_size() {
+    println("test map size");
+    ft::map<int, int> int_map;
+    ft::map<std::string, int> string_map;
+
+    std::cout << "int_map size: " << int_map.size() << std::endl;
+    std::cout << "string_map size: " << string_map.size() << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
     test_copy_constructor();
     test_assignment_operator();
-    test_size();
     test_begin();
     test_end();
     test_rbegin();
     test_rend();
     // test_reverse_iterator_quirks();
     test_empty();
+    test_size();
 }
