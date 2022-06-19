@@ -145,6 +145,22 @@ static void test_end() {
     }
 }
 
+static void test_rbegin() {
+    println("test map rbegin");
+
+    ft::map<int, int> map;
+    for (int i = 1; i < 10; i++) {
+        map.insert(ft::make_pair(1000 / i, 12 * i));
+    }
+
+    ft::map<int, int>::reverse_iterator riter = map.rbegin();
+    // ft::map<int, int>::reverse_iterator rend = map.rbegin();
+
+    for (ft::map<int, int>::size_type i = 0; i < map.size() ; ++i, ++riter) {
+        std::cout << "item with key " << riter->first << ": " << riter->second << std::endl;
+    }
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -153,4 +169,5 @@ void testMap() {
     test_size();
     test_begin();
     test_end();
+    test_rbegin();
 }

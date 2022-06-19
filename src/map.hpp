@@ -34,12 +34,12 @@ private:
     tree_type tree;
     key_compare key_comparator;
 public:
-    typedef std::allocator<value_type>                            allocator_type;
+    typedef std::allocator<value_type>                          allocator_type;
 
     typedef typename tree_type::iterator iterator;
     typedef typename tree_type::const_iterator const_iterator;
-    // typedef RBTreeIterator<const Key, value_type>                 iterator;
-    // typedef RBTreeConstIterator<const Key, value_type>            const_iterator;
+    typedef typename tree_type::reverse_iterator                reverse_iterator;
+    typedef typename tree_type::const_reverse_iterator          const_reverse_iterator;
 
     explicit map(
             const key_compare& comp = key_compare(),
@@ -105,6 +105,10 @@ public:
 
     const_iterator end() const {
         return iterator(tree.NIL);
+    }
+
+    reverse_iterator rbegin() {
+        return reverse_iterator(end());
     }
 
     ft::pair<iterator, bool> insert(const value_type& val) {

@@ -2,10 +2,8 @@
 #ifndef RED_BLACK_TREE_HPP
 #define RED_BLACK_TREE_HPP
 
-#include <ostream>
-#include <iostream>
-#include <memory>
 
+#include "reverse_iterator.hpp"
 #include "map/RBTreeIterator.hpp"
 #include "internals/red_black_tree_node.hpp"
 
@@ -33,7 +31,9 @@ public:
     typedef _Allocator                              allocator_type;
 
     typedef RBTreeIterator<Key, value_type>         iterator;
-    typedef RBTreeConstIterator<Key, value_type>   const_iterator;
+    typedef RBTreeConstIterator<Key, value_type>    const_iterator;
+    typedef ft::reverse_iterator<iterator>          reverse_iterator;
+    typedef ft::reverse_iterator<const_iterator>    const_reverse_iterator;
 
     Node*                                           NIL;
 
