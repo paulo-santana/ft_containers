@@ -236,6 +236,10 @@ public:
         return this->num_items;
     }
 
+    size_type max_size() const {
+        return this->node_allocator.max_size();
+    }
+
     bool is_empty() const {
         return this->root == NIL;
     }

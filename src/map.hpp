@@ -119,6 +119,10 @@ public:
         return this->size() == 0;
     }
 
+    size_type max_size() {
+        return this->tree.max_size();
+    }
+
     ft::pair<iterator, bool> insert(const value_type& val) {
         typename tree_type::Node* item = tree.search(val.first);
         if (item != tree.NIL)

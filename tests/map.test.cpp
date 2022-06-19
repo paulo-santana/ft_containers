@@ -219,6 +219,19 @@ static void test_size() {
     std::cout << "string_map size: " << string_map.size() << std::endl;
 }
 
+static void test_max_size() {
+    println("test map max_size");
+
+    ft::map<int, int> int_map;
+    ft::map<std::string, std::string> string_map;
+
+    if (int_map.max_size() == 0) {
+        std::cout << "there's something wrong with the size" << std::endl;
+    } else {
+        std::cout << "at least size is not 0" << std::endl;
+    }
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -231,4 +244,5 @@ void testMap() {
     // test_reverse_iterator_quirks();
     test_empty();
     test_size();
+    test_max_size();
 }
