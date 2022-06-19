@@ -19,7 +19,7 @@
 #endif
 
 template<typename T, typename U>
-static std::ostream& operator<<(std::ostream& out, ft::pair<T, U>& p) {
+static std::ostream& operator<<(std::ostream& out, const ft::pair<T, U>& p) {
     out << "  pair[" << p.first << ", " << p.second << "]";
     return out;
 }
@@ -110,10 +110,30 @@ static void test_size() {
     std::cout << "string_map size: " << string_map.size() << std::endl;
 }
 
+static void test_begin() {
+    println("test map begin");
+
+    ft::map<int, int> map;
+    for (int i = 1; i < 30; i++) {
+        map.insert(ft::make_pair(1000 / i, 12 * i));
+    }
+
+    std::cout << "map:\n" << map << std::endl;
+    std::cout << "begin: " << *map.begin() << std::endl;
+    std::cout << "insert pair[12, 12]" << std::endl;
+    map.insert(ft::make_pair(12, 12));
+    std::cout << "new begin: " << *map.begin() << std::endl;
+    const ft::map<int, int> const_map = map;
+    ft::map<int, int>::const_iterator const_begin = const_map.begin();
+
+    std::cout << "const begin: " << *const_begin << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
     test_copy_constructor();
     test_assignment_operator();
     test_size();
+    test_begin();
 }
