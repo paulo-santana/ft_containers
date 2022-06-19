@@ -11,7 +11,7 @@
 #include "vector/iterator.hpp"
 #include "enable_if.hpp"
 #include "type_traits.hpp"
-#include "vector/reverse_iterator.hpp"
+#include "reverse_iterator.hpp"
 
 #include "equal.hpp"
 #include "lexicographical_compare.hpp"
