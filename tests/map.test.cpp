@@ -129,6 +129,22 @@ static void test_begin() {
     std::cout << "const begin: " << *const_begin << std::endl;
 }
 
+static void test_end() {
+    println("test map end");
+
+    ft::map<int, int> map;
+    for (int i = 1; i < 10; i++) {
+        map.insert(ft::make_pair(1000 / i, 12 * i));
+    }
+
+    ft::map<int, int>::const_iterator iter = map.begin();
+    ft::map<int, int>::const_iterator end = map.end();
+    // the loop stops when it reaches the end
+    for (; iter != end; ++iter) {
+        std::cout << "item with key " << iter->first << ": " << iter->second << std::endl;
+    }
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -136,4 +152,5 @@ void testMap() {
     test_assignment_operator();
     test_size();
     test_begin();
+    test_end();
 }
