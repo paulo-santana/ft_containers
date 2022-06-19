@@ -190,6 +190,26 @@ static void test_rend() {
     }
 }
 
+// shoudn't compile
+// static void test_reverse_iterator_quirks() {
+//     println("test reverse iterator quirks");
+//
+//     ft::map<int, int> map;
+//     for (int i = 1; i < 10; i++) {
+//         map.insert(ft::make_pair(1000 / i, 12 * i));
+//     }
+//
+//     ft::map<int, int>::reverse_iterator riter = map.rbegin();
+//
+//     for (ft::map<int, int>::size_type i = 0; i < map.size() ; ++i, ++riter) {
+//         std::cout << "item with key " << riter->first << ": " << riter->second << std::endl;
+//     }
+//
+//     if (riter < map.rend()) {
+//         std::cout << "this shoudn't be possible" << std::endl;
+//     }
+// }
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -200,4 +220,5 @@ void testMap() {
     test_end();
     test_rbegin();
     test_rend();
+    // test_reverse_iterator_quirks();
 }
