@@ -59,6 +59,13 @@ public:
         return this->root;
     }
 
+    RBTree& operator=(const RBTree& other) {
+        this->clear();
+        this->root = this->copy_subtree(other.root, other.NIL);
+        this->root->parent = NIL;
+        return *this;
+    }
+
     Node* insert(const value_type& data) {
         Node* new_node = create_node(data);
 
@@ -240,7 +247,6 @@ private:
     Node* create_node(const value_type& data) {
         Node* new_node = this->node_allocator.allocate(1);
         this->node_allocator.construct(new_node, Node(KeyOfValue()(data), data, NIL));
-        this->allocator.construct(&new_node->value, data);
         return new_node;
     }
 
@@ -421,6 +427,25 @@ private:
             }
         }
         x->color = BLACK;
+    }
+
+    Node* copy_subtree(Node* node, Node* node_nil) {
+        if (node == node_nil)
+            return NIL;
+        Node* new_node = copy_node(node);
+        new_node->left = copy_subtree(node->left, node_nil);
+        new_node->right = copy_subtree(node->right, node_nil);
+        if (new_node->left != NIL)
+            new_node->left->parent = new_node;
+        if (new_node->right != NIL)
+            new_node->right->parent = new_node;
+        return new_node;
+    }
+
+    Node* copy_node(Node* src) {
+        Node* new_node = this->node_allocator.allocate(1);
+        this->node_allocator.construct(new_node, *src);
+        return new_node;
     }
 
 private:

@@ -80,6 +80,11 @@ public:
         }
     }
 
+    map& operator=(const map& other) {
+        this->tree = other.tree;
+        return *this;
+    }
+
     ~map() {}
 
     size_type size() const {

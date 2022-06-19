@@ -88,9 +88,27 @@ static void test_copy_constructor() {
     std::cout << "copy map:\n" << copy_map << std::endl;
 }
 
+static void test_assignment_operator() {
+    println("test map assignment operator");
+
+    ft::map<std::string, int> strint_map;
+
+    strint_map.insert(ft::make_pair("mathematics", 92));
+    strint_map.insert(ft::make_pair("languages", 32));
+    strint_map.insert(ft::make_pair("physics", 89));
+    strint_map.insert(ft::make_pair("logic", 90));
+    strint_map.insert(ft::make_pair("history", 40));
+
+    ft::map<std::string, int> map_copy;
+    map_copy = strint_map;
+
+    std::cout << "the copy:\n" << map_copy << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
     test_copy_constructor();
+    test_assignment_operator();
     test_size();
 }
