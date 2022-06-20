@@ -50,8 +50,6 @@ static void test_constructors(void) {
 static void test_equality(void) {
     int_int_map map;
 
-    // ft::pair<const int, int> pair(ft::make_pair(1, 1));
-    // TODO: test insert results on map
     map.insert(ft::make_pair(1, -1));
     map.insert(ft::make_pair(8, 24));
     map.insert(ft::make_pair(2, 24));

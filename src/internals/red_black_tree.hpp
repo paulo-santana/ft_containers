@@ -94,7 +94,7 @@ public:
             return new_node;
         }
         // Node* iter = this->root;
-        Node* parent = find_parent(this->root, new_node);
+        Node* parent = find_parent(this->root, KeyOfValue()(data));
         new_node->parent = parent;
 
         if (parent == NIL) {
@@ -114,9 +114,11 @@ public:
     }
 
     iterator insert(iterator position, const value_type& data) {
+
+        Node* parent = find_parent(position._M_node, KeyOfValue()(data));
+
         Node* new_node = create_node(data);
 
-        Node* parent = find_parent(position._M_node, new_node);
         new_node->parent = parent;
         if (parent == NIL) {
             this->root = new_node;
@@ -138,18 +140,19 @@ public:
         return iterator(new_node);
     }
 
-    Node* find_parent(Node* hint, Node* new_node) {
+    // TODO: there's a bug in this code. Find it and kill it
+    Node* find_parent(Node* hint, key_type key) {
         // insert at the end
         if (hint == NIL) {
             return this->last;
         // check if hint is optimal (hint < new_node)
-        } else if (keyCompare(hint->key, new_node->key)) {
+        } else if (keyCompare(hint->key, key)) {
             Node* successor = hint->successor();
             // hint was the last element
             if (successor == NIL) 
                 return hint;
             // new_node is right after the hint (hint.successor() > new_node)
-            if (keyCompare(new_node->key, successor->key)) {
+            if (keyCompare(key, successor->key)) {
                 if (successor->left == NIL)
                     return successor;
                 return hint;
@@ -162,7 +165,7 @@ public:
         while (iter != NIL) {
             parent = iter;
 
-            if (keyCompare(new_node->key, iter->key)) {
+            if (keyCompare(key, iter->key)) {
                 iter = iter->left;
             } else {
                 iter = iter->right;
