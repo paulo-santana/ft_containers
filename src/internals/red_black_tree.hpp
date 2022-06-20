@@ -122,8 +122,12 @@ public:
             this->root = new_node;
         } else if (keyCompare(new_node->key, parent->key)) {
             parent->left = new_node;
-        } else {
+        } else if (keyCompare(parent->key, new_node->key)){
             parent->right = new_node;
+        } else { 
+            this->node_allocator.destroy(new_node);
+            this->node_allocator.deallocate(new_node, 1);
+            return position;
         }
         this->num_items++;
         insert_fixup(new_node);

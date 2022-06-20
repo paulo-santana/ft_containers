@@ -263,6 +263,70 @@ static void test_access_operator_cplusplus() {
   std::cout << "mymap now contains " << mymap.size() << " elements.\n";
 }
 
+static void test_insert() {
+    println("test map insert");
+
+    println("insert a pair on an empty map");
+    ft::map<std::string, std::string> strmap;
+    strmap.insert(ft::make_pair("a", "arara"));
+    std::cout << "map:\n" << strmap;
+
+    println("insert a pair on a map with one element");
+    strmap.insert(ft::make_pair("b", "brara"));
+    std::cout << "map:\n" << strmap;
+
+    println("test the return value of the insertion");
+    ft::pair<ft::map<std::string, std::string>::iterator, bool> result;
+    result = strmap.insert(ft::make_pair("c", "crcrc"));
+    std::cout << "result->first: " << *result.first
+        << "\nresult->second: " << result.second << std::endl;
+
+    println("insert an item with an already existing key");
+    result = strmap.insert(ft::make_pair("b", "dudududu"));
+    std::cout << "result->first: " << *result.first
+        << "\nresult->second: " << result.second << std::endl;
+
+}
+
+static void test_insert_with_hint() {
+    println("test map insert with hint");
+
+    println("insert a pair on an empty map with begin() as a hint");
+    ft::map<std::string, std::string> strmap;
+    strmap.insert(strmap.begin(), ft::make_pair("a", "arara"));
+    std::cout << "map:\n" << strmap;
+
+    println("insert another pair on a map with 1 element with begin() as a hint");
+    strmap.insert(strmap.begin(), ft::make_pair("b", "brara"));
+    std::cout << "map:\n" << strmap;
+
+    {
+        ft::map<int, int> intmap;
+        println("fill a map with growing values using begin() as a hint");
+        for (int i = 0; i < 20; i++) {
+            intmap.insert(intmap.begin(), ft::make_pair(i, i * i));
+        }
+        std::cout << "map:\n" << intmap;
+    }
+    {
+        ft::map<int, int> intmap;
+        println("fill a map with growing values using end() as a hint");
+        for (int i = 0; i < 20; i++) {
+            intmap.insert(intmap.end(), ft::make_pair(i, i * i));
+        }
+        std::cout << "map:\n" << intmap;
+    }
+    {
+        ft::map<int, int> intmap;
+        println("fill a map with growing values using the last inserted element as a hint");
+        ft::map<int, int>::iterator result = intmap.insert(intmap.begin(), ft::make_pair(0, 0));
+        for (int i = 0; i < 20; i++) {
+            result = intmap.insert(result, ft::make_pair(i, i * i));
+        }
+        std::cout << "map:\n" << intmap;
+    }
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -278,4 +342,7 @@ void testMap() {
     test_max_size();
     test_access_operator();
     test_access_operator_cplusplus();
+
+    test_insert();
+    test_insert_with_hint();
 }

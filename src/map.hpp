@@ -135,6 +135,10 @@ public:
         return ft::make_pair(iterator(newItem), true);
     }
 
+    iterator insert(iterator position, const value_type& val) {
+        return tree.insert(position, val);
+    }
+
     // The insert operation returns an iterator to the new inserted element,
     // or to the old element that already existed.
     // We only need to return the value field of the map.
