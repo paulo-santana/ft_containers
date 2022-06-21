@@ -115,7 +115,12 @@ public:
 
     iterator insert(iterator position, const value_type& data) {
 
-        Node* parent = find_parent(position._M_node, KeyOfValue()(data));
+        key_type key = KeyOfValue()(data);
+        Node* parent = find_parent(position._M_node, key);
+
+        if (parent != NIL && parent->key == key) {
+            return position;
+        }
 
         Node* new_node = create_node(data);
 
@@ -126,10 +131,6 @@ public:
             parent->left = new_node;
         } else if (keyCompare(parent->key, new_node->key)){
             parent->right = new_node;
-        } else { 
-            this->node_allocator.destroy(new_node);
-            this->node_allocator.deallocate(new_node, 1);
-            return position;
         }
         this->num_items++;
         insert_fixup(new_node);
