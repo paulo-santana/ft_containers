@@ -147,6 +147,10 @@ public:
         return inserted.first->second;
     }
 
+    iterator find (const key_type& key) {
+        return iterator(this->tree.search(key));
+    }
+
 private:
     size_type num_items;
 

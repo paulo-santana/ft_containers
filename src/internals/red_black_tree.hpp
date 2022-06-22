@@ -141,7 +141,6 @@ public:
         return iterator(new_node);
     }
 
-    // TODO: there's a bug in this code. Find it and kill it
     Node* find_parent(Node* hint, key_type key) {
         // if hint is NIL, search from the top
         if (hint != NIL && keyCompare(hint->key, key)) {
