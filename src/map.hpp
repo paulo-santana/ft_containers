@@ -163,6 +163,10 @@ public:
         return iterator(this->tree.search(key));
     }
 
+    void erase(iterator position) {
+        this->tree.remove(position->first);
+    }
+
 private:
     size_type num_items;
 

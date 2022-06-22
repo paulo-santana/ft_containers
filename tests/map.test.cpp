@@ -363,6 +363,28 @@ static void test_insert_range() {
     }
 }
 
+static void test_erase() {
+    println("test map erase");
+
+    ft::map<int, int> intmap;
+    for (int i = 0; i < 15; i++) {
+        intmap[i * i - 1] =  i * i * 2;
+    }
+
+    std::cout << "initial map:\n" << intmap << std::endl;
+    intmap.erase(intmap.begin());
+    std::cout << "delete begin():\n" << intmap << std::endl;
+    intmap.erase(intmap.begin());
+    std::cout << "delete begin():\n" << intmap << std::endl;
+    intmap.erase(intmap.find(99));
+    std::cout << "delete 99:\n" << intmap << std::endl;
+    std::cout << "delete everything" << std::endl;
+    while (intmap.size() > 0)
+        intmap.erase(--intmap.end());
+    std::cout << "map: " << intmap << std::endl;
+
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -382,4 +404,6 @@ void testMap() {
     test_insert();
     test_insert_with_hint();
     test_insert_range();
+
+    test_erase();
 }
