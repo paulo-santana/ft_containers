@@ -139,6 +139,18 @@ public:
         return tree.insert(position, val);
     }
 
+    template<typename InputIterator>
+    void insert(InputIterator first, InputIterator last) {
+        if (first == last)
+            return ;
+
+        iterator hint = this->find(first->first);
+        while (first != last) {
+            hint = this->insert(hint, *first);
+            ++first;
+        }
+    }
+
     // The insert operation returns an iterator to the new inserted element,
     // or to the old element that already existed.
     // We only need to return the value field of the map.

@@ -346,6 +346,23 @@ static void test_insert_with_hint() {
     }
 }
 
+static void test_insert_range() {
+    println("test map range insert");
+
+    ft::vector<ft::pair<int, int> > intvec;
+    for (int i = 0; i < 15; i++) {
+        intvec.push_back(ft::make_pair(i * i - 1, i * i * 2));
+    }
+
+    println("insert in an empty map");
+    {
+        ft::map<int, int> intmap;
+        intmap.insert(intvec.begin(), intvec.end());
+        std::cout << "map size: " << intmap.size() << std::endl;
+        std::cout << "map:\n" << intmap << std::endl;
+    }
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -364,4 +381,5 @@ void testMap() {
 
     test_insert();
     test_insert_with_hint();
+    test_insert_range();
 }
