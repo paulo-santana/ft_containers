@@ -325,20 +325,24 @@ static void test_insert_with_hint() {
         }
         std::cout << "map:\n" << intmap;
     }
-    for (int i = 0; i < 15; i += 2) {
-        ft::map<int, int> intmap;
-        println("fill a map with growing values using the last inserted element as a hint");
-        intmap.insert(ft::make_pair(7, 0));
-        intmap.insert(ft::make_pair(3, 0));
-        intmap.insert(ft::make_pair(11, 0));
-        intmap.insert(ft::make_pair(1, 0));
-        intmap.insert(ft::make_pair(5, 0));
-        intmap.insert(ft::make_pair(9, 0));
-        intmap.insert(ft::make_pair(13, 0));
 
-        ft::map<int, int>::iterator hint = intmap.find(i - 1);
-        intmap.insert(hint, ft::make_pair(i, 1));
-        std::cout << "map:\n" << intmap << std::endl;
+    println("insert a pair using various hints");
+    for (int hint_key = 1; hint_key < 14; hint_key += 2) {
+        for (int i = 0; i < 15; i += 2) {
+            ft::map<int, int> intmap;
+            intmap.insert(ft::make_pair(7, 0));
+            intmap.insert(ft::make_pair(3, 0));
+            intmap.insert(ft::make_pair(11, 0));
+            intmap.insert(ft::make_pair(1, 0));
+            intmap.insert(ft::make_pair(5, 0));
+            intmap.insert(ft::make_pair(9, 0));
+            intmap.insert(ft::make_pair(13, 0));
+
+            ft::map<int, int>::iterator hint = intmap.find(hint_key);
+            std::cout << "insert " << i << " with " << hint_key << " as hint" << std::endl;
+            intmap.insert(hint, ft::make_pair(i, 1));
+            std::cout << "map:\n" << intmap << std::endl;
+        }
     }
 }
 
