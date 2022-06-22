@@ -143,11 +143,8 @@ public:
 
     // TODO: there's a bug in this code. Find it and kill it
     Node* find_parent(Node* hint, key_type key) {
-        // insert at the end
-        if (hint == NIL) {
-            return this->last;
-        // check if hint is optimal (hint < new_node)
-        } else if (keyCompare(hint->key, key)) {
+        // if hint is NIL, search from the top
+        if (hint != NIL && keyCompare(hint->key, key)) {
             Node* successor = hint->successor();
             // hint was the last element
             if (successor == NIL) 
