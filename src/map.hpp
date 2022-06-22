@@ -167,6 +167,11 @@ public:
         this->tree.remove(position->first);
     }
 
+    size_type erase(const key_type& key) {
+        this->tree.remove(key);
+        return 1;
+    }
+
 private:
     size_type num_items;
 

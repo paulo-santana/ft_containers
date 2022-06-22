@@ -363,6 +363,7 @@ static void test_insert_range() {
     }
 }
 
+// TODO: this is linear, make it work in constant time
 static void test_erase() {
     println("test map erase");
 
@@ -383,6 +384,29 @@ static void test_erase() {
         intmap.erase(--intmap.end());
     std::cout << "map: " << intmap << std::endl;
 
+}
+
+static void test_erase_key() {
+    println("test map delete by key");
+
+    ft::map<int, int> intmap;
+    for (int i = 0; i < 15; i++) {
+        intmap[i * i - 1] =  i * i * 2;
+    }
+
+    std::cout << "initial map:\n" << intmap << std::endl;
+    ft::map<int, int>::size_type result = intmap.erase(-1);
+    std::cout << "delete -1:\n" << intmap << std::endl;
+    std::cout << "result: " << result << std::endl;
+    result = intmap.erase(0);
+    std::cout << "delete 0:\n" << intmap << std::endl;
+    std::cout << "result: " << result << std::endl;
+    result = intmap.erase(99);
+    std::cout << "delete 99:\n" << intmap << std::endl;
+    std::cout << "delete everything" << std::endl;
+    while (intmap.size() > 0)
+        intmap.erase(--intmap.end());
+    std::cout << "map: " << intmap << std::endl;
 }
 
 void testMap() {
@@ -406,4 +430,5 @@ void testMap() {
     test_insert_range();
 
     test_erase();
+    test_erase_key();
 }
