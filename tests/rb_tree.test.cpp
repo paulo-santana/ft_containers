@@ -45,7 +45,7 @@ std::ostream& operator<<(std::ostream& out, const ft::RBTreeNode<T, U>& node) {
 
 template<typename T, typename U, typename V>
 void inorder_tree_walk(std::ostream& out, const ft::RBTreeNode<T, U>* node) {
-    if (node == ft::RBTreeNode<T, U>::get_nil(node))
+    if (node == node->nil)
         return ;
     inorder_tree_walk<T, U, V>(out, node->left);
     out << *node << std::endl;
@@ -293,7 +293,7 @@ static void test_node_successor() {
 #else
     int_int_tree::Node* result = node->successor();
     
-    int_int_tree::Node* nil = int_int_tree::Node::get_nil(node);
+    int_int_tree::Node* nil = node->nil;
     for (int i = 0; i < 10 && result != nil; i++) {
         std::cout << "result:" << *result << std::endl;
         result = result->successor();
@@ -326,7 +326,7 @@ static void test_node_predecessor() {
     (void)node;
 #else
     int_int_tree::Node* result = node->predecessor();
-    int_int_tree::Node* nil = int_int_tree::Node::get_nil(node);
+    int_int_tree::Node* nil = node->nil;
     for (int i = 0; i < 10 && result != nil; i++) {
         std::cout << "result:" << *result << std::endl;
         result = result->predecessor();

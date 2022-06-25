@@ -171,49 +171,65 @@ public:
         return parent;
     }
 
-    void remove(const key_type& key) {
-        Node* node = search_node(this->root, key);
-        if (node == NIL) {
-            return;
-        }
-
-        Node* y = node;
+    void remove_direct_node(Node* z) {
+        Node* y = z;
         bool y_original_color = y->color;
 
         Node* x;
-        if (node->left == NIL) {
-            x = node->right;
-            transplant(node, node->right);
-        } else if (node->right == NIL) {
-            x = node->left;
-            transplant(node, node->left);
+        if (z->left == NIL) {
+            x = z->right;
+            transplant(z, z->right);
+        } else if (z->right == NIL) {
+            x = z->left;
+            transplant(z, z->left);
         } else {
-            y = Node::get_left_most(node->right);
+            y = Node::get_left_most(z->right);
             y_original_color = y->color;
             x = y->right;
 
-            if (y != node->right) {
+            if (y != z->right) {
                 transplant(y, y->right);
-                y->right = node->right;
+                y->right = z->right;
                 y->right->parent = y;
 
             } else {
                 x->parent = y;
-                transplant(node, y);
-                y->left = node->left;
-                y->left->parent = y;
-                y->color = node->color;
             }
+            transplant(z, y);
+            y->left = z->left;
+            y->left->parent = y;
+            y->color = z->color;
         }
         if (y_original_color == BLACK)
             remove_fixup(x);
         this->NIL->parent = this->root;
         this->root->parent = this->NIL;
-        if (node == last)
-            last = node->predecessor();
-        this->node_allocator.destroy(node);
-        this->node_allocator.deallocate(node, 1);
+        if (z == last)
+            last = z->predecessor();
+        this->node_allocator.destroy(z);
+        this->node_allocator.deallocate(z, 1);
         this->num_items--;
+    }
+
+    void remove(const key_type& key) {
+        Node* node = search_node(this->root, key);
+        if (node == NIL) {
+            return;
+        }
+        remove_direct_node(node);
+    }
+
+    size_type erase(iterator position) {
+        remove_direct_node(position._M_node);
+        return 1;
+    }
+
+    // FIXME: it is still bugged
+    void erase(iterator first, iterator last) {
+        while (first != last) {
+            this->erase(first++);
+        }
+        return ;
     }
 
     Node* search(const key_type& key) {

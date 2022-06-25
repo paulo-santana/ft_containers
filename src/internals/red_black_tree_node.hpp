@@ -4,8 +4,8 @@
 
 namespace ft {
 
-#define IS_NILL(X) ((X) == (X)->left)
-#define IS_NOT_NIL(X) ((X) != (X)->left)
+#define IS_NILL(X) ((X) == (X)->nil)
+#define IS_NOT_NIL(X) ((X) != (X)->nil)
 
 template<typename Key, typename Value>
 class RBTreeNode {
@@ -20,6 +20,7 @@ public:
     RBTreeNode*   parent;
     RBTreeNode*   left;
     RBTreeNode*   right;
+    RBTreeNode*   nil;
 
     bool          color;
 
@@ -29,6 +30,7 @@ public:
         parent(this),
         left(this),
         right(this),
+        nil(this),
         color(BLACK) {}
 
     RBTreeNode(const RBTreeNode& other):
@@ -37,6 +39,7 @@ public:
         parent(other.parent),
         left(other.left),
         right(other.right),
+        nil(other.nil),
         color(other.color) {}
 
     RBTreeNode(const Value& data, const RBTreeNode* NIL):
@@ -44,6 +47,7 @@ public:
         parent(NIL),
         left(NIL),
         right(NIL),
+        nil(NIL),
         color(RED) {}
 
     RBTreeNode(const Key& key, const Value& data, RBTreeNode* NIL):
@@ -52,6 +56,7 @@ public:
         parent(NIL),
         left(NIL),
         right(NIL),
+        nil(NIL),
         color(RED) {}
 
     RBTreeNode* predecessor() {
@@ -142,20 +147,16 @@ public:
         return item;
     }
 
-    static RBTreeNode* get_nil(RBTreeNode* node) {
-        while (IS_NOT_NIL(node))
-            node = node->left;
-        return node;
+    RBTreeNode* get_nil() {
+        return nil;
     }
 
-    static const RBTreeNode* get_nil(const RBTreeNode* node) {
-        while (IS_NOT_NIL(node))
-            node = node->left;
-        return node;
+    const RBTreeNode* get_nil() const {
+        return nil;
     }
 
     static RBTreeNode* get_root(RBTreeNode* node) {
-        RBTreeNode* nil = get_nil(node);
+        RBTreeNode* nil = node->nil;
         while (node->parent != nil) {
             node = node->parent;
         }
@@ -163,7 +164,7 @@ public:
     }
 
     static const RBTreeNode* get_root(const RBTreeNode* node) {
-        const RBTreeNode* nil = get_nil(node);
+        const RBTreeNode* nil = node->nil;
         while (node->parent != nil) {
             node = node->parent;
         }
