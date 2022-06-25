@@ -508,6 +508,10 @@ static void test_clear() {
     std::cout << "map before clear:\n" << intmap << std::endl;
     intmap.clear();
     std::cout << "map after clear:\n" << intmap << std::endl;
+    std::cout << "clearing an empty map" << std::endl;
+    ft::map<int, int> empty;
+    empty.clear();
+    std::cout << "empty map after clear:\n" << empty << std::endl;
 }
 
 void testMap() {
