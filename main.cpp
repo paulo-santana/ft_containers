@@ -8,7 +8,6 @@
 #include <sstream>
 
 #include "tests/tests.hpp"
-#include "map.hpp"
 
 #ifndef REAL_STD
 # define REAL_STD 0
@@ -20,10 +19,6 @@ int main (void)
         std::cerr << "STD containers" << std::endl;
     else
         std::cerr << "FT containers" << std::endl;
-
-    std::map<int, int> map;
-    std::map<int, int> othermap;
-    othermap = map;
 
     testVectorIterator();
     testReverseIterator();

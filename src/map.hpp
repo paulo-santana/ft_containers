@@ -179,6 +179,13 @@ public:
         this->tree->erase(first, last);
     }
 
+    void swap(map& other) {
+        tree_type* tmp = other.tree;
+        other.tree = this->tree;
+        this->tree = tmp;
+
+    }
+
 private:
     size_type num_items;
 

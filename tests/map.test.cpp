@@ -475,6 +475,28 @@ static void test_erase_cplusplus()
     std::cout << it->first << " => " << it->second << '\n';
 }
 
+static void test_swap() {
+    println("test map swap");
+
+    ft::map<int, int> mymap;
+    ft::map<int, int> othermap;
+
+    mymap[1] = 3;
+    mymap[2] = 6;
+    mymap[3] = 9;
+    mymap[4] = 12;
+
+    othermap[5] = 25;
+    othermap[6] = 36;
+    othermap[7] = 49;
+
+    mymap.swap(othermap);
+
+
+    std::cout << "mymap:\n" << mymap << std::endl;
+    std::cout << "othermap:\n" << othermap << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -499,4 +521,6 @@ void testMap() {
     test_erase_key();
     test_erase_range();
     test_erase_cplusplus();
+
+    test_swap();
 }
