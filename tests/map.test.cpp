@@ -409,6 +409,46 @@ static void test_erase_key() {
     std::cout << "map: " << intmap << std::endl;
 }
 
+static void test_erase_range() {
+    println("test map erase range");
+
+    ft::map<int, int> intmap;
+
+    intmap[-1] = 0;
+    intmap[0] = 2;
+    intmap[3] = 8;
+    intmap[8] = 18;
+    intmap[15] = 32;
+    intmap[24] = 50;
+    intmap[35] = 72;
+    intmap[48] = 98;
+    intmap[63] = 128;
+    intmap[80] = 162;
+    intmap[99] = 200;
+    intmap[120] = 242;
+    intmap[143] = 288;
+    intmap[168] = 338;
+    intmap[195] = 392;
+
+
+    std::cout << "initial map:\n" << intmap << std::endl;
+    // prettyPrint(intmap.get_tree());
+
+    ft::map<int, int>::iterator first = intmap.begin();
+    ft::map<int, int>::iterator last = intmap.begin();
+    for (int i = 0; i < 5; ++i, ++first, ++last, ++last);
+
+    std::cout << "erase 5 nodes in the middle" << std::endl;
+    intmap.erase(first, last);
+
+    std::cout << "map:\n" << intmap << std::endl;
+
+    std::cout << "erase begin to end" << std::endl;
+    intmap.erase(intmap.begin(), intmap.end());
+
+    std::cout << "map:\n" << intmap << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -431,4 +471,5 @@ void testMap() {
 
     test_erase();
     test_erase_key();
+    test_erase_range();
 }

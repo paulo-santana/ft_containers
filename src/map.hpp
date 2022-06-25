@@ -34,6 +34,11 @@ private:
     tree_type tree;
     key_compare key_comparator;
 public:
+    // HACK: remove me
+    tree_type& get_tree() {
+        return this->tree;
+    }
+
     typedef std::allocator<value_type>                          allocator_type;
 
     typedef typename tree_type::iterator iterator;
@@ -170,6 +175,10 @@ public:
     size_type erase(const key_type& key) {
         this->tree.remove(key);
         return 1;
+    }
+
+    void erase(iterator first, iterator last) {
+        this->tree.erase(first, last);
     }
 
 private:
