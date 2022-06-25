@@ -449,6 +449,32 @@ static void test_erase_range() {
     std::cout << "map:\n" << intmap << std::endl;
 }
 
+static void test_erase_cplusplus()
+{
+  ft::map<char,int> mymap;
+  ft::map<char,int>::iterator it;
+
+  // insert some values:
+  mymap['a']=10;
+  mymap['b']=20;
+  mymap['c']=30;
+  mymap['d']=40;
+  mymap['e']=50;
+  mymap['f']=60;
+
+  it=mymap.find('b');
+  mymap.erase (it);                   // erasing by iterator
+
+  mymap.erase ('c');                  // erasing by key
+
+  it=mymap.find ('e');
+  mymap.erase ( it, mymap.end() );    // erasing by range
+
+  // show content:
+  for (it=mymap.begin(); it!=mymap.end(); ++it)
+    std::cout << it->first << " => " << it->second << '\n';
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -472,4 +498,5 @@ void testMap() {
     test_erase();
     test_erase_key();
     test_erase_range();
+    test_erase_cplusplus();
 }
