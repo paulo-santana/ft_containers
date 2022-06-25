@@ -497,6 +497,19 @@ static void test_swap() {
     std::cout << "othermap:\n" << othermap << std::endl;
 }
 
+static void test_clear() {
+    println("test map clear");
+
+    ft::map<int, int> intmap;
+    intmap[42] = 32;
+    intmap[12] = 122;
+    intmap[82] = 822;
+
+    std::cout << "map before clear:\n" << intmap << std::endl;
+    intmap.clear();
+    std::cout << "map after clear:\n" << intmap << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -523,4 +536,5 @@ void testMap() {
     test_erase_cplusplus();
 
     test_swap();
+    test_clear();
 }

@@ -183,7 +183,10 @@ public:
         tree_type* tmp = other.tree;
         other.tree = this->tree;
         this->tree = tmp;
+    }
 
+    void clear() {
+        this->tree->clear();
     }
 
 private:
