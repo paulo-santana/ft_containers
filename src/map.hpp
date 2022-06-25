@@ -31,14 +31,9 @@ private:
     typedef RBTree<key_type, value_type, std::_Select1st<value_type>, key_compare, Allocator> tree_type;
     typedef typename tree_type::Node node_type;
 
-    tree_type tree;
+    tree_type* tree;
     key_compare key_comparator;
 public:
-    // HACK: remove me
-    tree_type& get_tree() {
-        return this->tree;
-    }
-
     typedef std::allocator<value_type>                          allocator_type;
 
     typedef typename tree_type::iterator iterator;
@@ -49,7 +44,7 @@ public:
     explicit map(
             const key_compare& comp = key_compare(),
             const allocator_type& alloc = allocator_type()) :
-        tree(),
+        tree(new tree_type()),
         key_comparator(comp),
         num_items(0),
         allocator(alloc)
@@ -59,19 +54,19 @@ public:
     map(InputIterator first, InputIterator last,
             const key_compare& comp = key_compare(),
             const allocator_type& alloc = allocator_type()):
-        tree(),
+        tree(new tree_type()),
         key_comparator(comp),
         num_items(0),
         allocator(alloc)
     {
         while (first != last) {
-            tree.insert(*first);
+            tree->insert(*first);
             ++first;
         }
     }
 
     map(const map& other) :
-        tree(),
+        tree(new tree_type()),
         key_comparator(other.key_comparator),
         num_items(0),
         allocator(allocator_type())
@@ -80,36 +75,39 @@ public:
         const_iterator last = other.end();
 
         while (first != last) {
-            tree.insert(*first);
+            tree->insert(*first);
             ++first;
         }
     }
 
     map& operator=(const map& other) {
-        this->tree = other.tree;
+        delete this->tree;
+        this->tree = new tree_type(*other.tree);
         return *this;
     }
 
-    ~map() {}
+    ~map() {
+        delete this->tree;
+    }
 
     size_type size() const {
-        return this->tree.size();
+        return this->tree->size();
     }
 
     iterator begin() {
-        return iterator(tree.get_minimum());
+        return iterator(tree->get_minimum());
     }
 
     const_iterator begin() const {
-        return const_iterator(tree.get_minimum());
+        return const_iterator(tree->get_minimum());
     }
 
     iterator end() {
-        return iterator(tree.NIL);
+        return iterator(tree->NIL);
     }
 
     const_iterator end() const {
-        return iterator(tree.NIL);
+        return iterator(tree->NIL);
     }
 
     reverse_iterator rbegin() {
@@ -125,23 +123,23 @@ public:
     }
 
     size_type max_size() {
-        return this->tree.max_size();
+        return this->tree->max_size();
     }
 
     ft::pair<iterator, bool> insert(const value_type& val) {
-        typename tree_type::Node* item = tree.search(val.first);
-        if (item != tree.NIL)
+        typename tree_type::Node* item = tree->search(val.first);
+        if (item != tree->NIL)
             return ft::make_pair(iterator(item), false);
 
-        node_type* newItem = tree.insert(val);
-        Key* key = const_cast<Key*>(&tree.NIL->value.first);
+        node_type* newItem = tree->insert(val);
+        Key* key = const_cast<Key*>(&tree->NIL->value.first);
         num_items++;
         *key = num_items;
         return ft::make_pair(iterator(newItem), true);
     }
 
     iterator insert(iterator position, const value_type& val) {
-        return tree.insert(position, val);
+        return tree->insert(position, val);
     }
 
     template<typename InputIterator>
@@ -165,20 +163,20 @@ public:
     }
 
     iterator find (const key_type& key) {
-        return iterator(this->tree.search(key));
+        return iterator(this->tree->search(key));
     }
 
     void erase(iterator position) {
-        this->tree.remove(position->first);
+        this->tree->remove(position->first);
     }
 
     size_type erase(const key_type& key) {
-        this->tree.remove(key);
+        this->tree->remove(key);
         return 1;
     }
 
     void erase(iterator first, iterator last) {
-        this->tree.erase(first, last);
+        this->tree->erase(first, last);
     }
 
 private:
