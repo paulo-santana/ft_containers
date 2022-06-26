@@ -224,7 +224,6 @@ public:
         return 1;
     }
 
-    // FIXME: it is still bugged
     void erase(iterator first, iterator last) {
         while (first != last) {
             this->erase(first++);
