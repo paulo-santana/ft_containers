@@ -6,6 +6,7 @@
 #include <memory>
 #include "internals/red_black_tree.hpp"
 #include "reverse_iterator.hpp"
+#include "pair.hpp"
 
 namespace ft {
 
@@ -86,6 +87,16 @@ public:
 
     const_iterator end() const {
         return const_iterator(this->tree->NIL);
+    }
+
+    // FIXME: it's running in O(2 logN)
+    ft::pair<iterator, bool> insert(const value_type& val) {
+        typename tree_type::Node* item = tree->search(val);
+        if (item != tree->NIL)
+            return ft::make_pair(iterator(item), false);
+
+        node_type* newItem = tree->insert(val);
+        return ft::make_pair(iterator(newItem), true);
     }
 };
 

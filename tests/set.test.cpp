@@ -51,7 +51,7 @@ static void test_range_constructor() {
     println("test set range constructor");
 
     ft::vector<int> intvec;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 10; i > 0; i--) {
         intvec.push_back(i);
     }
 
@@ -64,7 +64,7 @@ static void test_copy_constructor() {
     println("test set copy constructor");
 
     ft::vector<int> intvec;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 10; i > 0; i--) {
         intvec.push_back(i);
     }
 
@@ -79,7 +79,7 @@ static void test_assignment_operator() {
     println("test set assignment operator");
 
     ft::vector<int> intvec;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 10; i > 0; i--) {
         intvec.push_back(i);
     }
 
@@ -91,9 +91,30 @@ static void test_assignment_operator() {
     std::cout << "set: " << copy_set << std::endl;
 }
 
+static void test_begin() {
+    println("test set begin");
+
+    ft::set<int> set;
+    for (int i = 1; i < 30; i++) {
+        set.insert(1000 / i);
+    }
+
+    std::cout << "set:\n" << set << std::endl;
+    std::cout << "begin: " << *set.begin() << std::endl;
+    std::cout << "insert 12" << std::endl;
+    set.insert(12);
+    std::cout << "new begin: " << *set.begin() << std::endl;
+    const ft::set<int> const_set = set;
+    ft::set<int, int>::const_iterator const_begin = const_set.begin();
+
+    std::cout << "const begin: " << *const_begin << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
     test_copy_constructor();
     test_assignment_operator();
+
+    test_begin();
 }
