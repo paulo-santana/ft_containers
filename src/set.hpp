@@ -103,6 +103,18 @@ public:
         return this->tree->insert(position, val);
     }
 
+    template<typename InputIterator>
+    void insert(InputIterator first, InputIterator last) {
+        if (first == last)
+            return ;
+
+        iterator hint = this->find(*first);
+        while (first != last) {
+            hint = this->insert(hint, *first);
+            ++first;
+        }
+    }
+
     iterator find(const key_type& key) {
         return iterator(this->tree->search(key));
     }

@@ -255,22 +255,22 @@ static void test_insert_with_hint() {
     }
 }
 
-// static void test_insert_range() {
-//     println("test set range insert");
-//
-//     ft::vector<int> intvec;
-//     for (int i = 0; i < 15; i++) {
-//         intvec.push_back(i * i - 1);
-//     }
-//
-//     println("insert in an empty set");
-//     {
-//         ft::set<int> intset;
-//         intset.insert(intvec.begin(), intvec.end());
-//         std::cout << "set size: " << intset.size() << std::endl;
-//         std::cout << "set:\n" << intset << std::endl;
-//     }
-// }
+static void test_insert_range() {
+    println("test set range insert");
+
+    ft::vector<int> intvec;
+    for (int i = 0; i < 15; i++) {
+        intvec.push_back(i * i - 1);
+    }
+
+    println("insert in an empty set");
+    {
+        ft::set<int> intset;
+        intset.insert(intvec.begin(), intvec.end());
+        std::cout << "set size: " << intset.size() << std::endl;
+        std::cout << "set:\n" << intset << std::endl;
+    }
+}
 
 void testSet() {
     test_default_constructor();
@@ -287,5 +287,5 @@ void testSet() {
 
     test_insert();
     test_insert_with_hint();
-    // test_insert_range();
+    test_insert_range();
 }
