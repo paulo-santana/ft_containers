@@ -153,6 +153,16 @@ static void test_size() {
     std::cout << "generated size: " << intset.size() << std::endl;
 }
 
+static void test_max_size() {
+    println("test set max_size");
+
+    ft::set<int> intset = generate_int_set();
+    std::cout << "max size != 0: " << (intset.max_size() == 0) << std::endl;
+
+    ft::set<std::string> string_set;
+    std::cout << "int set max_size != string set max_size: " << (intset.max_size() != string_set.max_size()) << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -164,4 +174,5 @@ void testSet() {
 
     test_empty();
     test_size();
+    test_max_size();
 }

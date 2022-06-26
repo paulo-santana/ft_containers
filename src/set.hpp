@@ -102,6 +102,10 @@ public:
     bool empty() const {
         return this->tree->is_empty();
     }
+
+    size_type max_size() const {
+        return this->tree->max_size();
+    }
 };
 
 }
