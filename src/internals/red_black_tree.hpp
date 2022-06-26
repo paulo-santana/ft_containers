@@ -37,12 +37,12 @@ public:
 
     Node*                                           NIL;
 
-    RBTree():
-        keyCompare(Compare()),
+    RBTree(const Compare& comp = Compare(), const allocator_type& alloc = allocator_type()):
+        keyCompare(comp),
         NIL(&_leaf),
         _leaf(),
         root(NIL),
-        allocator(allocator_type()),
+        allocator(alloc),
         num_items(0),
         last(NIL)
     { }

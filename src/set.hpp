@@ -1,12 +1,11 @@
 #pragma once
-#include "internals/red_black_tree.hpp"
-#include "reverse_iterator.hpp"
-#include <cstddef>
 #ifndef SET_HPP
 # define SET_HPP
 
 #include <functional>
 #include <memory>
+#include "internals/red_black_tree.hpp"
+#include "reverse_iterator.hpp"
 
 namespace ft {
 
@@ -40,6 +39,14 @@ public:
 
     typedef std::ptrdiff_t                              difference_type;
     typedef std::size_t                                 size_type;
+
+    explicit set(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {
+        this->tree = new tree_type(comp, alloc);
+    }
+
+    size_type size() const {
+        return this->tree->size();
+    }
 };
 
 }

@@ -55,9 +55,9 @@ static void test_empty_constructor() {
     std::cout << "int_map.size() - " << int_map.size();
     std::cout << "string_map.size() - " << string_map.size();
 
-    std::map<int, int> int_map2((std::less<int>()));
+    ft::map<int, int> int_map2((std::less<int>()));
 
-    std::map<std::string, int> string_map2((std::less<std::string>()), std::allocator<ft::pair<std::string, int> >());
+    ft::map<std::string, int> string_map2((std::less<std::string>()), std::allocator<ft::pair<std::string, int> >());
 
     std::cout << "int_map.size() - " << int_map2.size();
     std::cout << "string_map.size() - " << string_map2.size();

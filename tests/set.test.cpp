@@ -15,12 +15,21 @@
 static void test_default_constructor() {
     println("test set default constructor");
 
-    ft::set<int> small_set;
+    ft::set<int> int_set;
+    ft::set<std::string> string_set;
+    std::cout << "int_set.size() - " << int_set.size();
+    std::cout << "string_set.size() - " << string_set.size();
 
-    (void)small_set;
-    println("at least it compiles");
+    ft::set<int> int_set2((std::less<int>()));
+
+    ft::set<std::string> string_set2((std::less<std::string>()), std::allocator<ft::pair<std::string, int> >());
+
+    std::cout << "int_set.size() - " << int_set2.size();
+    std::cout << "string_set.size() - " << string_set2.size();
+    std::cout << "at least it compiles" << std::endl;
 }
 
 void testSet() {
+    test_default_constructor();
     test_default_constructor();
 }
