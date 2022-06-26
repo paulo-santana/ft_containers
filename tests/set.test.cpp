@@ -1,9 +1,10 @@
 #include "test_utils.hpp"
+#include <ostream>
+#include <vector>
 #include <set>
 
 #if REAL_STD
     namespace ft = std;
-
 #else
 
 #include "set.hpp"
@@ -11,6 +12,21 @@
 #include "pair.hpp"
 
 #endif
+
+template <typename T>
+std::ostream&  operator<<(std::ostream& out, const ft::set<T>& the_set) {
+    out << "[ ";
+
+    typename ft::set<T>::iterator iter = the_set.begin();
+    while (iter != the_set.end()) {
+        out << *iter;
+        ++iter;
+        if (iter == the_set.end())
+            out << ", ";
+    }
+    out << "]";
+    return out;
+}
 
 static void test_default_constructor() {
     println("test set default constructor");
@@ -29,7 +45,20 @@ static void test_default_constructor() {
     std::cout << "at least it compiles" << std::endl;
 }
 
+static void test_range_constructor() {
+    println("test set range constructor");
+
+    ft::vector<int> intvec;
+    for (int i = 0; i < 10; i++) {
+        intvec.push_back(i);
+    }
+
+    ft::set<int> small_set(intvec.begin(), intvec.end());
+
+    std::cout << "set: " << small_set << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
-    test_default_constructor();
+    test_range_constructor();
 }
