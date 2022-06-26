@@ -57,8 +57,11 @@ public:
         }
     }
 
-    set(const set& other): tree(new tree_type(*other.tree)) {
+    set(const set& other): tree(new tree_type(*other.tree)) { }
 
+    set& operator=(const set& other) {
+        *this->tree = *other.tree;
+        return *this;
     }
 
     ~set() {

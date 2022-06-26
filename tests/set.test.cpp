@@ -75,8 +75,25 @@ static void test_copy_constructor() {
     std::cout << "set: " << copy_set << std::endl;
 }
 
+static void test_assignment_operator() {
+    println("test set assignment operator");
+
+    ft::vector<int> intvec;
+    for (int i = 0; i < 10; i++) {
+        intvec.push_back(i);
+    }
+
+    ft::set<int> small_set(intvec.begin(), intvec.end());
+
+    ft::set<int> copy_set; 
+
+    copy_set = small_set;
+    std::cout << "set: " << copy_set << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
     test_copy_constructor();
+    test_assignment_operator();
 }
