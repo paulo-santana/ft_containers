@@ -1,6 +1,7 @@
 #include "test_utils.hpp"
 #include <map>
 #include <ostream>
+#include <string>
 #include <vector>
 #include <iterator>
 #include <iostream>
@@ -632,11 +633,13 @@ static void test_lower_bound() {
     string_map['o'] = "orca";
     string_map['u'] = "urubu";
 
+    const ft::map<char, std::string> const_string_map = string_map;
+
     ft::map<char, std::string>::iterator iter = string_map.lower_bound('e');
 
     std::cout << "lower bound('e'): " << *iter << std::endl;
-    std::cout << "lower bound('a'): " << *string_map.lower_bound('a') << std::endl;
-    std::cout << "lower bound('u'): " << *string_map.lower_bound('u') << std::endl;
+    std::cout << "lower bound('a'): " << *const_string_map.lower_bound('a') << std::endl;
+    std::cout << "lower bound('u'): " << *const_string_map.lower_bound('u') << std::endl;
     iter = string_map.lower_bound('c');
     std::cout << "lower bound('c'): " << *iter << std::endl;
 }
@@ -652,12 +655,17 @@ static void test_upper_bound() {
     string_map['o'] = "orca";
     string_map['u'] = "urubu";
 
-    ft::map<char, std::string>::iterator iter = string_map.upper_bound('e');
+    const ft::map<char, std::string> const_string_map = string_map;
 
-    std::cout << "upper bound('e'): " << *iter << std::endl;
+
+    std::cout << "upper bound('e'): " << *string_map.upper_bound('e') << std::endl;
     std::cout << "upper bound('a'): " << *string_map.upper_bound('a') << std::endl;
-    std::cout << "upper bound('u') == end(): " << (string_map.upper_bound('u') == string_map.end()) << std::endl;
-    iter = string_map.upper_bound('c');
+    std::cout
+        << "upper bound('u') == end(): "
+        << (const_string_map.upper_bound('u') == const_string_map.end())
+        << std::endl;
+    ft::map<char, std::string>::const_iterator iter;
+    iter = const_string_map.upper_bound('c');
     std::cout << "upper bound('c'): " << *iter << std::endl;
 }
 

@@ -109,6 +109,7 @@ public:
 
     RBTreeConstIterator& operator=(const RBTreeConstIterator& other) {
         this->_M_node = other._M_node;
+        return *this;
     }
 
     ~RBTreeConstIterator() { }

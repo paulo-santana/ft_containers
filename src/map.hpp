@@ -166,6 +166,10 @@ public:
         return iterator(this->tree->search(key));
     }
 
+    const_iterator find (const key_type& key) const {
+        return iterator(this->tree->search(key));
+    }
+
     void erase(iterator position) {
         this->tree->remove(position->first);
     }
@@ -221,7 +225,15 @@ public:
         return this->tree->lower_bound(key);
     }
 
+    const_iterator lower_bound(const key_type& key) const {
+        return this->tree->lower_bound(key);
+    }
+
     iterator upper_bound(const key_type& key) {
+        return this->tree->upper_bound(key);
+    }
+
+    iterator upper_bound(const key_type& key) const {
         return this->tree->upper_bound(key);
     }
 
