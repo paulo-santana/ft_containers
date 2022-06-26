@@ -35,15 +35,15 @@ static void test_default_constructor() {
 
     ft::set<int> int_set;
     ft::set<std::string> string_set;
-    std::cout << "int_set.size() - " << int_set.size();
-    std::cout << "string_set.size() - " << string_set.size();
+    std::cout << "int_set.size() - " << int_set.size() << std::endl;
+    std::cout << "string_set.size() - " << string_set.size() << std::endl;
 
     ft::set<int> int_set2((std::less<int>()));
 
     ft::set<std::string> string_set2((std::less<std::string>()), std::allocator<ft::pair<std::string, int> >());
 
-    std::cout << "int_set.size() - " << int_set2.size();
-    std::cout << "string_set.size() - " << string_set2.size();
+    std::cout << "int_set.size() - " << int_set2.size() << std::endl;
+    std::cout << "string_set.size() - " << string_set2.size() << std::endl;
     std::cout << "at least it compiles" << std::endl;
 }
 
@@ -142,6 +142,17 @@ static void test_empty() {
 
 }
 
+static void test_size() {
+    println("test set size");
+
+    ft::set<int> intset;
+    std::cout << "empty size: " << intset.size() << std::endl;
+    intset.insert(4);
+    std::cout << "single size: " << intset.size() << std::endl;
+    intset = generate_int_set();
+    std::cout << "generated size: " << intset.size() << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -152,4 +163,5 @@ void testSet() {
     test_end();
 
     test_empty();
+    test_size();
 }
