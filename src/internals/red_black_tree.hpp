@@ -237,6 +237,12 @@ public:
         return ;
     }
 
+    void erase(const_iterator first, const_iterator last) {
+        Node* firstNode = const_cast<Node*>(first._M_node);
+        Node* lastNode = const_cast<Node*>(last._M_node);
+        erase(iterator(firstNode), iterator(lastNode));
+    }
+
     Node* search(const key_type& key) {
         return search_node(this->root, key);
     }

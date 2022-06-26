@@ -319,6 +319,46 @@ static void test_erase_key() {
     std::cout << "set: " << intset << std::endl;
 }
 
+static void test_erase_range() {
+    println("test set erase range");
+
+    ft::set<int> intset;
+
+    intset.insert(-1);
+    intset.insert(0);
+    intset.insert(3);
+    intset.insert(8);
+    intset.insert(15);
+    intset.insert(24);
+    intset.insert(35);
+    intset.insert(48);
+    intset.insert(63);
+    intset.insert(80);
+    intset.insert(99);
+    intset.insert(120);
+    intset.insert(143);
+    intset.insert(168);
+    intset.insert(195);
+
+    std::cout << "initial set:\n" << intset << std::endl;
+    // prettyPrint(intset.get_tree());
+
+    ft::set<int, int>::iterator first = intset.begin();
+    ft::set<int, int>::iterator last = intset.begin();
+    for (int i = 0; i < 5; ++i, ++first, ++last, ++last);
+
+    std::cout << "erase 5 nodes in the middle" << std::endl;
+    intset.erase(first, last);
+
+    std::cout << "set:\n" << intset << std::endl;
+
+    std::cout << "erase begin to end" << std::endl;
+    intset.erase(intset.begin(), intset.end());
+
+    std::cout << "set:\n" << intset << std::endl;
+
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -337,6 +377,6 @@ void testSet() {
     test_insert_range();
 
     test_erase();
-    test_erase();
     test_erase_key();
+    test_erase_range();
 }

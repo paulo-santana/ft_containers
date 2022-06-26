@@ -123,6 +123,10 @@ public:
         return this->tree->remove(val);
     }
 
+    void erase(iterator first, iterator last) {
+        this->tree->erase(first, last);
+    }
+
     iterator find(const key_type& key) {
         return iterator(this->tree->search(key));
     }
