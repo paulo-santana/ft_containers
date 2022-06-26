@@ -584,6 +584,27 @@ static void test_value_comp_cplusplus() {
 
 }
 
+static void test_find() {
+    println("test map find");
+
+    ft::map<int, int> intmap;
+
+    for (int i = 0; i < 10; i++) {
+        intmap[i] = i;
+    }
+    std::cout << "find every element in the map" << std::endl;
+
+    for (int i = 0; i < 10; i++) {
+        ft::map<int, int>::iterator value = intmap.find(i);
+        if (value != intmap.end())
+            std::cout << *value << std::endl;
+    }
+
+    std::cout << "try find an non existent element" << std::endl;
+
+    std::cout << "found 42: " << (intmap.find(42) != intmap.end()) << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -615,4 +636,6 @@ void testMap() {
     test_key_comp();
     test_value_comp();
     test_value_comp_cplusplus();
+
+    test_find();
 }
