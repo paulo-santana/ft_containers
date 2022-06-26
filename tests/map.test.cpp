@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sstream>
 #include <utility>
+#include <typeinfo>
 
 #if REAL_STD
     namespace ft = std;
@@ -514,6 +515,40 @@ static void test_clear() {
     std::cout << "empty map after clear:\n" << empty << std::endl;
 }
 
+
+template<typename T>
+class CustomComparator;
+
+template<> class CustomComparator<const std::string> {
+public:
+    bool operator()(const std::string lhs, const std::string rhs) const {
+        return lhs > rhs;
+    }
+};
+
+static void test_key_comp() {
+    println("test map key_comp()");
+
+    ft::map<int, int> intmap;
+    std::cout << "the default Comparator of a map is std::less: ";
+
+    std::cout << (typeid(intmap.key_comp()).name()) << std::endl;
+
+    println("a map can be assigned a comparator");
+
+    ft::map<std::string, std::string, CustomComparator<const std::string> > custom_map;
+    custom_map["aaa"] = "first";
+    custom_map["bbb"] = "middle";
+    custom_map["ccc"] = "last";
+
+    std::cout << "customly comparated map:" << std::endl;
+
+    ft::map<std::string, std::string, CustomComparator<const std::string> >::iterator iter = custom_map.begin();
+    for (; iter != custom_map.end(); ++iter) {
+        std::cout << *iter << std::endl;
+    }
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -541,4 +576,6 @@ void testMap() {
 
     test_swap();
     test_clear();
+
+    test_key_comp();
 }

@@ -189,6 +189,10 @@ public:
         this->tree->clear();
     }
 
+    key_compare key_comp() const {
+        return key_compare();
+    }
+
 private:
     size_type num_items;
 
