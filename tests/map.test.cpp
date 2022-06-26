@@ -26,9 +26,20 @@ static std::ostream& operator<<(std::ostream& out, const ft::pair<T, U>& p) {
     return out;
 }
 
-template<typename T, typename U>
-std::ostream& operator<<(std::ostream& out, ft::map<T, U>& map) {
-    typename ft::map<T, U>::iterator it = map.begin();
+// classe que de propósito compara diferente do std::less
+template<typename T>
+class CustomComparator {
+
+public:
+    bool operator()(T lhs, T rhs) const {
+        return lhs > rhs;
+    }
+
+};
+
+template<typename T, typename U, typename V>
+std::ostream& operator<<(std::ostream& out, ft::map<T, U, V>& map) {
+    typename ft::map<T, U, V>::iterator it = map.begin();
     while (it != map.end()) {
         out << *it << std::endl;
         ++it;
@@ -85,7 +96,7 @@ static void test_assignment_operator() {
     println("test map assignment operator");
 
     ft::map<std::string, int> empty_map;
-    ft::map<std::string, int> strint_map;
+    ft::map<std::string, int, CustomComparator<const std::string> > strint_map;
 
     strint_map.insert(ft::make_pair("mathematics", 92));
     strint_map.insert(ft::make_pair("languages", 32));
@@ -93,7 +104,7 @@ static void test_assignment_operator() {
     strint_map.insert(ft::make_pair("logic", 90));
     strint_map.insert(ft::make_pair("history", 40));
 
-    ft::map<std::string, int> map_copy;
+    ft::map<std::string, int, CustomComparator<const std::string> > map_copy;
     ft::map<std::string, int> empty_copy;
     map_copy = strint_map;
     empty_copy = empty_map;
@@ -164,19 +175,19 @@ static void test_rbegin() {
 static void test_rend() {
     println("test map rend");
 
-    ft::map<int, int> map;
+    ft::map<int, int, CustomComparator<int> > map;
     for (int i = 1; i < 10; i++) {
         map.insert(ft::make_pair(1000 / i, 12 * i));
     }
 
-    ft::map<int, int>::reverse_iterator rend = map.rend();
+    ft::map<int, int, CustomComparator<int> >::reverse_iterator rend = map.rend();
 
     for (; rend != map.rbegin(); --rend) {
         std::cout << "item with key " << rend->first << ": " << rend->second << std::endl;
     }
 
     std::cout << "test the const_reverse_iterator" << std::endl;
-    ft::map<int, int>::const_reverse_iterator crend = map.rend();
+    ft::map<int, int, CustomComparator<int> >::const_reverse_iterator crend = map.rend();
 
     for (; crend != map.rbegin(); --crend) {
         std::cout << "item with key " << crend->first << ": " << crend->second << std::endl;
@@ -251,7 +262,7 @@ static void test_access_operator() {
 
 static void test_access_operator_cplusplus() {
 
-  ft::map<char,std::string> mymap;
+  ft::map<char,std::string, CustomComparator<char> > mymap;
 
   mymap['a']="an element";
   mymap['b']="another element";
@@ -269,7 +280,7 @@ static void test_insert() {
     println("test map insert");
 
     println("insert a pair on an empty map");
-    ft::map<std::string, std::string> strmap;
+    ft::map<std::string, std::string, CustomComparator<std::string> > strmap;
     strmap.insert(ft::make_pair("a", "arara"));
     std::cout << "map:\n" << strmap;
 
@@ -321,6 +332,15 @@ static void test_insert_with_hint() {
     {
         ft::map<int, int> intmap;
         println("fill a map with growing values using the last inserted element as a hint");
+        ft::map<int, int>::iterator result = intmap.insert(intmap.begin(), ft::make_pair(0, 0));
+        for (int i = 0; i < 20; i++) {
+            result = intmap.insert(result, ft::make_pair(i, i * i));
+        }
+        std::cout << "map:\n" << intmap;
+    }
+    {
+        ft::map<int, int, CustomComparator<int> > intmap;
+        println("fill a map with diminishing values using the last inserted element as a hint and a custom comparator");
         ft::map<int, int>::iterator result = intmap.insert(intmap.begin(), ft::make_pair(0, 0));
         for (int i = 0; i < 20; i++) {
             result = intmap.insert(result, ft::make_pair(i, i * i));
@@ -451,6 +471,46 @@ static void test_erase_range() {
     std::cout << "map:\n" << intmap << std::endl;
 }
 
+static void test_erase_range_custom_comparator() {
+    println("test map erase range");
+
+    ft::map<int, int, CustomComparator<int> > intmap;
+
+    intmap[-1] = 0;
+    intmap[0] = 2;
+    intmap[3] = 8;
+    intmap[8] = 18;
+    intmap[15] = 32;
+    intmap[24] = 50;
+    intmap[35] = 72;
+    intmap[48] = 98;
+    intmap[63] = 128;
+    intmap[80] = 162;
+    intmap[99] = 200;
+    intmap[120] = 242;
+    intmap[143] = 288;
+    intmap[168] = 338;
+    intmap[195] = 392;
+
+
+    std::cout << "initial map:\n" << intmap << std::endl;
+    // prettyPrint(intmap.get_tree());
+
+    ft::map<int, int, CustomComparator<int> >::iterator first = intmap.begin();
+    ft::map<int, int, CustomComparator<int> >::iterator last = intmap.begin();
+    for (int i = 0; i < 5; ++i, ++first, ++last, ++last);
+
+    std::cout << "erase 5 nodes in the middle" << std::endl;
+    intmap.erase(first, last);
+
+    std::cout << "map:\n" << intmap << std::endl;
+
+    std::cout << "erase begin to end" << std::endl;
+    intmap.erase(intmap.begin(), intmap.end());
+
+    std::cout << "map:\n" << intmap << std::endl;
+}
+
 static void test_erase_cplusplus()
 {
   ft::map<char,int> mymap;
@@ -515,17 +575,6 @@ static void test_clear() {
     empty.clear();
     std::cout << "empty map after clear:\n" << empty << std::endl;
 }
-
-
-template<typename T>
-class CustomComparator;
-
-template<> class CustomComparator<const std::string> {
-public:
-    bool operator()(const std::string lhs, const std::string rhs) const {
-        return lhs > rhs;
-    }
-};
 
 static void test_key_comp() {
     println("test map key_comp()");
@@ -634,6 +683,31 @@ static void test_lower_bound() {
     string_map['u'] = "urubu";
 
     const ft::map<char, std::string> const_string_map = string_map;
+
+    ft::map<char, std::string>::iterator iter = string_map.lower_bound('e');
+
+    std::cout << "lower bound('e'): " << *iter << std::endl;
+    std::cout << "lower bound('a'): " << *const_string_map.lower_bound('a') << std::endl;
+    std::cout << "lower bound('u'): " << *const_string_map.lower_bound('u') << std::endl;
+    iter = string_map.lower_bound('c');
+    std::cout << "lower bound('c'): " << *iter << std::endl;
+
+    // shoudn't compile:
+    // ft::map<char, std::string>::iterator nciter = const_string_map.lower_bound('e');
+}
+
+static void test_lower_bound_custom_comparator() {
+    println("test map lower_bound");
+
+    ft::map<char, std::string, CustomComparator<char> > string_map;
+
+    string_map['a'] = "arara";
+    string_map['e'] = "elefante";
+    string_map['i'] = "indicador";
+    string_map['o'] = "orca";
+    string_map['u'] = "urubu";
+
+    const ft::map<char, std::string, CustomComparator<char> > const_string_map = string_map;
 
     ft::map<char, std::string>::iterator iter = string_map.lower_bound('e');
 
@@ -756,6 +830,7 @@ void testMap() {
     test_erase();
     test_erase_key();
     test_erase_range();
+    test_erase_range_custom_comparator();
     test_erase_cplusplus();
 
     test_swap();
@@ -769,6 +844,7 @@ void testMap() {
     test_count();
 
     test_lower_bound();
+    test_lower_bound_custom_comparator();
     test_upper_bound();
     test_equal_range();
 
