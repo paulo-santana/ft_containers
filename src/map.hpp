@@ -233,9 +233,11 @@ public:
         return this->tree->upper_bound(key);
     }
 
-    iterator upper_bound(const key_type& key) const {
+    const_iterator upper_bound(const key_type& key) const {
         return this->tree->upper_bound(key);
     }
+
+
 
 private:
     size_type num_items;

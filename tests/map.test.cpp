@@ -642,6 +642,9 @@ static void test_lower_bound() {
     std::cout << "lower bound('u'): " << *const_string_map.lower_bound('u') << std::endl;
     iter = string_map.lower_bound('c');
     std::cout << "lower bound('c'): " << *iter << std::endl;
+
+    // shoudn't compile:
+    // ft::map<char, std::string>::iterator nciter = const_string_map.lower_bound('e');
 }
 
 static void test_upper_bound() {
@@ -666,6 +669,33 @@ static void test_upper_bound() {
         << std::endl;
     ft::map<char, std::string>::const_iterator iter;
     iter = const_string_map.upper_bound('c');
+    std::cout << "upper bound('c'): " << *iter << std::endl;
+
+    // shoudn't compile:
+    // ft::map<char, std::string>::iterator nciter = const_string_map.upper_bound('e');
+}
+
+static void test_equal_range() {
+    println("test equal range");
+
+    ft::map<char, std::string> string_map;
+
+    string_map['u'] = "urubu";
+    string_map['o'] = "orca";
+    string_map['i'] = "indicador";
+    string_map['e'] = "elefante";
+    string_map['a'] = "arara";
+
+    const ft::map<char, std::string> const_string_map = string_map;
+
+    std::cout << "upper bound('e'): " << *string_map.equal_range('e') << std::endl;
+    std::cout << "upper bound('a'): " << *string_map.equal_range('a') << std::endl;
+    std::cout
+        << "upper bound('u') == end(): "
+        << (const_string_map.equal_range('u').first == const_string_map.end())
+        << std::endl;
+    ft::map<char, std::string>::const_iterator iter;
+    iter = const_string_map.equal_range('c');
     std::cout << "upper bound('c'): " << *iter << std::endl;
 }
 
@@ -706,4 +736,5 @@ void testMap() {
 
     test_lower_bound();
     test_upper_bound();
+    test_equal_range();
 }
