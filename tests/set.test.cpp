@@ -110,6 +110,19 @@ static void test_begin() {
     std::cout << "const begin: " << *const_begin << std::endl;
 }
 
+static void test_end() {
+    println("test set end");
+
+    ft::set<int> set;
+    for (int i = 1; i < 30; i++) {
+        set.insert(1000 / i);
+    }
+
+    for (ft::set<int>::iterator end = --set.end(); end != set.begin(); --end) {
+        std::cout << "element: " << *end << std::endl;
+    }
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -117,4 +130,6 @@ void testSet() {
     test_assignment_operator();
 
     test_begin();
+
+    test_end();
 }
