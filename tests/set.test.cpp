@@ -123,6 +123,25 @@ static void test_end() {
     }
 }
 
+static ft::set<int> generate_int_set() {
+    ft::set<int> intset;
+    for (int i = -5; i < 5; i++) {
+        intset.insert(i * 10);
+    }
+    return intset;
+}
+
+static void test_empty() {
+    println("test set empty");
+
+    ft::set<int> intset;
+    std::cout << "set is empty: " << intset.empty() << std::endl;
+
+    intset = generate_int_set();
+    std::cout << "set is empty: " << intset.empty() << std::endl;
+
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -130,6 +149,7 @@ void testSet() {
     test_assignment_operator();
 
     test_begin();
-
     test_end();
+
+    test_empty();
 }

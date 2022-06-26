@@ -98,6 +98,10 @@ public:
         node_type* newItem = tree->insert(val);
         return ft::make_pair(iterator(newItem), true);
     }
+
+    bool empty() const {
+        return this->tree->is_empty();
+    }
 };
 
 }
