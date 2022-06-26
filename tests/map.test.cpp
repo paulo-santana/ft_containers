@@ -549,6 +549,23 @@ static void test_key_comp() {
     }
 }
 
+static void test_value_comp() {
+    println("test map value_comp()");
+
+    ft::map<int, int> intmap;
+
+    intmap[3] = 42;
+    intmap[2] = 32;
+    intmap[1] = 22;
+
+    ft::map<int, int>::value_compare v_compare = intmap.value_comp();
+    ft::map<int, int>::iterator tree = intmap.find(3);
+    ft::map<int, int>::iterator two = intmap.find(2);
+
+    std::cout << "map:\n" << intmap << std::endl;
+    std::cout << "value_comp()([3, 42], [2, 32]): " << v_compare(*tree, *two) << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -578,4 +595,5 @@ void testMap() {
     test_clear();
 
     test_key_comp();
+    test_value_comp();
 }

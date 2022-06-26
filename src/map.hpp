@@ -193,6 +193,26 @@ public:
         return key_compare();
     }
 
+    class value_compare {
+        friend class map;
+    protected:
+        key_compare comp;
+        value_compare(key_compare c): comp(c) {}
+
+    public:
+        typedef bool result_type;
+        typedef value_type first_argument_type;
+        typedef value_type second_argument_type;
+
+        bool operator()(const value_type& lhs, const value_type& rhs) const {
+            return comp(lhs.first, rhs.first);
+        }
+    };
+
+    value_compare value_comp() const {
+        return value_compare(this->key_comp());
+    }
+
 private:
     size_type num_items;
 
