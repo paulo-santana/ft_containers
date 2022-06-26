@@ -213,6 +213,14 @@ public:
         return value_compare(this->key_comp());
     }
 
+    size_type count(const key_type& key) const {
+        return this->tree->search(key) != this->tree->NIL;
+    }
+
+    iterator lower_bound(const key_type& key) {
+        return this->tree->lower_bound(key);
+    }
+
 private:
     size_type num_items;
 

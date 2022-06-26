@@ -272,6 +272,23 @@ public:
         return this->last;
     }
 
+    iterator lower_bound(const key_type& key) {
+        if (this->root == NIL)
+            return iterator(NIL);
+
+        Node* node = this->root;
+        Node* lbound = NIL;
+        while (node != NIL) {
+            if (!keyCompare(node->key, key)) {
+                lbound = node;
+                node = node->left;
+            } else {
+                node = node->right;
+            }
+        }
+        return iterator(lbound);
+    }
+
 private:
 
     void flush(Node* node) {

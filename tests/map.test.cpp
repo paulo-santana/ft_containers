@@ -605,6 +605,42 @@ static void test_find() {
     std::cout << "found 42: " << (intmap.find(42) != intmap.end()) << std::endl;
 }
 
+static void test_count() {
+    println("test map count");
+
+    ft::map<std::string, std::string> string_map;
+
+    string_map["an element"];
+    string_map["another element"];
+    string_map["other element"];
+
+    std::cout << "map count 'an element': " << string_map.count("an element") << std::endl;
+    std::cout << "map count 'non existing element': " << string_map.count("non existing element") << std::endl;
+
+    ft::map<int, int> map;
+    std::cout << "count elements of an empty map: " << map.count(32) << std::endl;
+}
+
+static void test_lower_bound() {
+    println("test map lower_bound");
+
+    ft::map<char, std::string> string_map;
+
+    string_map['a'] = "arara";
+    string_map['e'] = "elefante";
+    string_map['i'] = "indicador";
+    string_map['o'] = "orca";
+    string_map['u'] = "urubu";
+
+    ft::map<char, std::string>::iterator iter = string_map.lower_bound('e');
+
+    std::cout << "lower bound('e'): " << *iter << std::endl;
+    std::cout << "lower bound('a'): " << *string_map.lower_bound('a') << std::endl;
+    std::cout << "lower bound('u'): " << *string_map.lower_bound('u') << std::endl;
+    iter = string_map.lower_bound('c');
+    std::cout << "lower bound('c'): " << *iter << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -638,4 +674,7 @@ void testMap() {
     test_value_comp_cplusplus();
 
     test_find();
+    test_count();
+
+    test_lower_bound();
 }
