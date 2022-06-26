@@ -286,6 +286,20 @@ public:
         return iterator(lbound);
     }
 
+    iterator upper_bound(const key_type& key) {
+        Node* node = this->root;
+        Node* lbound = NIL;
+        while (node != NIL) {
+            if (keyCompare(key, node->key)) {
+                lbound = node;
+                node = node->left;
+            } else {
+                node = node->right;
+            }
+        }
+        return iterator(lbound);
+    }
+
 private:
 
     void flush(Node* node) {

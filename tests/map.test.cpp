@@ -641,6 +641,26 @@ static void test_lower_bound() {
     std::cout << "lower bound('c'): " << *iter << std::endl;
 }
 
+static void test_upper_bound() {
+    println("test map upper_bound");
+
+    ft::map<char, std::string> string_map;
+
+    string_map['a'] = "arara";
+    string_map['e'] = "elefante";
+    string_map['i'] = "indicador";
+    string_map['o'] = "orca";
+    string_map['u'] = "urubu";
+
+    ft::map<char, std::string>::iterator iter = string_map.upper_bound('e');
+
+    std::cout << "upper bound('e'): " << *iter << std::endl;
+    std::cout << "upper bound('a'): " << *string_map.upper_bound('a') << std::endl;
+    std::cout << "upper bound('u') == end(): " << (string_map.upper_bound('u') == string_map.end()) << std::endl;
+    iter = string_map.upper_bound('c');
+    std::cout << "upper bound('c'): " << *iter << std::endl;
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -677,4 +697,5 @@ void testMap() {
     test_count();
 
     test_lower_bound();
+    test_upper_bound();
 }
