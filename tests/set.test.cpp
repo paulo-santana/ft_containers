@@ -272,6 +272,29 @@ static void test_insert_range() {
     }
 }
 
+static void test_erase() {
+    println("test set erase");
+
+    ft::set<int> intset;
+    for (int i = 0; i < 15; i++) {
+        intset.insert(i * i * 2);
+    }
+
+    std::cout << "initial set:\n" << intset << std::endl;
+    intset.erase(intset.begin());
+    std::cout << "delete begin():\n" << intset << std::endl;
+    intset.erase(intset.begin());
+    std::cout << "delete begin():\n" << intset << std::endl;
+    std::cout << "delete 99:\n";
+    intset.erase(intset.find(98));
+    std::cout << intset << std::endl;
+    std::cout << "delete everything" << std::endl;
+    while (intset.size() > 0)
+        intset.erase(intset.begin()++);
+    std::cout << "set: " << intset << std::endl;
+
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -288,4 +311,6 @@ void testSet() {
     test_insert();
     test_insert_with_hint();
     test_insert_range();
+
+    test_erase();
 }

@@ -115,6 +115,10 @@ public:
         }
     }
 
+    void erase(iterator position) {
+        this->tree->remove(*position);
+    }
+
     iterator find(const key_type& key) {
         return iterator(this->tree->search(key));
     }
