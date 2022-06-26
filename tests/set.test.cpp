@@ -1,4 +1,5 @@
 #include "test_utils.hpp"
+#include <iostream>
 #include <ostream>
 #include <vector>
 #include <set>
@@ -295,6 +296,29 @@ static void test_erase() {
 
 }
 
+static void test_erase_key() {
+    println("test erase by key");
+
+    ft::set<int> intset;
+    for (int i = 0; i < 15; i++) {
+        intset.insert(i * i * 2);
+    }
+
+    std::cout << "initial set:\n" << intset << std::endl;
+    ft::set<int>::size_type result = intset.erase(-1);
+    std::cout << "delete -1:\n" << intset << std::endl;
+    std::cout << "result: " << result << std::endl;
+    result = intset.erase(0);
+    std::cout << "delete 0:\n" << intset << std::endl;
+    std::cout << "result: " << result << std::endl;
+    result = intset.erase(99);
+    std::cout << "delete 99:\n" << intset << std::endl;
+    std::cout << "delete everything" << std::endl;
+    while (intset.size() > 0)
+        intset.erase(--intset.end());
+    std::cout << "set: " << intset << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -313,4 +337,6 @@ void testSet() {
     test_insert_range();
 
     test_erase();
+    test_erase();
+    test_erase_key();
 }

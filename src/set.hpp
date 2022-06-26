@@ -119,6 +119,10 @@ public:
         this->tree->remove(*position);
     }
 
+    size_type erase(const value_type& val) {
+        return this->tree->remove(val);
+    }
+
     iterator find(const key_type& key) {
         return iterator(this->tree->search(key));
     }

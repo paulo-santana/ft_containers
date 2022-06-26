@@ -216,12 +216,13 @@ public:
         this->num_items--;
     }
 
-    void remove(const key_type& key) {
+    int remove(const key_type& key) {
         Node* node = search_node(this->root, key);
         if (node == NIL) {
-            return;
+            return 0;
         }
         remove_direct_node(node);
+        return 1;
     }
 
     size_type erase(iterator position) {
