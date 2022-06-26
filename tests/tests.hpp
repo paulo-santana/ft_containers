@@ -4,6 +4,7 @@
 void testVector(void);
 void testStack(void);
 void testMap(void);
+void testSet(void);
 void testVectorIterator(void);
 void testReverseIterator(void);
 void testPair(void);

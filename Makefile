@@ -10,6 +10,7 @@ SRC := main.cpp \
 	   rb_tree.test.cpp \
 	   rb_tree_iterator.test.cpp \
 	   map.test.cpp \
+	   set.test.cpp \
 	   test_utils.cpp \
 
 OBJ_DIR ?= ./obj

@@ -28,5 +28,6 @@ int main (void)
     testMapIterator();
     testPair();
     testMap();
+    testSet();
     std::cout << std::endl;
 }
