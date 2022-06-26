@@ -245,6 +245,10 @@ public:
         return ft::make_pair(lower_bound(key), upper_bound(key));
     }
 
+    allocator_type get_allocator() const {
+        return allocator_type();
+    }
+
 private:
     size_type num_items;
 

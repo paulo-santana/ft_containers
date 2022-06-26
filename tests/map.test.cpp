@@ -716,6 +716,23 @@ static void test_equal_range() {
     // mut_result = const_string_map.equal_range('i');
 }
 
+static void test_get_allocator_cplusplus() {
+    println("test get allocator from cplusplus");
+    int psize;
+    ft::map<char,int> mymap;
+    ft::pair<const char,int>* p;
+
+    // allocate an array of 5 elements using mymap's allocator:
+    p=mymap.get_allocator().allocate(5);
+
+    // assign some values to array
+    psize = sizeof(ft::map<char,int>::value_type)*5;
+
+    std::cout << "The allocated array has a size of " << psize << " bytes.\n";
+
+    mymap.get_allocator().deallocate(p,5);
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -754,4 +771,6 @@ void testMap() {
     test_lower_bound();
     test_upper_bound();
     test_equal_range();
+
+    test_get_allocator_cplusplus();
 }
