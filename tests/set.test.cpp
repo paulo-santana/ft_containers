@@ -188,6 +188,90 @@ static void test_insert() {
 
 }
 
+static void test_insert_with_hint() {
+    println("test set insert with hint");
+
+    println("insert a pair on an empty set with begin() as a hint");
+    ft::set<std::string> strset;
+    strset.insert(strset.begin(), "arara");
+    std::cout << "set:\n" << strset;
+
+    println("insert another pair on a set with 1 element with begin() as a hint");
+    strset.insert(strset.begin(), "banana");
+    std::cout << "set:\n" << strset;
+
+    {
+        ft::set<int> intset;
+        println("fill a set with growing values using begin() as a hint");
+        for (int i = 0; i < 20; i++) {
+            intset.insert(intset.begin(), i * i);
+        }
+        std::cout << "set:\n" << intset;
+    }
+    {
+        ft::set<int> intset;
+        println("fill a set with growing values using end() as a hint");
+        for (int i = 0; i < 20; i++) {
+            intset.insert(intset.end(), i * i);
+        }
+        std::cout << "set:\n" << intset;
+    }
+    {
+        ft::set<int> intset;
+        println("fill a set with growing values using the last inserted element as a hint");
+        ft::set<int>::iterator result = intset.insert(intset.begin(), 0);
+        for (int i = 0; i < 20; i++) {
+            result = intset.insert(result, i * i);
+        }
+        std::cout << "set:\n" << intset;
+    }
+    {
+        ft::set<int, CustomComparator<int> > intset;
+        println("fill a set with diminishing values using the last inserted element as a hint and a custom comparator");
+        ft::set<int, CustomComparator<int> >::iterator result = intset.insert(intset.begin(), 0);
+        for (int i = 0; i < 20; i++) {
+            result = intset.insert(result, i * i);
+        }
+        std::cout << "set:\n" << intset;
+    }
+
+    println("insert a pair using various hints");
+    for (int hint_key = 1; hint_key < 14; hint_key += 2) {
+        for (int i = 0; i < 15; i += 2) {
+            ft::set<int> intset;
+            intset.insert(7);
+            intset.insert(3);
+            intset.insert(11);
+            intset.insert(1);
+            intset.insert(5);
+            intset.insert(9);
+            intset.insert(13);
+
+            ft::set<int>::iterator hint = intset.find(hint_key);
+            std::cout << "insert " << i << " with " << hint_key << " as hint" << std::endl;
+            intset.insert(hint, i);
+            std::cout << "set:\n" << intset << std::endl;
+        }
+    }
+}
+
+// static void test_insert_range() {
+//     println("test set range insert");
+//
+//     ft::vector<int> intvec;
+//     for (int i = 0; i < 15; i++) {
+//         intvec.push_back(i * i - 1);
+//     }
+//
+//     println("insert in an empty set");
+//     {
+//         ft::set<int> intset;
+//         intset.insert(intvec.begin(), intvec.end());
+//         std::cout << "set size: " << intset.size() << std::endl;
+//         std::cout << "set:\n" << intset << std::endl;
+//     }
+// }
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -202,4 +286,6 @@ void testSet() {
     test_max_size();
 
     test_insert();
+    test_insert_with_hint();
+    // test_insert_range();
 }

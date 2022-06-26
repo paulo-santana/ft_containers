@@ -113,6 +113,11 @@ public:
         return new_node;
     }
 
+    iterator insert(const_iterator _pos, const value_type& data) {
+        Node* node = const_cast<Node*>(_pos._M_node);
+        return insert(iterator(node), data);
+    }
+
     iterator insert(iterator position, const value_type& data) {
 
         key_type key = KeyOfValue()(data);

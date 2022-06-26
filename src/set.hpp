@@ -99,6 +99,14 @@ public:
         return ft::make_pair(iterator(newItem), true);
     }
 
+    iterator insert(iterator position, const value_type& val) {
+        return this->tree->insert(position, val);
+    }
+
+    iterator find(const key_type& key) {
+        return iterator(this->tree->search(key));
+    }
+
     bool empty() const {
         return this->tree->is_empty();
     }
