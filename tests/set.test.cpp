@@ -13,8 +13,8 @@
 
 #endif
 
-template <typename T>
-std::ostream&  operator<<(std::ostream& out, const ft::set<T>& the_set) {
+template <typename T, typename U, typename V>
+std::ostream&  operator<<(std::ostream& out, const ft::set<T, U, V>& the_set) {
     out << "[ ";
 
     typename ft::set<T>::iterator iter = the_set.begin();
@@ -163,6 +163,31 @@ static void test_max_size() {
     std::cout << "int set max_size != string set max_size: " << (intset.max_size() != string_set.max_size()) << std::endl;
 }
 
+static void test_insert() {
+    println("test set insert");
+
+    println("insert a pair on an empty set");
+    ft::set<std::string, CustomComparator<std::string> > strset;
+    strset.insert("arara");
+    std::cout << "set:\n" << strset;
+
+    println("insert a pair on a set with one element");
+    strset.insert("aviao");
+    std::cout << "set:\n" << strset;
+
+    println("test the return value of the insertion");
+    ft::pair<ft::set<std::string, std::string>::iterator, bool> result;
+    result = strset.insert("carro");
+    std::cout << "result->first: " << *result.first
+        << "\nresult->second: " << result.second << std::endl;
+
+    println("insert an item with an already existing key");
+    result = strset.insert("moto");
+    std::cout << "result->first: " << *result.first
+        << "\nresult->second: " << result.second << std::endl;
+
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -175,4 +200,6 @@ void testSet() {
     test_empty();
     test_size();
     test_max_size();
+
+    test_insert();
 }

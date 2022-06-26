@@ -26,16 +26,6 @@ static std::ostream& operator<<(std::ostream& out, const ft::pair<T, U>& p) {
     return out;
 }
 
-// classe que de propósito compara diferente do std::less
-template<typename T>
-class CustomComparator {
-
-public:
-    bool operator()(T lhs, T rhs) const {
-        return lhs > rhs;
-    }
-
-};
 
 template<typename T, typename U, typename V>
 std::ostream& operator<<(std::ostream& out, ft::map<T, U, V>& map) {
