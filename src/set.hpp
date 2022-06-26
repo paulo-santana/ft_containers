@@ -57,6 +57,10 @@ public:
         }
     }
 
+    set(const set& other): tree(new tree_type(*other.tree)) {
+
+    }
+
     size_type size() const {
         return this->tree->size();
     }
