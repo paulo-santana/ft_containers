@@ -678,7 +678,8 @@ static void test_upper_bound() {
 static void test_equal_range() {
     println("test equal range");
 
-    ft::map<char, std::string> string_map;
+    typedef ft::map<char, std::string> map;
+    map string_map;
 
     string_map['u'] = "urubu";
     string_map['o'] = "orca";
@@ -688,15 +689,31 @@ static void test_equal_range() {
 
     const ft::map<char, std::string> const_string_map = string_map;
 
-    std::cout << "upper bound('e'): " << *string_map.equal_range('e') << std::endl;
-    std::cout << "upper bound('a'): " << *string_map.equal_range('a') << std::endl;
-    std::cout
-        << "upper bound('u') == end(): "
-        << (const_string_map.equal_range('u').first == const_string_map.end())
-        << std::endl;
-    ft::map<char, std::string>::const_iterator iter;
-    iter = const_string_map.equal_range('c');
-    std::cout << "upper bound('c'): " << *iter << std::endl;
+    ft::pair<map::const_iterator, map::const_iterator> result;
+
+    result = const_string_map.equal_range('e');
+    map::const_iterator first = result.first;
+    map::const_iterator end = result.second;
+
+    while (first != end) {
+        std::cout << "result:\n" << *first << std::endl;
+        ++first;
+    }
+    std::cout << "peek at the end:\n" << *end << std::endl;
+
+    ft::pair<map::iterator, map::iterator> mut_result;
+    mut_result = string_map.equal_range('a');
+
+    std::cout << "search from a non const map" << std::endl;
+    first = mut_result.first;
+    end = mut_result.second;
+    while (first != end) {
+        std::cout << "result:\n" << *first << std::endl;
+        ++first;
+    }
+    std::cout << "peek at the end:\n" << *end << std::endl;
+    // shoudn't compile:
+    // mut_result = const_string_map.equal_range('i');
 }
 
 void testMap() {
