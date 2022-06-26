@@ -566,6 +566,24 @@ static void test_value_comp() {
     std::cout << "value_comp()([3, 42], [2, 32]): " << v_compare(*tree, *two) << std::endl;
 }
 
+static void test_value_comp_cplusplus() {
+  ft::map<char,int> mymap;
+
+  mymap['x']=1001;
+  mymap['y']=2002;
+  mymap['z']=3003;
+
+  std::cout << "mymap contains:\n";
+
+  ft::pair<char,int> highest = *mymap.rbegin();          // last element
+
+  ft::map<char,int>::iterator it = mymap.begin();
+  do {
+    std::cout << it->first << " => " << it->second << '\n';
+  } while ( mymap.value_comp()(*it++, highest) );
+
+}
+
 void testMap() {
     test_empty_constructor();
     test_range_constructor();
@@ -596,4 +614,5 @@ void testMap() {
 
     test_key_comp();
     test_value_comp();
+    test_value_comp_cplusplus();
 }
