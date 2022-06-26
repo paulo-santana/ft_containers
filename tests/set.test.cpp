@@ -21,8 +21,10 @@ std::ostream&  operator<<(std::ostream& out, const ft::set<T>& the_set) {
     while (iter != the_set.end()) {
         out << *iter;
         ++iter;
-        if (iter == the_set.end())
+        if (iter != the_set.end())
             out << ", ";
+        else
+            out << " ";
     }
     out << "]";
     return out;

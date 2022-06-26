@@ -61,6 +61,10 @@ public:
 
     }
 
+    ~set() {
+        delete this->tree;
+    }
+
     size_type size() const {
         return this->tree->size();
     }
