@@ -273,9 +273,6 @@ public:
     }
 
     iterator lower_bound(const key_type& key) {
-        if (this->root == NIL)
-            return iterator(NIL);
-
         Node* node = this->root;
         Node* lbound = NIL;
         while (node != NIL) {
