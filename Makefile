@@ -14,6 +14,7 @@ SRC := main.cpp \
 	   test_utils.cpp \
 
 PERF_SRC := main_perf.cpp \
+			test_utils.cpp \
 			
 
 OBJ_DIR ?= ./obj
