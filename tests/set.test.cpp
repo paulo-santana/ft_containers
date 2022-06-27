@@ -553,6 +553,47 @@ static void test_upper_bound() {
     // ft::set<char, std::string>::iterator nciter = const_string_set.upper_bound('e');
 }
 
+static void test_equal_range() {
+    println("test equal range");
+
+    typedef ft::set<char> set;
+    set string_set;
+
+    string_set.insert('u');
+    string_set.insert('o');
+    string_set.insert('i');
+    string_set.insert('e');
+    string_set.insert('a');
+
+    const ft::set<char> const_string_set = string_set;
+
+    ft::pair<set::const_iterator, set::const_iterator> result;
+
+    result = const_string_set.equal_range('e');
+    set::const_iterator first = result.first;
+    set::const_iterator end = result.second;
+
+    while (first != end) {
+        std::cout << "result:\n" << *first << std::endl;
+        ++first;
+    }
+    std::cout << "peek at the end:\n" << *end << std::endl;
+
+    ft::pair<set::iterator, set::iterator> mut_result;
+    mut_result = string_set.equal_range('a');
+
+    std::cout << "search from a non const set" << std::endl;
+    first = mut_result.first;
+    end = mut_result.second;
+    while (first != end) {
+        std::cout << "result:\n" << *first << std::endl;
+        ++first;
+    }
+    std::cout << "peek at the end:\n" << *end << std::endl;
+    // shoudn't compile:
+    // mut_result = const_string_set.equal_range('i');
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -586,4 +627,5 @@ void testSet() {
     test_lower_bound();
     test_lower_bound_custom_comparator();
     test_upper_bound();
+    test_equal_range();
 }

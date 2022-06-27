@@ -176,6 +176,10 @@ public:
         return tree->upper_bound(val);
     }
 
+    ft::pair<iterator, iterator> equal_range(const value_type& val) const {
+        return ft::make_pair(lower_bound(val), upper_bound(val));
+    }
+
 };
 
 }
