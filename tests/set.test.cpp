@@ -359,6 +359,27 @@ static void test_erase_range() {
 
 }
 
+static void test_swap() {
+    println("test set swap");
+
+    ft::set<int> myset;
+    ft::set<int> otherset;
+
+    myset.insert(1);
+    myset.insert(2);
+    myset.insert(3);
+    myset.insert(4);
+
+    otherset.insert(5);
+    otherset.insert(6);
+    otherset.insert(7);
+
+    myset.swap(otherset);
+
+    std::cout << "myset:\n" << myset << std::endl;
+    std::cout << "otherset:\n" << otherset << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -379,4 +400,6 @@ void testSet() {
     test_erase();
     test_erase_key();
     test_erase_range();
+
+    test_swap();
 }

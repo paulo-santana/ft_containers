@@ -20,6 +20,9 @@ class set {
 
     tree_type* tree;
 
+    Compare keyComparator;
+    Compare valueComparator;
+
 public:
     typedef T                                           key_type;
     typedef T                                           value_type;
@@ -41,7 +44,11 @@ public:
     typedef std::ptrdiff_t                              difference_type;
     typedef std::size_t                                 size_type;
 
-    explicit set(const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {
+    explicit set(
+            const key_compare& comp = key_compare(),
+            const allocator_type& alloc = allocator_type())
+        : keyComparator(comp),
+        valueComparator(comp) {
         this->tree = new tree_type(comp, alloc);
     }
 
@@ -137,6 +144,12 @@ public:
 
     size_type max_size() const {
         return this->tree->max_size();
+    }
+
+    void swap(set& other) {
+        tree_type* tmp = this->tree;
+        this->tree = other.tree;
+        other.tree = tmp;
     }
 };
 
