@@ -13,6 +13,9 @@ SRC := main.cpp \
 	   set.test.cpp \
 	   test_utils.cpp \
 
+PERF_SRC := main_perf.cpp \
+			
+
 OBJ_DIR ?= ./obj
 vpath %.cpp \
 	src \
@@ -21,6 +24,7 @@ vpath %.cpp \
 	tests \
 
 OBJ  := $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
+PERF_OBJ := $(addprefix $(OBJ_DIR)/, $(PERF_SRC:.cpp=.o))
 
 DEPS := $(OBJ:.o=.d)
 INCLUDE := -I ./src/
@@ -39,17 +43,23 @@ clean:
 	$(RM) $(OBJ_DIR)
 	$(RM) $(OBJ_DIR)2
 	$(RM) my_out std_out
+	$(RM) $(PERF_OBJ)
 
 fclean: clean
-	$(RM) $(NAME) $(NAME_STD)
+	$(RM) $(NAME) $(NAME_STD) perf
 
 re: fclean all
 
+run: perf
+	./perf
 
-run: __compile_std __compile_ft 
+functional:__compile_std __compile_ft 
 	./$(NAME_STD) > std_out
 	./$(NAME) > my_out
 	delta --diff-so-fancy my_out std_out && echo "OK :)"
+
+perf: $(OBJ_DIR) $(PERF_OBJ)
+	$(CXX) $(PERF_OBJ) -o perf
 
 test:
 	c++ -I./src teste.cpp -o test_bin && ./test_bin && rm ./test_bin
