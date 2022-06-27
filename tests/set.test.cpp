@@ -1,6 +1,7 @@
 #include "test_utils.hpp"
 #include <iostream>
 #include <ostream>
+#include <typeinfo>
 #include <vector>
 #include <set>
 
@@ -397,6 +398,29 @@ static void test_clear() {
     std::cout << "empty set after clear:\n" << empty << std::endl;
 }
 
+static void test_key_comp() {
+    println("test set key_comp()");
+
+    ft::set<int> intset;
+    std::cout << "the default Comparator of a set is std::less: ";
+
+    std::cout << (typeid(intset.key_comp()).name()) << std::endl;
+
+    println("a set can be assigned a comparator");
+
+    ft::set<std::string, CustomComparator<const std::string> > custom_set;
+    custom_set.insert("aaa");
+    custom_set.insert("bbb");
+    custom_set.insert("ccc");
+
+    std::cout << "customly comparated set:" << std::endl;
+
+    ft::set<std::string, CustomComparator<const std::string> >::iterator iter = custom_set.begin();
+    for (; iter != custom_set.end(); ++iter) {
+        std::cout << *iter << std::endl;
+    }
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -420,4 +444,6 @@ void testSet() {
 
     test_swap();
     test_clear();
+
+    test_key_comp();
 }
