@@ -113,9 +113,6 @@ private:
         this->data = this->allocator.allocate(size);
 
         std::copy(start, end, this->data);
-        // for (size_type i = 0; i < this->num_items; i++) {
-        //     this->allocator.construct(this->data + i, *start++);
-        // }
     }
 
 public:
