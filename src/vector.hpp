@@ -102,8 +102,8 @@ private:
         }
     }
 
-    template<typename InputIterator>
-    void range_construct_dispatch(InputIterator start, InputIterator end, const allocator_type& alloc, std::forward_iterator_tag) {
+    template<typename ForwardIterator>
+    void range_construct_dispatch(ForwardIterator start, ForwardIterator end, const allocator_type& alloc, std::forward_iterator_tag) {
         size_type size = std::distance(start, end);
         this->num_items = size;
         this->current_capacity = size;
@@ -112,9 +112,10 @@ private:
 
         this->data = this->allocator.allocate(size);
 
-        for (size_type i = 0; i < this->num_items; i++) {
-            this->allocator.construct(this->data + i, *start++);
-        }
+        std::copy(start, end, this->data);
+        // for (size_type i = 0; i < this->num_items; i++) {
+        //     this->allocator.construct(this->data + i, *start++);
+        // }
     }
 
 public:
