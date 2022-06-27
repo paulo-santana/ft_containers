@@ -151,6 +151,11 @@ public:
         this->tree = other.tree;
         other.tree = tmp;
     }
+
+    void clear() {
+        this->tree->clear();
+    }
+
 };
 
 }

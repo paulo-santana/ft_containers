@@ -380,6 +380,23 @@ static void test_swap() {
     std::cout << "otherset:\n" << otherset << std::endl;
 }
 
+static void test_clear() {
+    println("test set clear");
+
+    ft::set<int> intset;
+    intset.insert(42);
+    intset.insert(12);
+    intset.insert(82);
+
+    std::cout << "set before clear:\n" << intset << std::endl;
+    intset.clear();
+    std::cout << "set after clear:\n" << intset << std::endl;
+    std::cout << "clearing an empty set" << std::endl;
+    ft::set<int, int> empty;
+    empty.clear();
+    std::cout << "empty set after clear:\n" << empty << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -402,4 +419,5 @@ void testSet() {
     test_erase_range();
 
     test_swap();
+    test_clear();
 }
