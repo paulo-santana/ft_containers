@@ -172,6 +172,10 @@ public:
         return tree->lower_bound(val);
     }
 
+    iterator upper_bound(const value_type& val) const {
+        return tree->upper_bound(val);
+    }
+
 };
 
 }

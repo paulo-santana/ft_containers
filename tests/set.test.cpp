@@ -525,6 +525,34 @@ static void test_lower_bound_custom_comparator() {
     // ft::set<char, std::string>::iterator nciter = const_string_set.lower_bound('e');
 }
 
+static void test_upper_bound() {
+    println("test set upper_bound");
+
+    ft::set<char> string_set;
+
+    string_set.insert('a');
+    string_set.insert('e');
+    string_set.insert('i');
+    string_set.insert('o');
+    string_set.insert('u');
+
+    const ft::set<char> const_string_set = string_set;
+
+
+    std::cout << "upper bound('e'): " << *string_set.upper_bound('e') << std::endl;
+    std::cout << "upper bound('a'): " << *string_set.upper_bound('a') << std::endl;
+    std::cout
+        << "upper bound('u') == end(): "
+        << (const_string_set.upper_bound('u') == const_string_set.end())
+        << std::endl;
+    ft::set<char, std::string>::const_iterator iter;
+    iter = const_string_set.upper_bound('c');
+    std::cout << "upper bound('c'): " << *iter << std::endl;
+
+    // shoudn't compile:
+    // ft::set<char, std::string>::iterator nciter = const_string_set.upper_bound('e');
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -557,4 +585,5 @@ void testSet() {
 
     test_lower_bound();
     test_lower_bound_custom_comparator();
+    test_upper_bound();
 }
