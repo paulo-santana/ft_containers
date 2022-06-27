@@ -459,6 +459,22 @@ static void test_find() {
     std::cout << "found 42: " << (intset.find(42) != intset.end()) << std::endl;
 }
 
+static void test_count() {
+    println("test set count");
+
+    ft::set<std::string> string_set;
+
+    string_set.insert("an element");
+    string_set.insert("another element");
+    string_set.insert("other element");
+
+    std::cout << "set count 'an element': " << string_set.count("an element") << std::endl;
+    std::cout << "set count 'non existing element': " << string_set.count("non existing element") << std::endl;
+
+    ft::set<int> set;
+    std::cout << "count elements of an empty set: " << set.count(32) << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -487,4 +503,5 @@ void testSet() {
     test_value_comp();
 
     test_find();
+    test_count();
 }

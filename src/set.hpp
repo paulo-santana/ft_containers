@@ -164,6 +164,10 @@ public:
         return value_compare();
     }
 
+    size_type count(const value_type& val) const {
+        return this->tree->search(val) != this->tree->NIL;
+    }
+
 };
 
 }
