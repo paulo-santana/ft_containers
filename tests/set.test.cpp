@@ -475,6 +475,56 @@ static void test_count() {
     std::cout << "count elements of an empty set: " << set.count(32) << std::endl;
 }
 
+static void test_lower_bound() {
+    println("test set lower_bound");
+
+    ft::set<char> string_set;
+
+    string_set.insert('a');
+    string_set.insert('e');
+    string_set.insert('i');
+    string_set.insert('o');
+    string_set.insert('u');
+
+    const ft::set<char> const_string_set = string_set;
+
+    ft::set<char>::iterator iter = string_set.lower_bound('e');
+
+    std::cout << "lower bound('e'): " << *iter << std::endl;
+    std::cout << "lower bound('a'): " << *const_string_set.lower_bound('a') << std::endl;
+    std::cout << "lower bound('u'): " << *const_string_set.lower_bound('u') << std::endl;
+    iter = string_set.lower_bound('c');
+    std::cout << "lower bound('c'): " << *iter << std::endl;
+
+    // shoudn't compile:
+    // ft::set<char, std::string>::iterator nciter = const_string_set.lower_bound('e');
+}
+
+static void test_lower_bound_custom_comparator() {
+    println("test set lower_bound");
+
+    ft::set<char, CustomComparator<char> > string_set;
+
+    string_set.insert('a');
+    string_set.insert('e');
+    string_set.insert('i');
+    string_set.insert('o');
+    string_set.insert('u');
+
+    const ft::set<char, CustomComparator<char> > const_string_set = string_set;
+
+    ft::set<char>::iterator iter = string_set.lower_bound('e');
+
+    std::cout << "lower bound('e'): " << *iter << std::endl;
+    std::cout << "lower bound('a'): " << *const_string_set.lower_bound('a') << std::endl;
+    std::cout << "lower bound('u'): " << *const_string_set.lower_bound('u') << std::endl;
+    iter = string_set.lower_bound('c');
+    std::cout << "lower bound('c'): " << *iter << std::endl;
+
+    // shoudn't compile:
+    // ft::set<char, std::string>::iterator nciter = const_string_set.lower_bound('e');
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -504,4 +554,7 @@ void testSet() {
 
     test_find();
     test_count();
+
+    test_lower_bound();
+    test_lower_bound_custom_comparator();
 }

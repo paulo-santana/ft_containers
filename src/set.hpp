@@ -168,6 +168,10 @@ public:
         return this->tree->search(val) != this->tree->NIL;
     }
 
+    iterator lower_bound(const value_type& val) const {
+        return tree->lower_bound(val);
+    }
+
 };
 
 }
