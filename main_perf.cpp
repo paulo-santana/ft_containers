@@ -10,9 +10,22 @@
 
 Timer timer;
 
+
+#define TEST(FT_CONTAINER, STD_CONTAINER) { \
+    timer.reset(); \
+    {FT_CONTAINER} \
+    ft_seconds = timer.elapsed_seconds(); \
+ \
+    timer.reset(); \
+    {STD_CONTAINER} \
+    std_seconds = timer.elapsed_seconds(); \
+ \
+    print_times(n, ft_seconds, std_seconds); \
+}
+
 static void print_times(long elements, double ft_seconds, double std_seconds) {
-    std::cout << "ft::vector("<< elements << "): " << ft_seconds << std::endl;
-    std::cout << "std::vector(" << elements << "): " << std_seconds << std::endl;
+    std::cout << "ft working with "<< elements << " items: " << ft_seconds << std::endl;
+    std::cout << "std working with " << elements << " items: " << std_seconds << std::endl;
 
     if (ft_seconds > std_seconds) {
         double slower = ft_seconds / std_seconds;
@@ -28,34 +41,20 @@ static void print_times(long elements, double ft_seconds, double std_seconds) {
 }
 
 static void test_vector_fill_constructor() {
-    println("test vector fill constructor with ints");
     double ft_seconds, std_seconds;
     long n = 30000000;
 
-    timer.reset();
-    ft::vector<int> intvec(n);
-    ft_seconds = timer.elapsed_seconds();
+    println("test vector fill constructor with ints");
 
-    timer.reset();
-    std::vector<int> std_intvec(n);
-    std_seconds = timer.elapsed_seconds();
-
-    print_times(n, ft_seconds, std_seconds);
+    TEST(ft::vector<int> intvec(n);,
+        std::vector<int> intvec(n);)
 
     println("test vector fill constructor with strings");
-    timer.reset();
-    ft::vector<std::string> string_vec(n, std::string("default"));
-    ft_seconds = timer.elapsed_seconds();
-
-    timer.reset();
-    std::vector<std::string> std_string_vec(n, std::string("default"));
-    std_seconds = timer.elapsed_seconds();
-
-    print_times(n, ft_seconds, std_seconds);
+    TEST(ft::vector<std::string> string_vec(n, std::string("default"));,
+        std::vector<std::string> std_string_vec(n, std::string("default"));)
 }
 
 static void test_vector_range_constructor() {
-    println("test vector range constructor with ints");
     double ft_seconds, std_seconds;
     long n = 30000000;
 
@@ -64,35 +63,22 @@ static void test_vector_range_constructor() {
         basevec.push_back(n / 2 - i);
     }
 
-    timer.reset();
-    ft::vector<int> intvec(basevec.begin(), basevec.end());
-    ft_seconds = timer.elapsed_seconds();
-
-    timer.reset();
-    std::vector<int> std_intvec(basevec.begin(), basevec.end());
-    std_seconds = timer.elapsed_seconds();
-
-    print_times(n, ft_seconds, std_seconds);
+    println("test vector range constructor with ints");
+    TEST(ft::vector<int> intvec(basevec.begin(), basevec.end());,
+        std::vector<int> std_intvec(basevec.begin(), basevec.end());)
 
     println("test vector range constructor with strings");
     ft::vector<std::string> str_basevec(n, std::string("default"));
 
-    timer.reset();
-    ft::vector<std::string> string_vec(str_basevec.begin(), str_basevec.end());
-    ft_seconds = timer.elapsed_seconds();
-
-    timer.reset();
-    std::vector<std::string> std_string_vec(str_basevec.begin(), str_basevec.end());
-    std_seconds = timer.elapsed_seconds();
-
-    print_times(n, ft_seconds, std_seconds);
+    TEST(ft::vector<std::string> string_vec(str_basevec.begin(), str_basevec.end()); ,
+        std::vector<std::string> std_string_vec(str_basevec.begin(), str_basevec.end());)
 }
 
 static void test_vector_resize() {
     println("test vector resize with ints");
 }
 
-int main(void) {
+int main() {
 
     test_vector_fill_constructor();
     test_vector_range_constructor();
