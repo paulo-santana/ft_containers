@@ -180,6 +180,10 @@ public:
         return ft::make_pair(lower_bound(val), upper_bound(val));
     }
 
+    allocator_type get_allocator() const {
+        return allocator_type();
+    }
+
 };
 
 }
