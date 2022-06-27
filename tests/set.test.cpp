@@ -421,6 +421,23 @@ static void test_key_comp() {
     }
 }
 
+static void test_value_comp() {
+    println("test set value_comp()");
+
+    ft::set<int> intset;
+
+    intset.insert(3);
+    intset.insert(2);
+    intset.insert(1);
+
+    ft::set<int>::value_compare v_compare = intset.value_comp();
+    ft::set<int>::iterator tree = intset.find(3);
+    ft::set<int>::iterator two = intset.find(2);
+
+    std::cout << "set:\n" << intset << std::endl;
+    std::cout << "value_comp()([3, 42], [2, 32]): " << v_compare(*tree, *two) << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -446,4 +463,5 @@ void testSet() {
     test_clear();
 
     test_key_comp();
+    test_value_comp();
 }

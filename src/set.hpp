@@ -160,6 +160,10 @@ public:
         return key_compare();
     }
 
+    value_compare value_comp() const {
+        return value_compare();
+    }
+
 };
 
 }
