@@ -438,6 +438,27 @@ static void test_value_comp() {
     std::cout << "value_comp()([3, 42], [2, 32]): " << v_compare(*tree, *two) << std::endl;
 }
 
+static void test_find() {
+    println("test set find");
+
+    ft::set<int> intset;
+
+    for (int i = 0; i < 10; i++) {
+        intset.insert(i);
+    }
+    std::cout << "find every element in the set" << std::endl;
+
+    for (int i = 0; i < 10; i++) {
+        ft::set<int, int>::iterator value = intset.find(i);
+        if (value != intset.end())
+            std::cout << *value << std::endl;
+    }
+
+    std::cout << "try find an non existent element" << std::endl;
+
+    std::cout << "found 42: " << (intset.find(42) != intset.end()) << std::endl;
+}
+
 void testSet() {
     test_default_constructor();
     test_range_constructor();
@@ -464,4 +485,6 @@ void testSet() {
 
     test_key_comp();
     test_value_comp();
+
+    test_find();
 }
