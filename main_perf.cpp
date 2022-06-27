@@ -55,11 +55,11 @@ static void test_vector_fill_constructor() {
 }
 
 static void test_vector_range_constructor() {
-    println("test vector fill constructor with ints");
+    println("test vector range constructor with ints");
     double ft_seconds, std_seconds;
     long n = 30000000;
 
-    ft::vector<int> basevec;
+    std::vector<int> basevec;
     for (int i = 0; i < n; i++) {
         basevec.push_back(n / 2 - i);
     }
@@ -88,8 +88,13 @@ static void test_vector_range_constructor() {
     print_times(n, ft_seconds, std_seconds);
 }
 
+static void test_vector_resize() {
+    println("test vector resize with ints");
+}
+
 int main(void) {
 
     test_vector_fill_constructor();
     test_vector_range_constructor();
+    test_vector_resize();
 }
