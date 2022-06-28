@@ -111,8 +111,9 @@ private:
         this->max_capacity = alloc.max_size();
 
         this->data = this->allocator.allocate(size);
-
-        std::copy(start, end, this->data);
+        for(size_type i = 0; i < size; ++i, ++start) {
+            this->allocator.construct(this->data + i, *start);
+        }
     }
 
 public:
