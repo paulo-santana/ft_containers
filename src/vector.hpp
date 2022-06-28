@@ -202,18 +202,15 @@ public:
     }
 
     void resize(size_type n, value_type val = value_type()) {
-        if (n == this->num_items)
-            return;
-
         if (n < this->num_items) {
             size_type index = n;
             this->destroy_data(this->data + index, this->num_items - index);
 
-        } else {
-            if (n < this->current_capacity * 2)
-                this->grow_vector(this->current_capacity * 2);
-            else
-                this->grow_vector(n);
+        } else if (n > this->current_capacity) {
+            this->reserve(n);
+        }
+
+        if (n > this->num_items) {
             size_type index = this->num_items;
             while (index < n) {
                 this->allocator.construct(&this->data[index], val);
@@ -603,14 +600,12 @@ private:
     void grow_vector(size_type new_capacity) {
         T* oldData = this->data;
 
-        if (new_capacity < this->current_capacity)
-            throw std::bad_alloc();
-
         this->data = this->allocator.allocate(new_capacity);
         this->copy_data(this->data, oldData);
         this->current_capacity = new_capacity;
         this->destroy_data(oldData, this->num_items);
-        this->allocator.deallocate(oldData, this->num_items);
+        if (oldData)
+            this->allocator.deallocate(oldData, this->num_items);
 
     }
 
