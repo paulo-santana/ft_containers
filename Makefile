@@ -13,8 +13,8 @@ SRC := main.cpp \
 	   set.test.cpp \
 	   test_utils.cpp \
 
-PERF_SRC := main_perf.cpp \
-			test_utils.cpp \
+PERF_SRC := test_utils.cpp \
+			main_perf.cpp \
 			
 
 OBJ_DIR ?= ./obj
@@ -54,7 +54,7 @@ re: fclean all
 run: perf
 	./perf
 
-functional:__compile_std __compile_ft 
+functional: __compile_std __compile_ft 
 	./$(NAME_STD) > std_out
 	./$(NAME) > my_out
 	delta --diff-so-fancy my_out std_out && echo "OK :)"

@@ -76,11 +76,28 @@ static void test_vector_range_constructor() {
 
 static void test_vector_resize() {
     println("test vector resize with ints");
+    double ft_seconds, std_seconds;
+    long n = 10000;
+
+    TEST(
+        for (int i = 1; i < n; i++) {
+            ft::vector<int> ftvec;
+            ftvec.resize(i, i);
+        } , 
+        for (int i = 1; i < n; i++) {
+            std::vector<int> stdvec;
+            stdvec.resize(i, i);
+        }
+    );
 }
 
 int main() {
 
-    test_vector_fill_constructor();
-    test_vector_range_constructor();
-    test_vector_resize();
+    try {
+        test_vector_fill_constructor();
+        test_vector_range_constructor();
+        test_vector_resize();
+    } catch (std::exception& e) {
+        std::cout << "exception caught: " << e.what() << std::endl;
+    }
 }
