@@ -42,7 +42,7 @@ static void print_times(long elements, double ft_seconds, double std_seconds) {
 
 static void test_vector_fill_constructor() {
     double ft_seconds, std_seconds;
-    long n = 30000000;
+    long n = 3000000;
 
     println("test vector fill constructor with ints");
 
@@ -56,7 +56,7 @@ static void test_vector_fill_constructor() {
 
 static void test_vector_range_constructor() {
     double ft_seconds, std_seconds;
-    long n = 30000000;
+    long n = 3000000;
 
     std::vector<int> basevec;
     for (int i = 0; i < n; i++) {
