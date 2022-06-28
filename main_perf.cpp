@@ -77,7 +77,7 @@ static void test_vector_range_constructor() {
 static void test_vector_resize() {
     println("test vector resize with ints");
     double ft_seconds, std_seconds;
-    long n = 10000;
+    long n = 20000;
 
     TEST(
         for (int i = 1; i < n; i++) {
