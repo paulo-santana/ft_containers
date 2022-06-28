@@ -13,12 +13,12 @@ Timer timer;
 
 #define TEST(FT_CONTAINER, STD_CONTAINER) { \
     timer.reset(); \
-    {FT_CONTAINER} \
-    ft_seconds = timer.elapsed_seconds(); \
- \
-    timer.reset(); \
     {STD_CONTAINER} \
     std_seconds = timer.elapsed_seconds(); \
+ \
+    timer.reset(); \
+    {FT_CONTAINER} \
+    ft_seconds = timer.elapsed_seconds(); \
  \
     print_times(n, ft_seconds, std_seconds); \
 }
@@ -58,7 +58,7 @@ static void test_vector_range_constructor() {
     double ft_seconds, std_seconds;
     long n = 3000000;
 
-    std::vector<int> basevec;
+    ft::vector<int> basevec;
     for (int i = 0; i < n; i++) {
         basevec.push_back(n / 2 - i);
     }
