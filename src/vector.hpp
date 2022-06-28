@@ -111,11 +111,30 @@ private:
         this->max_capacity = alloc.max_size();
 
         this->data = this->allocator.allocate(size);
+        typedef typename ft::is_integral<value_type>::type _integral;
+        uninitialized_range_construct(start, end, _integral());
+    }
+
+    // integral
+    template<typename ForwardIterator>
+    void uninitialized_range_construct(
+            ForwardIterator start,
+            ForwardIterator end,
+            ft::true_type) {
+        std::copy(start, end, this->data);
+    }
+
+    // complex
+    template<typename ForwardIterator>
+    void uninitialized_range_construct(
+            ForwardIterator start,
+            ForwardIterator end,
+            ft::false_type) {
+        size_type size = std::distance(start, end);
         for(size_type i = 0; i < size; ++i, ++start) {
             this->allocator.construct(this->data + i, *start);
         }
     }
-
 public:
 
     // copy
