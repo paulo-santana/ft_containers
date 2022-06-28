@@ -226,7 +226,10 @@ public:
             this->destroy_data(this->data + index, this->num_items - index);
 
         } else if (n > this->current_capacity) {
-            this->reserve(n);
+            if (n <= this->num_items * 2)
+                this->reserve(this->num_items * 2);
+            else
+                this->reserve(n);
         }
 
         if (n > this->num_items) {
