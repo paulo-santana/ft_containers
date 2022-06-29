@@ -600,8 +600,12 @@ private:
     allocator_type allocator;
 
     void copy_data(T* dest, T* src) {
-        for (size_type i = 0; i < this->num_items; i++) {
-            this->allocator.construct(dest + i, src[i]);
+        if (ft::is_integral<value_type>::value) {
+            std::copy(src, src + this->num_items, dest);
+        } else {
+            for (size_type i = 0; i < this->num_items; i++) {
+                this->allocator.construct(dest + i, src[i]);
+            }
         }
     }
 
