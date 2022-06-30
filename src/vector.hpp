@@ -492,7 +492,7 @@ private:
         size_type n = std::distance(first, last);
         if (this->num_items + n <= this->current_capacity) {
             for (size_type i = 0; i < n; i++) {
-                this->allocator.construct(current_end, value_type());
+                this->allocator.construct(current_end + i, value_type());
             }
             std::copy_backward(current_pos, current_end, current_end + n);
             std::copy(first, last, position);
