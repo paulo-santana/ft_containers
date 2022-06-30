@@ -392,24 +392,43 @@ public:
 
     // insert a single element
     iterator insert(iterator position, const value_type& val) {
-        pointer current_pos = position.base();
-        pointer current_end = this->data + this->num_items;
+        if (position == this->end()) {
+            this->push_back(val);
+            return iterator(this->data + this->num_items - 1);
+        }
 
-        pointer target_ptr;
+        T* target_ptr;
+        size_type dist = std::distance(position.base(), this->data);
+        size_type offset = 0;
 
-        if (this->num_items < this->current_capacity) {
-            this->allocator.construct(current_end, *(current_end - 1));
-            std::copy_backward(current_pos, current_end - 1, current_end);
-            // this->allocator.construct(current_pos, val);
-            *current_pos = val;
-            target_ptr = current_pos;
-
+        if (this->num_items == this->current_capacity) {
+            size_type new_capacity = this->num_items * 2;
+            target_ptr = this->allocator.allocate(new_capacity);
+            dist = position.base() - this->data;
+            if (ft::is_integral<T>::value) {
+                std::copy(this->data, this->data + dist, target_ptr);
+                *(target_ptr + dist) = val;
+                offset = dist + 1;
+                std::copy(this->data + offset, this->data + this->num_items + 1, target_ptr + offset);
+            } else {
+                this->copy_construct(this->data, this->data + dist, target_ptr);
+                this->allocator.construct(target_ptr + dist, val);
+                offset = dist + 1;
+                this->copy_construct(this->data + dist, this->data + this->num_items, target_ptr + offset);
+            }
+            this->destroy_data(this->data, this->num_items);
+            this->allocator.deallocate(this->data, 1);
+            this->data = target_ptr;
+            this->current_capacity = new_capacity;
         } else {
-            target_ptr = insert_reallocating(current_pos, 1, val);
+            target_ptr = position.base();
+            this->allocator.construct(this->data + this->num_items, *(this->data + this->num_items - 1));
+            std::copy_backward(target_ptr, this->data + this->num_items - 1, this->data + this->num_items);
+            *target_ptr = val;
         }
 
         this->num_items++;
-        return iterator(target_ptr);
+        return iterator(target_ptr + dist);
     }
 
     // fill a range
@@ -514,6 +533,12 @@ private:
         insert_range(position, first, last);
     }
 
+    void copy_construct(pointer start, pointer end, pointer result) {
+        for (; start != end; ++start, ++result)
+            this->allocator.construct(result, *start);
+    }
+
+
     void shift_construct_backwards(pointer start, pointer end, pointer result) {
         while (start != end) {
             this->allocator.construct(--result, *--end);
@@ -540,7 +565,8 @@ private:
         this->copy_data(target_ptr + n, current_pos, current_end);
 
         this->destroy_data(this->data, this->num_items);
-        this->allocator.deallocate(this->data, this->num_items);
+        if (this->data != 0)
+            this->allocator.deallocate(this->data, this->num_items);
         this->data = target_data;
 
         return target_ptr;
