@@ -126,10 +126,10 @@ static void test_vector_insert() {
 int main() {
 
     try {
-        test_vector_insert();
         test_vector_fill_constructor();
         test_vector_range_constructor();
         test_vector_resize();
+        test_vector_insert();
     } catch (std::exception& e) {
         std::cout << "exception caught: " << e.what() << std::endl;
     }
