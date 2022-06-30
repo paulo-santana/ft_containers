@@ -13,10 +13,12 @@ Timer timer;
 
 #define TEST(FT_CONTAINER, STD_CONTAINER) { \
     timer.reset(); \
+    std::cout << "running std" << std::endl; \
     {STD_CONTAINER} \
     std_seconds = timer.elapsed_seconds(); \
  \
     timer.reset(); \
+    std::cout << "running ft" << std::endl; \
     {FT_CONTAINER} \
     ft_seconds = timer.elapsed_seconds(); \
  \
@@ -89,11 +91,42 @@ static void test_vector_resize() {
             stdvec.resize(i, i);
         }
     );
+
+    println("test vector resize with strings");
+    TEST(
+        for (int i = 1; i < n; i++) {
+            ft::vector<std::string> ftvec;
+            ftvec.resize(i, "opa");
+        } , 
+        for (int i = 1; i < n; i++) {
+            std::vector<std::string> stdvec;
+            stdvec.resize(i, "opa");
+        }
+    );
+}
+
+static void test_vector_insert() {
+    println("test vector insert ints at the end");
+    double ft_seconds, std_seconds;
+    long n = 20000;
+
+    TEST(
+        ft::vector<int> ftvec;
+        for (int i = 1; i < n; i++) {
+            ftvec.insert(ftvec.end(), i);
+        } , 
+        std::vector<int> stdvec;
+        for (int i = 1; i < n; i++) {
+            stdvec.insert(stdvec.end(), i);
+        }
+    );
+
 }
 
 int main() {
 
     try {
+        test_vector_insert();
         test_vector_fill_constructor();
         test_vector_range_constructor();
         test_vector_resize();
