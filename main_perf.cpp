@@ -141,6 +141,58 @@ static void test_vector_insert() {
             stdvec.insert(stdvec.begin() + stdvec.size() / 2, i);
         }
     );
+
+    println("test vector insert strings in the middle");
+    TEST(
+        ft::vector<std::string> ftvec;
+        for (int i = 1; i < n; i++) {
+            ftvec.insert(ftvec.begin() + ftvec.size() / 2, "af");
+        } , 
+        std::vector<std::string> stdvec;
+        for (int i = 1; i < n; i++) {
+            stdvec.insert(stdvec.begin() + stdvec.size() / 2, "af");
+        }
+    );
+
+    n = 5000;
+
+    println("test vector inserting 100 strings 5000 times in the middle");
+    TEST(
+        ft::vector<std::string> ftvec;
+        for (int i = 1; i < n; i++) {
+            ftvec.insert(ftvec.begin() + ftvec.size() / 2, 100, "af");
+        } , 
+        std::vector<std::string> stdvec;
+        for (int i = 1; i < n; i++) {
+            stdvec.insert(stdvec.begin() + stdvec.size() / 2, 100, "af");
+        }
+    );
+
+    println("test vector inserting 100 strings 5000 times in the beginning");
+    TEST(
+        ft::vector<std::string> ftvec;
+        for (int i = 1; i < n; i++) {
+            ftvec.insert(ftvec.begin(), 100, "af");
+        } , 
+        std::vector<std::string> stdvec;
+        for (int i = 1; i < n; i++) {
+            stdvec.insert(stdvec.begin(), 100, "af");
+        }
+    );
+
+    ft::vector<std::string> base_vec(200, "daora");
+
+    println("test vector range inserting 50000 strings 5000 times in the beginning");
+    TEST(
+        ft::vector<std::string> ftvec;
+        for (int i = 1; i < n; i++) {
+            ftvec.insert(ftvec.begin(), base_vec.begin(), base_vec.end());
+        } , 
+        std::vector<std::string> stdvec;
+        for (int i = 1; i < n; i++) {
+            stdvec.insert(stdvec.begin(), base_vec.begin(), base_vec.end());
+        }
+    );
 }
 
 int main() {
