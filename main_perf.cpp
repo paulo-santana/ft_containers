@@ -14,14 +14,14 @@ Timer timer;
 #define TEST(FT_CONTAINER, STD_CONTAINER) { \
     double ft_seconds, std_seconds; \
     timer.reset(); \
-    std::cout << "running std" << std::endl; \
-    {STD_CONTAINER} \
-    std_seconds = timer.elapsed_seconds(); \
- \
-    timer.reset(); \
     std::cout << "running ft" << std::endl; \
     {FT_CONTAINER} \
     ft_seconds = timer.elapsed_seconds(); \
+ \
+    timer.reset(); \
+    std::cout << "running std" << std::endl; \
+    {STD_CONTAINER} \
+    std_seconds = timer.elapsed_seconds(); \
  \
     print_times(n, ft_seconds, std_seconds); \
 }
