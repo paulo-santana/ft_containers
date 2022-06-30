@@ -180,9 +180,9 @@ static void test_vector_insert() {
         }
     );
 
-    ft::vector<std::string> base_vec(200, "daora");
+    ft::vector<std::string> base_vec(200, "nice");
 
-    println("test vector range inserting 50000 strings 5000 times in the beginning");
+    println("test vector range inserting 200 strings 5000 times in the beginning");
     TEST(
         ft::vector<std::string> ftvec;
         for (int i = 1; i < n; i++) {
