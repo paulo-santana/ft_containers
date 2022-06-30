@@ -12,6 +12,7 @@ Timer timer;
 
 
 #define TEST(FT_CONTAINER, STD_CONTAINER) { \
+    double ft_seconds, std_seconds; \
     timer.reset(); \
     std::cout << "running std" << std::endl; \
     {STD_CONTAINER} \
@@ -43,7 +44,6 @@ static void print_times(long elements, double ft_seconds, double std_seconds) {
 }
 
 static void test_vector_fill_constructor() {
-    double ft_seconds, std_seconds;
     long n = 3000000;
 
     println("test vector fill constructor with ints");
@@ -57,7 +57,6 @@ static void test_vector_fill_constructor() {
 }
 
 static void test_vector_range_constructor() {
-    double ft_seconds, std_seconds;
     long n = 3000000;
 
     ft::vector<int> basevec;
@@ -78,7 +77,6 @@ static void test_vector_range_constructor() {
 
 static void test_vector_resize() {
     println("test vector resize with ints");
-    double ft_seconds, std_seconds;
     long n = 20000;
 
     TEST(
@@ -106,10 +104,9 @@ static void test_vector_resize() {
 }
 
 static void test_vector_insert() {
-    println("test vector insert ints at the end");
-    double ft_seconds, std_seconds;
-    long n = 20000;
+    long n = 40000;
 
+    println("test vector insert ints at the end");
     TEST(
         ft::vector<int> ftvec;
         for (int i = 1; i < n; i++) {
@@ -121,6 +118,29 @@ static void test_vector_insert() {
         }
     );
 
+    println("test vector insert ints at the beginning");
+    TEST(
+        ft::vector<int> ftvec;
+        for (int i = 1; i < n; i++) {
+            ftvec.insert(ftvec.begin(), i);
+        } , 
+        std::vector<int> stdvec;
+        for (int i = 1; i < n; i++) {
+            stdvec.insert(stdvec.begin(), i);
+        }
+    );
+
+    println("test vector insert ints in the middle");
+    TEST(
+        ft::vector<int> ftvec;
+        for (int i = 1; i < n; i++) {
+            ftvec.insert(ftvec.begin() + ftvec.size() / 2, i);
+        } , 
+        std::vector<int> stdvec;
+        for (int i = 1; i < n; i++) {
+            stdvec.insert(stdvec.begin() + stdvec.size() / 2, i);
+        }
+    );
 }
 
 int main() {
