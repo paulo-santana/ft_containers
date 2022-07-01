@@ -315,9 +315,9 @@ static void test_map_copy_constructor() {
     ft::map<int, int> ft_basemap;
     std::map<int, int> std_basemap;
 
-    println("setting up base map...");
+    std::cout << "setting up base map..." << std::endl;
     long n =  1000000;
-    println("done");
+    std::cout << "done" << std::endl;
     for (int i = 0; i < n; i++) {
         ft_basemap[i] = i * i;
         std_basemap[i] = i * i;
