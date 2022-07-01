@@ -28,6 +28,7 @@ Timer timer;
     print_times(ft_seconds, std_seconds); \
 }
 
+// vector tests
 static void print_times(double ft_seconds, double std_seconds) {
     std::cout << "ft took " << ft_seconds << " seconds" << std::endl;
     std::cout << "std took " << std_seconds << " seconds" << std::endl;
@@ -327,6 +328,30 @@ static void test_map_copy_constructor() {
         std::map<int COMMA int> intmap(std_basemap););
 }
 
+static void test_map_access_operator() {
+    println("test map operator[]");
+
+    ft::map<int, int> ft_basemap;
+    std::map<int, int> std_basemap;
+
+    std::cout << "setting up base map..." << std::endl;
+    long n =  10000;
+    std::cout << "done" << std::endl;
+    for (int i = 0; i < n; i++) {
+        ft_basemap[i] = i * i;
+        std_basemap[i] = i * i;
+    }
+    TEST(
+        for (int i = 0; i < n; i++) {
+            ft_basemap[i] = ft_basemap[i + 1];
+        };,   
+        for (int i = 0; i < n; i++) {
+            std_basemap[i] = std_basemap[i + 1];
+        };
+    );
+
+}
+
 int testVectorPerf() {
     try {
         println(" ======= vector =======");
@@ -350,7 +375,7 @@ int testMapPerf() {
         println(" ======= map =======");
         test_map_range_constructor();
         test_map_copy_constructor();
-        // test_map_resize();
+        test_map_access_operator();
         // test_map_insert();
         // test_map_assign();
         // test_map_erase();
