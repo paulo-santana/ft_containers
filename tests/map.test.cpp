@@ -248,6 +248,17 @@ static void test_access_operator() {
 
     std::cout << "the 'logic' value: " << int_map["logic"] << std::endl;;
 
+    std::cout << "filling a map with ints" << std::endl;;
+    ft::map<int, int> ft_basemap;
+    for (int i = 0; i < 20; i++) {
+        ft_basemap[i] = i * i;
+    }
+
+    for (int i = 0; i < 20; i++) {
+        ft_basemap[i] = ft_basemap[i + 1];
+    };
+
+    std::cout << "the resulting map" << int_map["logic"] << std::endl;;
 }
 
 static void test_access_operator_cplusplus() {
