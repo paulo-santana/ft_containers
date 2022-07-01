@@ -352,6 +352,35 @@ static void test_map_access_operator() {
 
 }
 
+static void test_map_insert() {
+    println("test map basic insert");
+
+    ft::vector<ft::pair<int, int> > ft_basevec;
+    std::vector<std::pair<int, int> > std_basevec;
+
+    std::cout << "setting up base map..." << std::endl;
+    long n =  100000;
+    std::cout << "done" << std::endl;
+    for (int i = 0; i < n; i++) {
+        ft_basevec.push_back(ft::make_pair(i, i * i));
+        std_basevec.push_back(std::make_pair(i, i * i));
+    }
+    TEST(
+        ft::map<int COMMA int> target;
+        ft::vector<ft::pair<int COMMA int> >::iterator iter = ft_basevec.begin();
+        for (int i = 0; i < n; i++) {
+            target.insert(*iter);
+            ++iter;
+        };,   
+        std::map<int COMMA int> target;
+        std::vector<std::pair<int COMMA int> >::iterator iter = std_basevec.begin();
+        for (int i = 0; i < n; i++) {
+            target.insert(*iter);
+            ++iter;
+        };
+    );
+}
+
 int testVectorPerf() {
     try {
         println(" ======= vector =======");
@@ -376,7 +405,7 @@ int testMapPerf() {
         test_map_range_constructor();
         test_map_copy_constructor();
         test_map_access_operator();
-        // test_map_insert();
+        test_map_insert();
         // test_map_assign();
         // test_map_erase();
         // test_map_clear();
