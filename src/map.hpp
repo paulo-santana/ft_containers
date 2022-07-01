@@ -59,8 +59,13 @@ public:
         num_items(0),
         allocator(alloc)
     {
+        if (first == last)
+            return;
+
+        iterator iter = tree->insert(*first);
+        ++first;
         while (first != last) {
-            tree->insert(*first);
+            tree->insert(iter, *first);
             ++first;
         }
     }
