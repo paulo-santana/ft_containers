@@ -248,22 +248,42 @@ static void test_vector_assign() {
 }
 
 static void test_vector_erase() {
-    println("test vector erase from begin with ints");
     int n = 2000000;
-    ft::vector<int> ftvec(n, 42);
 
+    ft::vector<int> ftvec(n, 42);
     std::vector<int> stdvec(n, 42);
+
+    println("test vector erase from begin with ints");
     TEST( ftvec.erase(ftvec.begin()); , 
         stdvec.erase(stdvec.begin());
     );
-    println("test vector erase from begin with strings");
-    n = 2000000;
-    ft::vector<std::string> ftstrvec(n, "opa");
 
+    ft::vector<std::string> ftstrvec(n, "opa");
     std::vector<std::string> stdstrvec(n, "opa");
+
+    println("test vector erase from begin with strings");
     TEST( ftstrvec.erase(ftstrvec.begin()); , 
         stdstrvec.erase(stdstrvec.begin());
     );
+
+    println("test vector erase range from begin to middle with ints");
+    TEST( ftvec.erase(ftvec.begin(), ftvec.end() - ftvec.size() / 2); , 
+        stdvec.erase(stdvec.begin(), stdvec.end() - stdvec.size() / 2);
+    );
+
+    println("test vector erase from begin with string");
+    TEST(ftstrvec.erase(ftstrvec.begin(), ftstrvec.end() - ftstrvec.size() / 2); , 
+        stdstrvec.erase(stdstrvec.begin(), stdstrvec.end() - stdstrvec.size() / 2);
+    );
+}
+
+static void test_vector_clear() {
+    println("test vector erase from begin with string");
+    n = 50000;
+    TEST(ftstrvec.erase(ftstrvec.begin(), ftstrvec.end() - ftstrvec.size() / 2); , 
+        stdstrvec.erase(stdstrvec.begin(), stdstrvec.end() - stdstrvec.size() / 2);
+    );
+
 }
 
 int main() {
@@ -275,6 +295,7 @@ int main() {
         test_vector_insert();
         test_vector_assign();
         test_vector_erase();
+        test_vector_clear();
     } catch (std::exception& e) {
         std::cout << "exception caught: " << e.what() << std::endl;
     }
