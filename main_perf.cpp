@@ -379,6 +379,15 @@ static void test_map_insert() {
             ++iter;
         };
     );
+
+    println("test map range insert");
+    TEST(
+        ft::map<int COMMA int> target;
+        target.insert(ft_basevec.begin(), ft_basevec.end());
+        ,
+        std::map<int COMMA int> target;
+        target.insert(std_basevec.begin(), std_basevec.end());
+    );
 }
 
 int testVectorPerf() {
