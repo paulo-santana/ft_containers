@@ -13,13 +13,13 @@ Timer timer;
 
 #define TEST(FT_CONTAINER, STD_CONTAINER) { \
     double ft_seconds, std_seconds; \
-    timer.reset(); \
     std::cout << "running ft" << std::endl; \
+    timer.reset(); \
     {FT_CONTAINER} \
     ft_seconds = timer.elapsed_seconds(); \
  \
-    timer.reset(); \
     std::cout << "running std" << std::endl; \
+    timer.reset(); \
     {STD_CONTAINER} \
     std_seconds = timer.elapsed_seconds(); \
  \
@@ -278,11 +278,11 @@ static void test_vector_erase() {
 }
 
 static void test_vector_clear() {
-    println("test vector clear with ints");
-    long n = 200000;
+    println("test vector clear with strings");
+    long n = 2000000;
 
-    ft::vector<int> ftintvec(n, 42);
-    std::vector<int> stdintvec(n, 42);
+    ft::vector<std::string> ftintvec(n, "42");
+    std::vector<std::string> stdintvec(n, "42");
 
     TEST(
         ftintvec.clear();,
@@ -294,14 +294,13 @@ static void test_vector_clear() {
 int main() {
 
     try {
-        test_vector_clear();
-        return 0;
         test_vector_fill_constructor();
         test_vector_range_constructor();
         test_vector_resize();
         test_vector_insert();
         test_vector_assign();
         test_vector_erase();
+        test_vector_clear();
     } catch (std::exception& e) {
         std::cout << "exception caught: " << e.what() << std::endl;
     }
