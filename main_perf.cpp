@@ -1,9 +1,11 @@
-#include "Timer.hpp"
+#include "pair.hpp"
 #include "tests/test_utils.hpp"
+#include "Timer.hpp"
 #include "vector.hpp"
+#include "map.hpp"
 #include <iostream>
 #include <vector>
-
+#include <map>
 #define NORMAL "\x1B[0m"
 #define RED "\x1B[31m"
 #define GREEN "\x1B[32m"
@@ -291,9 +293,25 @@ static void test_vector_clear() {
 
 }
 
-int main() {
+#define COMMA ,
 
+static void test_map_range_constructor() {
+    println("test map range constructor");
+    ft::vector<ft::pair< int, int> > ft_intvec;
+    std::vector<std::pair< int, int> > std_intvec;
+    long n =  5000000;
+    for (int i = 0; i < n; i++) {
+        ft_intvec.push_back(ft::make_pair(i, i * i));
+        std_intvec.push_back(std::make_pair(i, i * i));
+    }
+    TEST(
+        ft::map<int COMMA int> intmap(ft_intvec.begin(), ft_intvec.end());,   
+        std::map<int COMMA int> intmap(std_intvec.begin(), std_intvec.end()););
+}
+
+int testVectorPerf() {
     try {
+        println(" ======= vector =======");
         test_vector_fill_constructor();
         test_vector_range_constructor();
         test_vector_resize();
@@ -302,6 +320,31 @@ int main() {
         test_vector_erase();
         test_vector_clear();
     } catch (std::exception& e) {
+        std::cout << RED << "exception caught: " << NORMAL << e.what() << std::endl;
+        return 1;
+    } 
+
+    return 0;
+}
+
+int testMapPerf() {
+    try {
+        println(" ======= map =======");
+        test_map_range_constructor();
+        // test_map_range_constructor();
+        // test_map_resize();
+        // test_map_insert();
+        // test_map_assign();
+        // test_map_erase();
+        // test_map_clear();
+    } catch (std::exception& e) {
         std::cout << "exception caught: " << e.what() << std::endl;
+        return 1;
     }
+    return 0;
+}
+
+int main() {
+    return testMapPerf();
+
 }
