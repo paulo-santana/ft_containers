@@ -23,12 +23,12 @@ Timer timer;
     {STD_CONTAINER} \
     std_seconds = timer.elapsed_seconds(); \
  \
-    print_times(n, ft_seconds, std_seconds); \
+    print_times(ft_seconds, std_seconds); \
 }
 
-static void print_times(long elements, double ft_seconds, double std_seconds) {
-    std::cout << "ft working with "<< elements << " items: " << ft_seconds << std::endl;
-    std::cout << "std working with " << elements << " items: " << std_seconds << std::endl;
+static void print_times(double ft_seconds, double std_seconds) {
+    std::cout << "ft took " << ft_seconds << " seconds" << std::endl;
+    std::cout << "std took " << std_seconds << " seconds" << std::endl;
 
     if (ft_seconds > std_seconds) {
         double slower = ft_seconds / std_seconds;
@@ -195,6 +195,37 @@ static void test_vector_insert() {
     );
 }
 
+static void test_vector_assign() {
+    println("test vector assign with ints");
+
+    long n = 2000000;
+
+    ft::vector<int> base_intvec(1000, 9);
+
+    TEST(
+        ft::vector<int> ftvec;
+        for (int i = 1; i < n; i++) {
+            ftvec.assign(base_intvec.begin(), base_intvec.end());
+        } , 
+        std::vector<int> stdvec;
+        for (int i = 1; i < n; i++) {
+            stdvec.assign(base_intvec.begin(), base_intvec.end());
+        }
+    );
+
+    ft::vector<std::string> base_vec(n, "nice");
+
+    println("test vector assign with ints");
+    TEST(
+        ft::vector<std::string> ftvec;
+        ftvec.assign(base_vec.begin(), base_vec.end());
+        , 
+        std::vector<std::string> stdvec;
+        stdvec.assign(base_vec.begin(), base_vec.end());
+    );
+
+}
+
 int main() {
 
     try {
@@ -202,6 +233,7 @@ int main() {
         test_vector_range_constructor();
         test_vector_resize();
         test_vector_insert();
+        test_vector_assign();
     } catch (std::exception& e) {
         std::cout << "exception caught: " << e.what() << std::endl;
     }
