@@ -591,7 +591,8 @@ public:
         size_type size = last_ptr - ptr;
 
         std::copy(last_ptr, end().base(), ptr);
-        this->destroy_data(end().base() - size, size);
+        if (!ft::is_integral<value_type>::value)
+            this->destroy_data(end().base() - size, size);
         this->num_items -= size;
         return iterator(ptr);
     }
