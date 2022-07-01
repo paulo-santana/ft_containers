@@ -388,6 +388,26 @@ static void test_map_insert() {
         std::map<int COMMA int> target;
         target.insert(std_basevec.begin(), std_basevec.end());
     );
+
+    println("test map hint insert");
+    TEST(
+        ft::map<int COMMA int> target;
+        ft::vector<ft::pair<int COMMA int> >::iterator iter = ft_basevec.begin();
+        ft::map<int COMMA int>::iterator result;
+        result = target.begin();
+        for (int i = 0; i < n; i++) {
+            result = target.insert(result, *iter);
+            ++iter;
+        };,
+        std::map<int COMMA int> target;
+        std::vector<std::pair<int COMMA int> >::iterator iter = std_basevec.begin();
+        std::map<int COMMA int>::iterator result;
+        result = target.begin();
+        for (int i = 0; i < n; i++) {
+            result = target.insert(result, *iter);
+            ++iter;
+        };
+    );
 }
 
 int testVectorPerf() {
