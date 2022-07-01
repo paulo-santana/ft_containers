@@ -224,7 +224,6 @@ static void test_vector_assign() {
         stdvec.assign(base_vec.begin(), base_vec.end());
     );
 
-
     println("test vector fill assign with ints");
     TEST(
         ft::vector<int> ftvec;
@@ -248,6 +247,25 @@ static void test_vector_assign() {
 
 }
 
+static void test_vector_erase() {
+    println("test vector erase from begin with ints");
+    int n = 2000000;
+    ft::vector<int> ftvec(n, 42);
+
+    std::vector<int> stdvec(n, 42);
+    TEST( ftvec.erase(ftvec.begin()); , 
+        stdvec.erase(stdvec.begin());
+    );
+    println("test vector erase from begin with strings");
+    n = 2000000;
+    ft::vector<std::string> ftstrvec(n, "opa");
+
+    std::vector<std::string> stdstrvec(n, "opa");
+    TEST( ftstrvec.erase(ftstrvec.begin()); , 
+        stdstrvec.erase(stdstrvec.begin());
+    );
+}
+
 int main() {
 
     try {
@@ -256,6 +274,7 @@ int main() {
         test_vector_resize();
         test_vector_insert();
         test_vector_assign();
+        test_vector_erase();
     } catch (std::exception& e) {
         std::cout << "exception caught: " << e.what() << std::endl;
     }
