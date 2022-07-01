@@ -215,7 +215,7 @@ static void test_vector_assign() {
 
     ft::vector<std::string> base_vec(n, "nice");
 
-    println("test vector assign with ints");
+    println("test vector assign with strings");
     TEST(
         ft::vector<std::string> ftvec;
         ftvec.assign(base_vec.begin(), base_vec.end());
