@@ -613,7 +613,8 @@ public:
     }
 
     void clear() {
-        this->destroy_data(this->data, this->num_items);
+        if (!ft::is_integral<value_type>::value)
+            this->destroy_data(this->data, this->num_items);
         this->num_items = 0;
     }
 
