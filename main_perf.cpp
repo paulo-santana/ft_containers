@@ -359,7 +359,7 @@ static void test_map_insert() {
     std::vector<std::pair<int, int> > std_basevec;
 
     std::cout << "setting up base map..." << std::endl;
-    long n =  100000;
+    long n =  1000000;
     std::cout << "done" << std::endl;
     for (int i = 0; i < n; i++) {
         ft_basevec.push_back(ft::make_pair(i, i * i));
