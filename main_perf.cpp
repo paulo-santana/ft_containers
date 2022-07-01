@@ -309,6 +309,22 @@ static void test_map_range_constructor() {
         std::map<int COMMA int> intmap(std_intvec.begin(), std_intvec.end()););
 }
 
+static void test_map_copy_constructor() {
+    println("test map copy constructor");
+
+    ft::map<int, int> ft_basemap;
+    std::map<int, int> std_basemap;
+
+    long n =  3000000;
+    for (int i = 0; i < n; i++) {
+        ft_basemap[i] = i * i;
+        std_basemap[i] = i * i;
+    }
+    TEST(
+        ft::map<int COMMA int> intmap(ft_basemap);,   
+        std::map<int COMMA int> intmap(std_basemap););
+}
+
 int testVectorPerf() {
     try {
         println(" ======= vector =======");
@@ -331,7 +347,7 @@ int testMapPerf() {
     try {
         println(" ======= map =======");
         test_map_range_constructor();
-        // test_map_range_constructor();
+        test_map_copy_constructor();
         // test_map_resize();
         // test_map_insert();
         // test_map_assign();
