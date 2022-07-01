@@ -87,7 +87,7 @@ public:
 
         if (this->root == this->NIL) {
             this->root = new_node;
-            new_node->color = BLACK;
+            new_node->color = COLOR_BLACK;
             new_node->parent = NIL;
             this->num_items++;
             this->last = new_node;
@@ -205,7 +205,7 @@ public:
             y->left->parent = y;
             y->color = z->color;
         }
-        if (y_original_color == BLACK)
+        if (y_original_color == COLOR_BLACK)
             remove_fixup(x);
         this->NIL->parent = this->root;
         this->root->parent = this->NIL;
@@ -396,14 +396,14 @@ private:
 
     void insert_fixup(Node* node) {
         Node* uncle = NIL;
-        while (node->parent->color == RED) {
+        while (node->parent->color == COLOR_RED) {
 
             if (IS_LEFT_CHILD(node->parent)) {
                 uncle = node->parent->parent->right;
-                if (uncle->color == RED) {
-                    node->parent->color = BLACK;
-                    uncle->color = BLACK;
-                    node->parent->parent->color = RED;
+                if (uncle->color == COLOR_RED) {
+                    node->parent->color = COLOR_BLACK;
+                    uncle->color = COLOR_BLACK;
+                    node->parent->parent->color = COLOR_RED;
                     node = node->parent->parent;
 
                 } else {
@@ -411,16 +411,16 @@ private:
                         node = node->parent;
                         left_rotate(node);
                     }
-                    node->parent->color = BLACK;
-                    node->parent->parent->color = RED;
+                    node->parent->color = COLOR_BLACK;
+                    node->parent->parent->color = COLOR_RED;
                     right_rotate(node->parent->parent);
                 }
             } else {
                 uncle = node->parent->parent->left;
-                if (uncle->color == RED) {
-                    node->parent->color = BLACK;
-                    uncle->color = BLACK;
-                    node->parent->parent->color = RED;
+                if (uncle->color == COLOR_RED) {
+                    node->parent->color = COLOR_BLACK;
+                    uncle->color = COLOR_BLACK;
+                    node->parent->parent->color = COLOR_RED;
                     node = node->parent->parent;
 
                 } else {
@@ -428,13 +428,13 @@ private:
                         node = node->parent;
                         right_rotate(node);
                     }
-                    node->parent->color = BLACK;
-                    node->parent->parent->color = RED;
+                    node->parent->color = COLOR_BLACK;
+                    node->parent->parent->color = COLOR_RED;
                     left_rotate(node->parent->parent);
                 }
             }
         }
-        this->root->color = BLACK;
+        this->root->color = COLOR_BLACK;
     }
 
     void transplant(Node* target, Node* replacement) {
@@ -451,61 +451,61 @@ private:
     void remove_fixup(Node* x) {
         Node* w;
 
-        while (x != this->root && x->color == BLACK) {
+        while (x != this->root && x->color == COLOR_BLACK) {
             if (IS_LEFT_CHILD(x)) {
                 w = x->parent->right;
 
-                if (w->color == RED) {
-                    w->color = BLACK;
-                    x->parent->color = RED;
+                if (w->color == COLOR_RED) {
+                    w->color = COLOR_BLACK;
+                    x->parent->color = COLOR_RED;
                     left_rotate(x->parent);
                     w = x->parent->right;
                 }
-                if (w->left->color == BLACK && w->right->color == BLACK) {
-                    w->color = RED;
+                if (w->left->color == COLOR_BLACK && w->right->color == COLOR_BLACK) {
+                    w->color = COLOR_RED;
                     x = x->parent;
 
                 } else {
-                    if (w->right->color == BLACK) {
-                        w->left->color = BLACK;
-                        w->color = RED;
+                    if (w->right->color == COLOR_BLACK) {
+                        w->left->color = COLOR_BLACK;
+                        w->color = COLOR_RED;
                         right_rotate(w);
                         w = x->parent->right;
                     }
                     w->color = x->parent->color;
-                    x->parent->color = BLACK;
-                    w->right->color = BLACK;
+                    x->parent->color = COLOR_BLACK;
+                    w->right->color = COLOR_BLACK;
                     left_rotate(x->parent);
                     x = this->root;
                 }
             } else {
                 w = x->parent->left;
-                if (w->color == RED) {
-                    w->color = BLACK;
-                    x->parent->color = RED;
+                if (w->color == COLOR_RED) {
+                    w->color = COLOR_BLACK;
+                    x->parent->color = COLOR_RED;
                     right_rotate(x->parent);
                     w = x->parent->left;
                 }
-                if (w->right->color == BLACK && w->left->color == BLACK) {
-                    w->color = RED;
+                if (w->right->color == COLOR_BLACK && w->left->color == COLOR_BLACK) {
+                    w->color = COLOR_RED;
                     x = x->parent;
 
                 } else {
-                    if (w->left->color == BLACK) {
-                        w->right->color = BLACK;
-                        w->color = RED;
+                    if (w->left->color == COLOR_BLACK) {
+                        w->right->color = COLOR_BLACK;
+                        w->color = COLOR_RED;
                         left_rotate(w);
                         w = x->parent->left;
                     }
                     w->color = x->parent->color;
-                    x->parent->color = BLACK;
-                    w->left->color = BLACK;
+                    x->parent->color = COLOR_BLACK;
+                    w->left->color = COLOR_BLACK;
                     right_rotate(x->parent);
                     x = this->root;
                 }
             }
         }
-        x->color = BLACK;
+        x->color = COLOR_BLACK;
     }
 
     Node* copy_subtree(Node* node, Node* node_nil) {

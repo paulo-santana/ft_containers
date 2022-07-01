@@ -10,8 +10,8 @@ namespace ft {
 template<typename Key, typename Value>
 class RBTreeNode {
 
-#define RED false
-#define BLACK true
+#define COLOR_RED false
+#define COLOR_BLACK true
 
 public:
     Key           key;
@@ -31,7 +31,7 @@ public:
         left(this),
         right(this),
         nil(this),
-        color(BLACK) {}
+        color(COLOR_BLACK) {}
 
     RBTreeNode(const RBTreeNode& other):
         key(other.key),
@@ -48,7 +48,7 @@ public:
         left(NIL),
         right(NIL),
         nil(NIL),
-        color(RED) {}
+        color(COLOR_RED) {}
 
     RBTreeNode(const Key& key, const Value& data, RBTreeNode* NIL):
         key(key),
@@ -57,7 +57,7 @@ public:
         left(NIL),
         right(NIL),
         nil(NIL),
-        color(RED) {}
+        color(COLOR_RED) {}
 
     RBTreeNode* predecessor() {
         RBTreeNode* node = this;
