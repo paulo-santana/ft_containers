@@ -196,7 +196,7 @@ static void test_vector_insert() {
 }
 
 static void test_vector_assign() {
-    println("test vector assign with ints");
+    println("test vector range assign with ints");
 
     long n = 2000000;
 
@@ -215,13 +215,35 @@ static void test_vector_assign() {
 
     ft::vector<std::string> base_vec(n, "nice");
 
-    println("test vector assign with strings");
+    println("test vector range assign with strings");
     TEST(
         ft::vector<std::string> ftvec;
         ftvec.assign(base_vec.begin(), base_vec.end());
         , 
         std::vector<std::string> stdvec;
         stdvec.assign(base_vec.begin(), base_vec.end());
+    );
+
+
+    println("test vector fill assign with ints");
+    TEST(
+        ft::vector<int> ftvec;
+        for (int i = 1; i < 40000; i++) {
+            ftvec.assign(i, 42);
+        } , 
+        std::vector<int> stdvec;
+        for (int i = 1; i < 40000; i++) {
+            stdvec.assign(i, 42);
+        }
+    );
+
+    println("test vector fill assign with strings");
+    TEST(
+        ft::vector<std::string> ftvec;
+        ftvec.assign(n, "opa");
+        , 
+        std::vector<std::string> stdvec;
+        stdvec.assign(n, "opa");
     );
 
 }
