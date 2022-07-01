@@ -44,7 +44,6 @@ public:
         this->data = 0;
         this->num_items = 0;
         this->current_capacity = 0;
-        this->max_capacity = this->allocator.max_size();
         this->allocator = alloc;
     }
 
@@ -65,7 +64,6 @@ private:
         this->num_items = n;
         this->current_capacity = n;
         this->allocator = alloc;
-        this->max_capacity = alloc.max_size();
 
         this->data = this->allocator.allocate(n);
 
@@ -93,7 +91,6 @@ private:
         this->num_items = 0;
         this->current_capacity = 0;
         this->allocator = alloc;
-        this->max_capacity = alloc.max_size();
         this->data = 0;
 
         while (start != end) {
@@ -108,7 +105,6 @@ private:
         this->num_items = size;
         this->current_capacity = size;
         this->allocator = alloc;
-        this->max_capacity = alloc.max_size();
 
         this->data = this->allocator.allocate(size);
         typedef typename ft::is_integral<value_type>::type _integral;
@@ -142,7 +138,6 @@ public:
         this->current_capacity = other.current_capacity;
         this->num_items = other.num_items;
         this->allocator = allocator_type();
-        this->max_capacity = this->allocator.max_size();
 
         if (other.data == 0) {
             this->data = 0;
@@ -180,7 +175,7 @@ public:
     }
 
     size_type max_size(void) {
-        return this->max_capacity;
+        return this->allocator.max_size();
     }
 
     size_type capacity(void) {
@@ -623,7 +618,6 @@ private:
 
     size_type num_items;
     size_type current_capacity;
-    size_type max_capacity;
 
     allocator_type allocator;
 

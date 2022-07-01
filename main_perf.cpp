@@ -279,7 +279,7 @@ static void test_vector_erase() {
 
 static void test_vector_clear() {
     println("test vector clear with ints");
-    long n = 20000000;
+    long n = 200000;
 
     ft::vector<int> ftintvec(n, 42);
     std::vector<int> stdintvec(n, 42);
