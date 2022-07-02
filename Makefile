@@ -15,6 +15,8 @@ SRC := main.cpp \
 
 PERF_SRC := main_perf.cpp \
 			test_utils.cpp \
+
+INTRA_SRC := main-intra.cpp
 			
 
 OBJ_DIR ?= ./obj
@@ -26,6 +28,7 @@ vpath %.cpp \
 
 OBJ  := $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 PERF_OBJ := $(addprefix $(OBJ_DIR)/, $(PERF_SRC:.cpp=.o))
+INTRA_OBJ := $(addprefix $(OBJ_DIR)/, $(INTRA_SRC:.cpp=.o))
 
 DEPS := $(OBJ:.o=.d)
 INCLUDE := -I ./src/
@@ -54,10 +57,13 @@ re: fclean all
 run: clean perf
 	./perf
 
+intra: $(INTRA_OBJ)
+	$(CXX) $(INTRA_OBJ) -o intra_$(NAME)
+
 functional: __compile_std __compile_ft 
 	./$(NAME_STD) > std_out
 	./$(NAME) > my_out
-	delta --diff-so-fancy my_out std_out && echo "OK :)"
+	./delta --diff-so-fancy my_out std_out && echo "OK :)"
 
 perf: $(OBJ_DIR) $(PERF_OBJ)
 	$(CXX) $(PERF_OBJ) -o perf
@@ -67,9 +73,11 @@ test:
 
 __compile_ft:
 	make
+	make intra
 
 __compile_std:
 	make USE_STD=1 NAME=main_std OBJ_DIR=./obj2
+	make USE_STD=1 NAME=main_std OBJ_DIR=./obj2 intra
 
 $(OBJ_DIR):
 	mkdir -p $(OBJ_DIR)
