@@ -3,9 +3,11 @@
 #include "Timer.hpp"
 #include "vector.hpp"
 #include "map.hpp"
+#include "set.hpp"
 #include <iostream>
 #include <vector>
 #include <map>
+#include <set>
 #define NORMAL "\x1B[0m"
 #define RED "\x1B[31m"
 #define GREEN "\x1B[32m"
@@ -462,6 +464,151 @@ static void test_map_erase() {
     }
 }
 
+// kajdkajflkads
+
+static void test_set_range_constructor() {
+    println("test set range constructor");
+    ft::vector<int> ft_intvec;
+    std::vector<int> std_intvec;
+    long n =  5000000;
+    for (int i = 0; i < n; i++) {
+        ft_intvec.push_back(i);
+        std_intvec.push_back(i);
+    }
+    TEST(
+        ft::set<int> intset(ft_intvec.begin(), ft_intvec.end());,   
+        std::set<int> intset(std_intvec.begin(), std_intvec.end()););
+}
+
+static void test_set_copy_constructor() {
+    println("test set copy constructor");
+
+    ft::set<int> ft_baseset;
+    std::set<int> std_baseset;
+
+    std::cout << "setting up base set..." << std::endl;
+    long n =  1000000;
+    std::cout << "done" << std::endl;
+    for (int i = 0; i < n; i++) {
+        ft_baseset.insert(i);
+        std_baseset.insert(i);
+    }
+    TEST(
+        ft::set<int> intset(ft_baseset);,   
+        std::set<int> intset(std_baseset););
+}
+
+static void test_set_insert() {
+    println("test set basic insert");
+
+    ft::vector<int> ft_basevec;
+    std::vector<int> std_basevec;
+
+    std::cout << "setting up base set..." << std::endl;
+    long n =  1000000;
+    std::cout << "done" << std::endl;
+    for (int i = 0; i < n; i++) {
+        ft_basevec.push_back(i);
+        std_basevec.push_back(i);
+    }
+    TEST(
+        ft::set<int> target;
+        ft::vector<int>::iterator iter = ft_basevec.begin();
+        for (int i = 0; i < n; i++) {
+            target.insert(*iter);
+            ++iter;
+        };,   
+        std::set<int> target;
+        std::vector<int>::iterator iter = std_basevec.begin();
+        for (int i = 0; i < n; i++) {
+            target.insert(*iter);
+            ++iter;
+        };
+    );
+
+    println("test set range insert");
+    TEST(
+        ft::set<int> target;
+        target.insert(ft_basevec.begin(), ft_basevec.end());
+        ,
+        std::set<int> target;
+        target.insert(std_basevec.begin(), std_basevec.end());
+    );
+
+    println("test set hint insert");
+    TEST(
+        ft::set<int> target;
+        ft::vector<int>::iterator iter = ft_basevec.begin();
+        ft::set<int>::iterator result;
+        result = target.begin();
+        for (int i = 0; i < n; i++) {
+            result = target.insert(result, *iter);
+            ++iter;
+        };,
+        std::set<int> target;
+        std::vector<int>::iterator iter = std_basevec.begin();
+        std::set<int>::iterator result;
+        result = target.begin();
+        for (int i = 0; i < n; i++) {
+            result = target.insert(result, *iter);
+            ++iter;
+        };
+    );
+}
+
+static void test_set_erase() {
+    {
+        println("test set simple erase");
+        ft::set<int> ft_baseset;
+        std::set<int> std_baseset;
+
+        long n = 1000000;
+
+        std::cout << "setting up ft set..." << std::endl;
+        for (int i = 0; i < n; i++) {
+            ft_baseset.insert(i);
+        }
+        std::cout << "done" << std::endl;
+        std::cout << "setting up std set..." << std::endl;
+        for (int i = 0; i < n; i++) {
+            std_baseset.insert(i);
+        }
+        std::cout << "done" << std::endl;
+
+        TEST(
+            while (ft_baseset.size() > 0)
+                ft_baseset.erase(*ft_baseset.begin());
+            ,
+            while (std_baseset.size() > 0)
+                std_baseset.erase(*std_baseset.begin());
+        );
+    }
+    {
+        println("test set range erase");
+        ft::set<int> ft_baseset;
+        std::set<int> std_baseset;
+
+        long n = 1000000;
+
+        std::cout << "setting up ft set..." << std::endl;
+        for (int i = 0; i < n; i++) {
+            ft_baseset.insert(i);
+        }
+        std::cout << "done" << std::endl;
+        std::cout << "setting up std set..." << std::endl;
+        for (int i = 0; i < n; i++) {
+            std_baseset.insert(i);
+        }
+        std::cout << "done" << std::endl;
+
+        TEST(
+            ft_baseset.erase(ft_baseset.begin(), ft_baseset.end());
+            ,
+            std_baseset.erase(std_baseset.begin(), std_baseset.end());
+        );
+    }
+}
+
 int testVectorPerf() {
     try {
         println(" ======= vector =======");
@@ -495,7 +642,22 @@ int testMapPerf() {
     return 0;
 }
 
-int main() {
-    return testMapPerf();
+int testSetPerf() {
+    try {
+        println(" ======= set =======");
+        test_set_range_constructor();
+        test_set_copy_constructor();
+        test_set_insert();
+        test_set_erase();
+    } catch (std::exception& e) {
+        std::cout << "exception caught: " << e.what() << std::endl;
+        return 1;
+    }
+    return 0;
+}
 
+int main() {
+    return testVectorPerf();
+    return testMapPerf();
+    return testSetPerf();
 }
