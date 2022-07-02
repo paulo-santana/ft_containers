@@ -63,7 +63,7 @@ intra: $(INTRA_OBJ)
 functional: __compile_std __compile_ft 
 	./$(NAME_STD) > std_out
 	./$(NAME) > my_out
-	./delta --diff-so-fancy my_out std_out && echo "OK :)"
+	diff --color=always my_out std_out && echo "OK :)"
 
 perf: $(OBJ_DIR) $(PERF_OBJ)
 	$(CXX) $(PERF_OBJ) -o perf
