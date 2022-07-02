@@ -12,3 +12,5 @@ teste.cpp
 a.out
 red_black_tree_backup.hpp
 perf
+intra_main
+intra_main_std
