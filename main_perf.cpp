@@ -15,24 +15,23 @@ Timer timer;
 
 #define TEST(FT_CONTAINER, STD_CONTAINER) { \
     double ft_seconds, std_seconds; \
-    std::cout << "running ft" << std::endl; \
+    std::cout << "running ft " << std::flush; \
     timer.reset(); \
     {FT_CONTAINER} \
     ft_seconds = timer.elapsed_seconds(); \
+    std::cout << "took " << ft_seconds << " seconds" << std::endl; \
  \
-    std::cout << "running std" << std::endl; \
+    std::cout << "running std " << std::flush; \
     timer.reset(); \
     {STD_CONTAINER} \
     std_seconds = timer.elapsed_seconds(); \
+    std::cout << "took " << std_seconds << " seconds" << std::endl; \
  \
     print_times(ft_seconds, std_seconds); \
 }
 
 // vector tests
 static void print_times(double ft_seconds, double std_seconds) {
-    std::cout << "ft took " << ft_seconds << " seconds" << std::endl;
-    std::cout << "std took " << std_seconds << " seconds" << std::endl;
-
     if (ft_seconds > std_seconds) {
         double slower = ft_seconds / std_seconds;
         std::cout << "ft is ";
