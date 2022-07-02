@@ -50,7 +50,7 @@ clean:
 	$(RM) $(PERF_OBJ)
 
 fclean: clean
-	$(RM) $(NAME) $(NAME_STD) perf
+	$(RM) $(NAME) $(NAME_STD) perf ./intra_$(NAME) ./intra_$(NAME_STD)
 
 re: fclean all
 
