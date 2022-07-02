@@ -177,7 +177,10 @@ public:
     }
 
     void erase(iterator first, iterator last) {
-        this->tree->erase(first, last);
+        if (first == this->begin() && last == this->end())
+            this->tree->clear();
+        else
+            this->tree->erase(first, last);
     }
 
     void swap(map& other) {
