@@ -81,7 +81,7 @@ static void test_vector_range_constructor() {
 
 static void test_vector_resize() {
     println("test vector resize with ints");
-    long n = 20000;
+    long n = 40000;
 
     TEST(
         for (int i = 1; i < n; i++) {
@@ -103,6 +103,39 @@ static void test_vector_resize() {
         for (int i = 1; i < n; i++) {
             std::vector<std::string> stdvec;
             stdvec.resize(i, "opa");
+        }
+    );
+}
+
+static void test_vector_push_back() {
+    println("test vector push_back with ints");
+    long n = 1000000;
+
+    ft::vector<int> ft_intvec;
+    ft::vector<int> std_intvec;
+
+    TEST(
+        for (int i = 0; i < n; i++) {
+            ft_intvec.push_back(i);
+        },
+        for (int i = 1; i < n; i++) {
+            std_intvec.push_back(i);
+        }
+    );
+
+    n = 100000;
+
+    ft::vector<std::string> ftvec;
+    std::vector<std::string> stdvec;
+
+    println("test vector push_back with strings");
+    std::cout << "this might take a little while..." << std::endl;
+    TEST(
+        for (int i = 1; i < n; i++) {
+            ftvec.push_back("opa");
+        } , 
+        for (int i = 1; i < n; i++) {
+            stdvec.push_back("opa");
         }
     );
 }
@@ -615,6 +648,7 @@ int testVectorPerf() {
         test_vector_fill_constructor();
         test_vector_range_constructor();
         test_vector_resize();
+        test_vector_push_back();
         test_vector_insert();
         test_vector_assign();
         test_vector_erase();

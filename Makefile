@@ -54,8 +54,7 @@ fclean: clean
 
 re: fclean all
 
-run: clean perf
-	./perf
+run: functional
 
 intra: $(INTRA_OBJ)
 	$(CXX) $(INTRA_OBJ) -o intra_$(NAME)
