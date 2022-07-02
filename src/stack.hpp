@@ -14,58 +14,58 @@ public:
     typedef typename Container::size_type   size_type;
     typedef typename Container::value_type  value_type;
 
-    explicit stack(const container_type& cont = container_type()): container(cont) { }
+    explicit stack(const container_type& cont = container_type()): c(cont) { }
 
     size_type size() const {
-        return this->container.size();
+        return this->c.size();
     }
 
     bool empty() const {
-        return this->container.empty();
+        return this->c.empty();
     }
 
     value_type& top() {
-        return this->container.back();
+        return this->c.back();
     }
 
     const value_type& top() const {
-        return this->container.back();
+        return this->c.back();
     }
 
     void push(const value_type& item) {
-        this->container.push_back(item);
+        this->c.push_back(item);
     }
 
     void pop() {
-        this->container.pop_back();
+        this->c.pop_back();
     }
 
     friend bool operator==(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-        return lhs.container == rhs.container;
+        return lhs.c == rhs.c;
     }
 
     friend bool operator!=(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-        return lhs.container != rhs.container;
+        return lhs.c != rhs.c;
     }
 
     friend bool operator<(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-        return lhs.container < rhs.container;
+        return lhs.c < rhs.c;
     }
 
     friend bool operator>(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-        return lhs.container > rhs.container;
+        return lhs.c > rhs.c;
     }
 
     friend bool operator<=(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-        return lhs.container <= rhs.container;
+        return lhs.c <= rhs.c;
     }
 
     friend bool operator>=(const stack<T, Container>& lhs, const stack<T, Container>& rhs) {
-        return lhs.container >= rhs.container;
+        return lhs.c >= rhs.c;
     }
 
-private:
-    container_type container;
+protected:
+    container_type c;
 };
 
 }
