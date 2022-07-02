@@ -657,7 +657,7 @@ int testSetPerf() {
 }
 
 int main() {
-    return testVectorPerf();
-    return testMapPerf();
-    return testSetPerf();
+    return testVectorPerf()
+        || testMapPerf()
+        || testSetPerf();
 }
