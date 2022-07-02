@@ -409,6 +409,59 @@ static void test_map_insert() {
     );
 }
 
+static void test_map_erase() {
+    {
+        println("test map simple erase");
+        ft::map<int, int> ft_basemap;
+        std::map<int, int> std_basemap;
+
+        long n = 1000000;
+
+        std::cout << "setting up ft map..." << std::endl;
+        for (int i = 0; i < n; i++) {
+            ft_basemap[i] = i * i;
+        }
+        std::cout << "done" << std::endl;
+        std::cout << "setting up std map..." << std::endl;
+        for (int i = 0; i < n; i++) {
+            std_basemap[i] = i * i;
+        }
+        std::cout << "done" << std::endl;
+
+        TEST(
+            while (ft_basemap.size() > 0)
+                ft_basemap.erase(ft_basemap.begin()->first);
+            ,
+            while (std_basemap.size() > 0)
+                std_basemap.erase(std_basemap.begin()->first);
+        );
+    }
+    {
+        println("test map range erase");
+        ft::map<int, int> ft_basemap;
+        std::map<int, int> std_basemap;
+
+        long n = 1000000;
+
+        std::cout << "setting up ft map..." << std::endl;
+        for (int i = 0; i < n; i++) {
+            ft_basemap[i] = i * i;
+        }
+        std::cout << "done" << std::endl;
+        std::cout << "setting up std map..." << std::endl;
+        for (int i = 0; i < n; i++) {
+            std_basemap[i] = i * i;
+        }
+        std::cout << "done" << std::endl;
+
+        TEST(
+            ft_basemap.erase(ft_basemap.begin(), ft_basemap.end());
+            ,
+            std_basemap.erase(std_basemap.begin(), std_basemap.end());
+        );
+    }
+}
+
 int testVectorPerf() {
     try {
         println(" ======= vector =======");
@@ -434,9 +487,7 @@ int testMapPerf() {
         test_map_copy_constructor();
         test_map_access_operator();
         test_map_insert();
-        // test_map_assign();
-        // test_map_erase();
-        // test_map_clear();
+        test_map_erase();
     } catch (std::exception& e) {
         std::cout << "exception caught: " << e.what() << std::endl;
         return 1;
